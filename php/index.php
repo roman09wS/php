@@ -160,8 +160,21 @@
                     </div>
                 </div>
             </section>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
             <!-- Basic features section-->
+            
             <section class="bg-light" id="ejer2">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
                 <div class="container px-5">
                     <div class="row gx-5 align-items-center justify-content-center justify-content-evenly">
                         <div class="col-12 col-lg-5">
@@ -261,8 +274,19 @@
                         </div>
                     </div>
                 </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
             </section>
-            
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>            
             <section id="ejer3">
                 <div class="container px-5">
                     <div class="row gx-5 align-items-center justify-content-center justify-content-evenly">
@@ -306,9 +330,21 @@
                         </div>
                     </div>
                 </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
             </section>
 
             <section class="bg-light" id="ejer4">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
                 <div class="container px-5">
                     <div class="row gx-5 align-items-center justify-content-center justify-content-evenly">
                         <div class="col-12 col-lg-5">
@@ -344,9 +380,21 @@
                         </div>
                     </div>
                 </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
             </section>
 
             <section id="ejer5">
+                <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
                 <div class="container px-5">
                     <div class="row gx-5 align-items-center justify-content-center justify-content-evenly">
                         <div class="col-12 col-lg-5">
@@ -382,6 +430,12 @@
                 </div>
             </section>
             <section class="bg-light" id="ejer6">
+                <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
                 <div class="container px-5">
                     <div class="row gx-5 align-items-center justify-content-center justify-content-evenly">
                         <div class="col-12 col-lg-5">
@@ -422,6 +476,12 @@
                 </div>
             </section>
             <section id="ejer7">
+                <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
                 <div class="container px-5">
                     <div class="row gx-5 align-items-center justify-content-center justify-content-evenly">
                         <div class="col-12 col-lg-5">
@@ -474,6 +534,12 @@
             </section>
 
             <section class="bg-light" id="ejer8">
+                <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
                 <div class="container px-5">
                     <div class="row gx-5 align-items-center justify-content-center justify-content-evenly">
                         <div class="col-12 col-lg-5">
@@ -532,6 +598,110 @@
                                     }else{
                                         echo "Error en los campos";
                                     }
+                                }
+                            ?>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-light">
+                <div class="container px-5">
+                    <div class="row gx-5 align-items-center justify-content-center justify-content-evenly">
+                        <div class="col-6 col-lg-6">
+                            <form action="" method="post">
+                            <div class="text-center">
+                                <h2 class="text-dark">Triki con php</h2>
+                            </div>
+                            <button type="submit" name="enviar9" class="btn btn-primary mt-3">Start</button>
+                        </form>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <?php
+                                if (isset($_REQUEST['enviar9'])) {                                        
+                                    $count=0;
+                                    $jugador1 = "X";
+                                    $jugador2 = "O";
+                                    $aux=" ";
+                                    //$array = ['','','','','','','','',''];
+                                    $array = array(
+                                        0 => "",
+                                        1 => "",
+                                        2 => "",
+                                        3 => "",
+                                        4 => "",
+                                        5 => "",
+                                        6 => "",
+                                        7 => "",
+                                        8 => ""
+                                    );
+                                    var_dump($array);
+                                    // while ($count <= 9) {
+                                    //     for ($i=0; $i < 9; $i++) { 
+                                    //         echo "[".$array[$i]."]";
+                                    //         if ($i == 2 || $i == 5) {
+                                    //             echo "</br>";
+                                    //         }
+                                    //     }
+                                    //     if ($count == 0 || $count == 2 || $count == 4 || $count == 6 || $count == 9) {
+                                    //         $aux = $jugador1;
+                                    //         echo '<form action="" method="post">';
+                                    //         echo '<div class="mb-1">';
+                                    //         echo "    <label class='form-label'>Digite la posicion del 1 al 9: </label>";
+                                    //         echo '    <input class="mb-3 mt-3" type="number" name="pos">';
+                                    //         echo '    <button type="submit" name="respuesta" class="btn btn-primary ms-2 ">Enviar</button>';
+                                    //         echo '</div>';
+                                    //         echo '</form>';
+                                    //     }else if ($count == 1 || $count == 3 || $count == 5 || $count == 7) {
+                                    //         $aux = $jugador2;
+                                    //         echo '<form action="" method="post">';
+                                    //         echo '<div class="mb-1">';
+                                    //         echo "    <label class='form-label'>Digite la posicion del 1 al 9: </label>";
+                                    //         echo '    <input class="mb-3 mt-3" type="number" name="pos">';
+                                    //         echo '    <button type="submit" name="respuesta" class="btn btn-primary ms-2 ">Enviar</button>';
+                                    //         echo '</div>';
+                                    //         echo '</form>';
+                                    //     }
+                                    //     if (isset($_REQUEST['respuesta'])) {
+                                    //         $pos = $_REQUEST['pos'];
+                                    //         if($pos == 1){
+                                    //             $array[0] = $aux;
+                                    //         }else if($pos == 2){
+                                    //             $array[1] = $aux;
+                                    //         }else if($pos == 3){
+                                    //             $array[2] = $aux;
+                                    //         }else if($pos == 4){
+                                    //             $array[3] = $aux;
+                                    //         }else if($pos == 5){
+                                    //             $array[4] = $aux;
+                                    //         }else if($pos == 6){
+                                    //             $array[5] = $aux;
+                                    //         }else if($pos == 7){
+                                    //             $array[6] = $aux;
+                                    //         }else if($pos == 8){
+                                    //             $array[7] = $aux;
+                                    //         }else if($pos == 9){
+                                    //             $array[8] = $aux;
+                                    //         }else{
+                                    //             echo "Instruccion invalida Digite de nuevo";
+                                    //             $count--;
+                                    //         }
+    
+                                    //         if(($array[0] == $aux && $array[1] == $aux && $array[2] == $aux ) || ($array[3] == $aux && $array[4] == $aux && $array[5] == $aux) || ($array[6] == $aux && $array[7] == $aux && $array[8] == $aux) || ($array[0] == $aux && $array[3] == $aux && $array[6] == $aux) || ($array[1] == $aux && $array[4] == $aux && $array[7] == $aux) || ($array[2] == $aux && $array[5] == $aux && $array[8] == $aux) || ($array[2] == $aux && $array[4] == $aux && $array[6] == $aux) || ($array[0] == $aux && $array[4] == $aux && $array[8] == $aux) ){
+                                    //             if(($count == 1) || ($count == 3) || ($count == 5) || ($count == 7)  ){
+                                    //                 echo "<== Ganador "+ $player1 + "!!!!! ===>";
+                                    //             }else{
+                                    //                 echo "<== Ganador "+ $player2 + "!!!!! ===>";
+                                    //             }
+                                    //         }else {
+                                    //             $count++;
+                                    //         }
+                                    //     }
+                                    // }
                                 }
                             ?>
                         </div>
