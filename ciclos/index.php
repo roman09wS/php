@@ -193,38 +193,41 @@
                                 <button type="submit" name="enviar2" class="btn btn-primary mt-3">Enviar</button>
                             </form>
                             <?php
-                                $promedioAlto = 0;
-                                if (isset($_REQUEST['enviar2'])) {
-                                    $cant = $_REQUEST['cantAlumnos'];
-                                    echo '<form action="" method="post">';
-                                    echo '<div class="mb-1">';
-                                    for ($i=1; $i <= $cant; $i++) {
-                                        echo "<h2>Aprendiz $i</h2>";
-                                        echo "    <label class='form-label'>Nota 1: </label>";
-                                        echo '    <input class="mb-3 mt-3" type="number" name="notas1[]"><br>';
-                                        echo "    <label class='form-label'>Nota 2: </label>";
-                                        echo '    <input class="mb-3 mt-3" type="number" name="notas2[]"><br>';
-                                        echo "    <label class='form-label'>Nota 3: </label>";
-                                        echo '    <input class="mb-3 mt-3" type="number" name="notas3[]"><br>';
-                                    }
+                            $nombreAlto ="";
+                            $promedios = array();
+                            if (isset($_REQUEST['enviar2'])) {
+                                $cant = $_REQUEST['cantAlumnos'];
+                                echo '<form action="" method="$_POST">';
+                                echo '<div class="mb-1">';
+                                for ($i=1; $i <= $cant; $i++) {
+                                    echo "<h2>Aprendiz $i</h2>";
+                                    echo "    <label class='form-label'>Nota 1: </label>";
+                                    echo '    <input class="mb-3 mt-3" type="decimal" name="nota1[]"><br>';
+                                    echo "    <label class='form-label'>Nota 2: </label>";
+                                    echo '    <input class="mb-3 mt-3" type="decimal" name="nota2[]"><br>';
+                                    echo "    <label class='form-label'>Nota 3: </label>";
+                                    echo '    <input class="mb-3 mt-3" type="decimal" name="nota3[]"><br>';
+                                }
                                     echo '    <button type="submit" name="calcular" class="btn btn-primary ms-2 ">Enviar</button>';
                                     echo '</div>';
                                     echo '</form>';
-                                }elseif ( isset($_REQUEST['calcular']) ){
-                                    $nota1 = $_REQUEST['notas1'];
-                                    $nota2 = $_REQUEST['notas2'];
-                                    $nota3 = $_REQUEST['notas3'];
-                                    $promedios = array();
-
-                                    for ($i=0; $i < count($cant) ; $i++) { 
-                                        $promedio = ($nota1[$i]+$nota2[$i]+$nota3[$i]) / 3;
-                                        $promedios[] = $promedio;
+                                }else{
+                                    $promedioAlto = 0.0;
+                                    $nota1 = $_REQUEST['nota1'];
+                                    $nota2 = $_REQUEST['nota2'];
+                                    $nota3 = $_REQUEST['nota3'];
+                                    echo "notas: $nota1[0]";
+                                    echo "notas: $nota2[0]";
+                                    echo "notas: $nota3[0]";
+                                    for ($i=0; $i < 2 ; $i++) { 
+                                        $promedios[$i] = ($nota1[$i]+$nota2[$i]+$nota3[$i]) / 3;
+                                        if ($promedios[$i] > $PromedioAlto) {
+                                            $PromedioAlto = $promedios[$i];
+                                            echo "Entro en la condicion";
+                                        }
                                     }
-                                    if ($promedio > $PromedioAlto) {
-                                        $PromedioAlto = $promedio;
-                                    }
-                                    //echo "$PromedioAlto";
-                                    var_dump($promedio);
+                                    var_dump($promedios);
+                                    var_dump($promedioAlto);
                                 }
                             ?>
                         </div>
