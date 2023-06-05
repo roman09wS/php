@@ -76,11 +76,11 @@
                                             <stop class="gradient-end-color" offset="100%"></stop>
                                         </linearGradient>
                                     </defs>
-                                    <circle cx="50" cy="50" r="50"></circle></svg
-                                ><svg class="shape-1 d-none d-sm-block" viewBox="0 0 240.83 240.83" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="50" cy="50" r="50"></circle></svg>       
+                                    <svg class="shape-1 d-none d-sm-block" viewBox="0 0 240.83 240.83" xmlns="http://www.w3.org/2000/svg">
                                     <rect x="-32.54" y="78.39" width="305.92" height="84.05" rx="42.03" transform="translate(120.42 -49.88) rotate(45)"></rect>
-                                    <rect x="-32.54" y="78.39" width="305.92" height="84.05" rx="42.03" transform="translate(-49.88 120.42) rotate(-45)"></rect></svg
-                                ><svg class="shape-2 d-none d-sm-block" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50"></circle></svg>
+                                    <rect x="-32.54" y="78.39" width="305.92" height="84.05" rx="42.03" transform="translate(-49.88 120.42) rotate(-45)"></rect></svg>
+                                    <svg class="shape-2 d-none d-sm-block" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50"></circle></svg>
                                 <div class="device-wrapper">
                                     <div class="device" data-device="iPhoneX" data-orientation="portrait" data-color="black">
                                         <div class="screen bg-black">
@@ -112,9 +112,11 @@
                                 if (empty($_REQUEST)) {
                             ?>
                                 
-                            <form action="" method="post">
-                                <p>Numero de clientes:  <input type="text" name="clientes"></p>
-                                <button name="enviar" type="submit">Enviar</button>
+                            <form action="" class="form-control" method="post">
+                                <div class="mb3">
+                                    <p class="form-label">Numero de clientes:  <input type="text" name="clientes"></p>
+                                </div>
+                                <button name="enviar" type="submit" class="btn btn-primary mt-3">Enviar</button>
                             </form>
                             <?php
                                 } elseif (isset($_REQUEST['clientes'])) {
@@ -184,8 +186,13 @@
                             <div class="text-center">
                                 <h2 class="text-dark">Pruebas ADSO</h2>
                             </div>
+                            <?php
+                                $nombreAlto ="";
+                                $promedioMayor=0;
+                                $promedios = array();
+                                if (empty($_REQUEST)) {
+                            ?>
                             <form action="" class="form-control" method="$_POST">
-                                
                                 <div class="mb-3">
                                     <label class="form-label">Cuantas aprendices son?</label>                                    
                                     <input class="form-control" type="number" name="cantAlumnos">
@@ -193,14 +200,16 @@
                                 <button type="submit" name="enviar2" class="btn btn-primary mt-3">Enviar</button>
                             </form>
                             <?php
-                            $nombreAlto ="";
-                            $promedios = array();
-                            if (isset($_REQUEST['enviar2'])) {
-                                $cant = $_REQUEST['cantAlumnos'];
-                                echo '<form action="" method="$_POST">';
-                                echo '<div class="mb-1">';
+                                }elseif (isset($_REQUEST['cantAlumnos'])) {
+                                    $cant = $_REQUEST['cantAlumnos'];
+                            ?>
+                            <form action="" method="$_POST">
+                                <div class="mb-1">
+                                <?php
                                 for ($i=1; $i <= $cant; $i++) {
                                     echo "<h2>Aprendiz $i</h2>";
+                                    echo "<label class='form-label'>Nombre del Aprendiz: </label>";
+                                    echo "<input class='mb-3 mt-3' type='text' name='nombre[]'><br>";
                                     echo "    <label class='form-label'>Nota 1: </label>";
                                     echo '    <input class="mb-3 mt-3" type="decimal" name="nota1[]"><br>';
                                     echo "    <label class='form-label'>Nota 2: </label>";
@@ -208,27 +217,29 @@
                                     echo "    <label class='form-label'>Nota 3: </label>";
                                     echo '    <input class="mb-3 mt-3" type="decimal" name="nota3[]"><br>';
                                 }
-                                    echo '    <button type="submit" name="calcular" class="btn btn-primary ms-2 ">Enviar</button>';
-                                    echo '</div>';
-                                    echo '</form>';
-                                }else{
-                                    $promedioAlto = 0.0;
-                                    $nota1 = $_REQUEST['nota1'];
-                                    $nota2 = $_REQUEST['nota2'];
-                                    $nota3 = $_REQUEST['nota3'];
-                                    echo "notas: $nota1[0]";
-                                    echo "notas: $nota2[0]";
-                                    echo "notas: $nota3[0]";
-                                    for ($i=0; $i < 2 ; $i++) { 
-                                        $promedios[$i] = ($nota1[$i]+$nota2[$i]+$nota3[$i]) / 3;
-                                        if ($promedios[$i] > $PromedioAlto) {
-                                            $PromedioAlto = $promedios[$i];
-                                            echo "Entro en la condicion";
-                                        }
+                                ?>
+                                    <button type="submit" name="calcular" class="btn btn-primary ms-2 ">Enviar</button>;
+                                </div>
+                            </form>
+                            <?php
+                            }elseif (isset($_REQUEST['calcular'])) {
+                                $nombre = $_REQUEST['nombre'];
+                                $nota1 = $_REQUEST['nota1'];
+                                $nota2 = $_REQUEST['nota2'];
+                                $nota3 = $_REQUEST['nota3'];
+                                for($i=0;$i<count($nota1);$i++){
+                                    $promedios[$i] = ($nota1[$i]+$nota2[$i]+$nota3[$i])/3;
+                                    if ($promedios[$i] > $promedioMayor) {
+                                        $promedioMayor = $promedios[$i];
+                                        $nombreAlto = $nombre[$i];
                                     }
-                                    var_dump($promedios);
-                                    var_dump($promedioAlto);
                                 }
+                                echo "<div class='mb-3 mt-3'>";
+                                echo "  <h2>Aprendiz con mayor promedio</h2>";
+                                echo "  <h3><b>Nombre: <b/>$nombreAlto</h3>";
+                                echo "  <h3><b>Promedio: </b>$promedioMayor</h3>";
+                                echo "</div>";
+                            }
                             ?>
                         </div>
                     </div>
@@ -254,37 +265,24 @@
                         <div class="col-12 col-lg-5">
                             <form action="" method="$_POST">
                                 <div class="text-center">
-                                    <h2 class="text-dark">Para aprobar se debe tener un promedio de 3.5 o superior</h2>
+                                    <h2 class="text-dark">Calcular e imprimir la tabla de multiplicar de un número cualquiera.</h2>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Primer nota</label>                                    
-                                    <input class="form-control" type="decimal" name="nota1">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Segunda nota</label>                                    
-                                    <input class="form-control" type="decimal" name="nota2">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Tercer nota</label>                                    
-                                    <input class="form-control" type="decimal" name="nota3">
+                                    <label class="form-label">Digite el numero de la tabla de multiplicar</label>                                    
+                                    <input class="form-control" type="decimal" name="tabla">
                                 </div>
                                 <button type="submit" name="enviar3" class="btn btn-primary mt-3">Enviar</button>
                             </form>
                             <?php
                                 if (isset($_REQUEST['enviar3'])) {
-                                    $nota1 = $_REQUEST['nota1'];
-                                    $nota2 = $_REQUEST['nota2'];
-                                    $nota3 = $_REQUEST['nota3'];
-    
-                                    $promedio = ($nota1+$nota2+$nota3)/3;
-                                    if ($promedio >= 3.5 && $promedio <= 5) {
-                                        echo "Promedio: ",$promedio,"<br>";
-                                        echo "Resultado: Aprobó";
-                                    } else if ($promedio > 0 && $promedio < 3.5 ) {
-                                        echo "Promedio: ",$promedio,"<br>";
-                                        echo "Resultado: Reprobó";
-                                    } else {
-                                        echo "El calculo es impresionante que no hay resultado";
+                                    $numero = $_REQUEST['tabla']; // Número para el cual se calculará la tabla de multiplicar
+
+                                    echo "Tabla de multiplicar del número " . $numero . ":<br>";
+                                    echo "------------------------<br>";
+
+                                    for ($i = 1; $i <= 10; $i++) {
+                                        $producto = $numero * $i;
+                                        echo $numero . " x " . $i . " = " . $producto . "<br>";
                                     }
                                 }
                             ?>
@@ -311,32 +309,74 @@
                         <div class="col-12 col-lg-5">
                             <form action="" method="post">
                                 <div class="text-center">
-                                    <h2 class="text-dark">Estamos en promoción de un <b>20%<b> de descuento si tu compra supera los 100.000</h2>
+                                    <h2 class="text-dark">Registrar ventas</h2>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Precio del articulo</label>                                    
-                                    <input class="form-control" type="number" name="precioUnitario">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Cantidad</label>                                    
-                                    <input class="form-control" type="number" name="cantidad">
+                                    <label class="form-label">Numero de clientes</label>                                    
+                                    <input class="form-control" type="number" name="NumeroClientes">
                                 </div>
                                 <button type="submit" name="enviar4" class="btn btn-primary mt-3">Enviar</button>
                             </form>
                             <?php
+                                $acumVentas = 0;
+                                $acumTotol = 0;
+                                $montoFinal = array();
+                                
                                 if (isset($_REQUEST['enviar4'])) {
-                                    $precio = $_REQUEST['precioUnitario'];
-                                    $cant = $_REQUEST['cantidad'];
-                                    $total = $precio * $cant;
-                                    if ($total > 100000) {
-                                        $descuento = $total * 0.20;
-                                        $pago = $total - $descuento;
-                                        echo "<br> Descuento del 20%: ",$descuento,"<br>";
-                                        echo "Su valor a pagar es: ",$pago;
-                                    }else{
-                                        echo "<br> Su valor a pagar es: ",$total;
+                                    $NumeroClientes = $_REQUEST['NumeroClientes'];
+                                    for ($i = 0; $i < $NumeroClientes ; $i++) { 
+                                        ?>
+                                            <form action="" method="post" class="text-center">
+                                                <div class="mb-3 ">
+                                                    <label class="form-label"> <b>Cliente <?php echo ($i+1) ?></b></label><br>                                   
+                                                    <label class="form-label">Cantidad de productos: </label>                                    
+                                                    <input class="form-control" type="number" name="cant[]">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Valor Unitario: </label>                                    
+                                                    <input class="form-control" type="number" name="valorUnitario[]">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Cantidad con la que va a pagar: </label>                                    
+                                                    <input class="form-control" type="number" name="pago[]">
+                                                </div>
+                                    <?php
                                     }
-                                }
+                                    ?>
+                                    <button type="submit" name="info4" class="btn btn-primary mt-3">Enviar</button>
+                                </form>
+                                <?php
+                                }elseif (isset($_REQUEST['info4'])) {
+                                    $cant4 = $_REQUEST['cant'];
+                                    $valorUnitario4 = $_REQUEST['valorUnitario'];
+                                    $pago4 = $_REQUEST['pago'];
+                                    for ($i=0; $i < count($valorUnitario4); $i++) { 
+                                        echo "<br>CLIENTE ".($i+1)."<br>";
+                                        $total4 = $valorUnitario4[$i] * $cant4[$i];
+                                        $IVA4 = $total4 * 0.19;
+                                        $montoFinal[$i] = $total4 + $IVA4;
+                                        if ($pago4[$i] > $montoFinal[$i]) {
+                                            $devuelta = $pago4[$i] - $montoFinal[$i];
+                                            echo "TOTAL SIN IVA: ".$total4."<br>";
+                                            echo "IVA: ".$IVA4 ."<br>";
+                                            echo "TOTAL A PAGAR: ".$montoFinal[$i]."<br>";
+                                            echo "<hr>";
+                                            echo "RECIBIDO: ".$pago4[$i]. "<br>";
+                                            echo "CAMBIO: $devuelta <br>";
+                                            echo "<hr>";
+                                        }else {
+                                            echo "Sr o Sra le falta money";
+                                            $acumVentas -= $cant4[$i];
+                                            $acumTotol -= $montoFinal[$i];
+                                            
+                                        }
+                                        $acumVentas += $cant4[$i];
+                                        $acumTotol += $montoFinal[$i];
+                                    }
+                                    echo "<hr>";
+                                    echo "<br>Total de productos vendidos: $acumVentas <br>";
+                                    echo "Total recibido: $acumTotol";
+                                }    
                             ?>
                         </div>
                     </div>
