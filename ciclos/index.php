@@ -399,36 +399,86 @@
                 <div class="container px-5">
                     <div class="row gx-5 align-items-center justify-content-center justify-content-evenly">
                         <div class="col-12 col-lg-5">
+                            <?php
+                            if (empty($_REQUEST)) {
+                            ?>  
                             <form action="" method="post">
-                            <div class="mb-3">
+                                <div class="mb-3">
                                 <div class="text-center">
-                                    <h2 class="text-dark">Orden ascendente</h2>
+                                    <h2 class="text-dark">Pago de trabajadores</h2>
                                 </div>
-                                <label class="form-label">Ingrese un numero</label>                                    
-                                <input class="form-control" type="number" name="number1">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Ingrese un numero</label>                                    
-                                <input class="form-control" type="number" name="number2">
+                                <label class="form-label">Ingrese el numero de Trabajadores</label>                                    
+                                <input class="form-control" type="number" name="cantTrabajadores">
                             </div>
                             <button type="submit" name="enviar5" class="btn btn-primary mt-3">Enviar</button>
                             </form>
                             <?php
-                                if (isset($_REQUEST['enviar5'])) {
-                                    $number1 = $_REQUEST['number1'];
-                                    $number2 = $_REQUEST['number2'];
-                                    if ($number1 > $number2) {
-                                        echo "Orden ascendente: <br>";
-                                        echo $number1."<br>".$number2;
+                            }elseif (isset($_REQUEST['cantTrabajadores'])) {
+                                $cantEmpleados = $_REQUEST['cantTrabajadores'];
+                                for ($i=0; $i < $cantEmpleados; $i++) { 
+                            ?>
+                                <form action="" method="post">
+                                    <div class="mb-3">
+                                        <label class="form-label">Trabajador <?php echo ($i+1)?></label>
+                                        <label class="form-label">Ingrese las horas trabajadas</label>                                    
+                                        <input class="form-control" type="number" name="cantHoras[]">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Ingrese el valor por hora</label>                                    
+                                        <input class="form-control" type="number" name="valorHora[]">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Seleccione su rol</label>                                    
+                                        <select class="form-select" name="tipoTrabajador[]" id="">
+                                            <option value="" selected>Seleccione una marca</option>
+                                            <option value="Digitador">Digitador</option>
+                                            <option value="Diseñador">Diseñador</option>
+                                        </select>
+                                    </div>
+                                    <hr>                                 
+                                <?php
+                                }
+                                ?>
+                                    <button type="submit" name="info5" class="btn btn-primary mt-3">Enviar</button>
+                                </form>
+                            <?php
+                            }elseif (isset($_REQUEST['info5'])) {
+                                $sueldo = array();
+                                $cantHora = $_REQUEST['cantHoras'];
+                                $valorHora = $_REQUEST['valorHora'];
+                                $rol = $_REQUEST['tipoTrabajador'];
+                                
+                                for ($i=0; $i < count($cantHora); $i++) {
+                                    $sueldo[$i] = $valorHora[$i]*$cantHora[$i];
+                                    echo "<hr>";
+                                    echo "Trabajador ".($i+1)."<br>";     
+                                    if ($rol[$i] == "Digitador" && $sueldo[$i] > 1000000) {
+                                        $impuesto = $sueldo[$i]*0.12;
+                                        $totalPaga = $sueldo[$i] - $impuesto;
+                                        echo "Rol: Digitador <br>";
+                                        echo "Impuesto: $impuesto = 12% <br>";
+                                        echo "Total a pagar: $totalPaga";
+                                    }elseif ($rol[$i] == "Diseñador" && $sueldo[$i] > 1000000) {
+                                        $impuesto = $sueldo[$i]*0.10;
+                                        $totalPaga = $sueldo[$i] - $impuesto;
+                                        echo "Rol: Diseñador <br>";
+                                        echo "Impuesto: $impuesto = 10% <br>";
+                                        echo "Total a pagar: $totalPaga";
                                     } else {
-                                        echo "Orden ascendente: <br>";
-                                        echo $number2."<br>".$number1;
+                                        echo "Total a pagar: ".$sueldo[$i]."<br>";
                                     }
                                 }
+                            }
                             ?>
                         </div>
                     </div>
                 </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
             </section>
 
             <section class="bg-light" id="ejer6">
@@ -441,35 +491,66 @@
                 <div class="container px-5">
                     <div class="row gx-5 align-items-center justify-content-center justify-content-evenly">
                         <div class="col-12 col-lg-5">
-                        <form action="" method="post">
-                            <div class="text-center">
-                                <h2 class="text-dark">Calculadora de calorias</h2>
-                            </div>
+                        <h1>Calculadora de precio de pizzas</h1>
+                        <form method="post" action="">
                             <div class="mb-3">
-                                <label class="form-label">Seleccione la actividad realizada</label>
-                                <select class="form-select" name="actSelect" id="">
-                                    <option value="" selected>Seleccione una actividad</option>
-                                    <option value="dormido">Dormido/a</option>
-                                    <option value="sentado">Sentado/a</option>
+                                <label for="tamaño" class="form-label">Tamaño:</label>
+                                <select name="tamaño" id="tamaño" class="form-select">
+                                    <option value="pequeña">Pequeña (10 pulg.)</option>
+                                    <option value="mediana">Mediana (12 pulg.)</option>
+                                    <option value="grande">Grande (16 pulg.)</option>
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Ingrese los minutos realizando esa actividad</label>                                    
-                                <input class="form-control" type="number" name="min">
+                                <label for="ingredientes" class="form-label">Ingredientes extras:</label>
+                                <input type="number" name="ingredientes" id="ingredientes" class="form-control" min="0" value="0">
                             </div>
-                            <button type="submit" name="enviar6" class="btn btn-primary mt-3">Enviar</button>
-                            </form>
+                            <button type="submit" class="btn btn-primary">Calcular precio</button>
+                        </form>
                             <?php
-                                if (isset($_REQUEST['enviar6'])) {
-                                    $actSelect = $_REQUEST['actSelect'];
-                                    $min = $_REQUEST['min'];
-                                    if ($actSelect == "dormido") {
-                                        $calorias = 1.08 * $min;
-                                        echo "Total calorias: ",$calorias;    
-                                    } else if ($actSelect == "sentado") {
-                                        $calorias = 1.66 * $min;
-                                        echo "Total calorias: ",$calorias;
+                                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                                    $tamaño = $_POST['tamaño'];
+                                    $ingredientes = $_POST['ingredientes'];
+                        
+                                    // Costos fijos
+                                    $costoPreparacion = 5000;
+                                    $costoBasePequeña = 2500;
+                                    $costoBaseMediana = 3000;
+                                    $costoBaseGrande = 4000;
+                                    $costoIngrediente = 3000;
+                        
+                                    // Calcular área según el tamaño
+                                    switch ($tamaño) {
+                                        case 'pequeña':
+                                            $area = 10;
+                                            $costoBase = $costoBasePequeña;
+                                            break;
+                                        case 'mediana':
+                                            $area = 12;
+                                            $costoBase = $costoBaseMediana;
+                                            break;
+                                        case 'grande':
+                                            $area = 16;
+                                            $costoBase = $costoBaseGrande;
+                                            break;
+                                        default:
+                                            $area = 0;
+                                            $costoBase = 0;
+                                            break;
                                     }
+                        
+                                    // Calcular costo total
+                                    $costoTotal = $costoPreparacion + ($costoBase * $area) + ($costoIngrediente * $ingredientes);
+                        
+                                    // Calcular precio de venta
+                                    $precioVenta = 1.5 * $costoTotal;
+                        
+                                    // Imprimir resultados
+                                    echo "<h2>Resultado</h2>";
+                                    echo "<p>Tamaño: $tamaño</p>";
+                                    echo "<p>Ingredientes extras: $ingredientes</p>";
+                                    echo "<p>Costo total: $costoTotal</p>";
+                                    echo "<p>Precio de venta: $precioVenta</p>";
                                 }
                             ?>
                         </div>
@@ -488,50 +569,56 @@
                 <div class="container px-5">
                     <div class="row gx-5 align-items-center justify-content-center justify-content-evenly">
                         <div class="col-12 col-lg-5">
-                        <form action="" method="post">
-                            <div class="text-center">
-                                <h2 class="text-dark">Descuento por clave del producto del 10% o 20%</h2>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Nombre del producto</label>                                    
-                                <input class="form-control" type="text" name="name">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Ingrese el precio original</label>                                    
-                                <input class="form-control" type="number" name="price">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Ingrese la clave</label>                                    
-                                <input class="form-control" type="number" name="clave">
-                            </div>
-                            <button type="submit" name="enviar7" class="btn btn-primary mt-3">Enviar</button>
-                            </form>
-                            <?php
-                                if (isset($_REQUEST['enviar7'])) {
-                                    $nombreP = $_REQUEST['name'];
-                                    $precio = $_REQUEST['price'];
-                                    $clave = $_REQUEST['clave'];
-                                    if ($clave == 1) {
-                                        $descuentoP = $precio * 0.10;
-                                        $pagoP1 = $precio - $descuentoP;
-                                        echo "Producto: ",$nombreP,"<br>";
-                                        echo "Clave: ",$clave,"<br>";
-                                        echo "Descuento: ",$descuentoP,"<br>";
-                                        echo "Total a pagar: ",$pagoP1;    
-                                    }else if ($clave == 2) {
-                                        $descuentoP = $precio * 0.20;
-                                        $pagoP = $precio - $descuentoP;
-                                        echo "Producto: ",$nombreP,"<br>";
-                                        echo "Clave: ",$clave,"<br>";
-                                        echo "Descuento: ",$descuentoP,"<br>";
-                                        echo "Total a pagar: ",$pagoP;
-                                    }else{
-                                        echo "Clave invalida";
-                                    }
-                                }
-                            ?>
+                        <h1>Boletín de calificaciones</h1>
+        <form method="post" action="">
+            <div class="mb-3">
+                <label for="codigo" class="form-label">Código del estudiante:</label>
+                <input type="text" name="codigo" id="codigo" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre del estudiante:</label>
+                <input type="text" name="nombre" id="nombre" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="calificacion" class="form-label">Calificación:</label>
+                <input type="number" name="calificacion" id="calificacion" class="form-control" min="0" max="100">
+            </div>
+            <button type="submit" class="btn btn-primary">Generar boletín</button>
+        </form>
+
+        <?php
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $codigo = $_POST['codigo'];
+            $nombre = $_POST['nombre'];
+            $calificacion = $_POST['calificacion'];
+
+            // Convertir calificación a letra según el rango
+            if ($calificacion >= 0 && $calificacion <= 10) {
+                $indicador = "DEFICIENTE";
+            } elseif ($calificacion >= 11 && $calificacion <= 30) {
+                $indicador = "INSUFICIENTE";
+            } elseif ($calificacion >= 31 && $calificacion <= 50) {
+                $indicador = "ACEPTABLE";
+            } elseif ($calificacion >= 51 && $calificacion <= 70) {
+                $indicador = "BUENO";
+            } elseif ($calificacion >= 71 && $calificacion <= 90) {
+                $indicador = "SOBRESALIENTE";
+            } elseif ($calificacion > 90) {
+                $indicador = "EXCELENTE";
+            } else {
+                $indicador = "Desconocido";
+            }
+
+            // Imprimir boletín de calificaciones
+            echo "<h2>Boletín de calificaciones</h2>";
+            echo "<p>Código del estudiante: $codigo</p>";
+            echo "<p>Nombre del estudiante: $nombre</p>";
+            echo "<p>Calificación: $calificacion</p>";
+            echo "<p>Indicador de logro: $indicador</p>";
+        }
+        ?>
+    </div>
                         </div>
-                        
                     </div>
                 </div>
             </section>
@@ -546,65 +633,85 @@
                 <div class="container px-5">
                     <div class="row gx-5 align-items-center justify-content-center justify-content-evenly">
                         <div class="col-12 col-lg-5">
-                        <form action="" method="post">
-                            <div class="text-center">
-                                <h2 class="text-dark">¡¡¡ Descuento del 10% o 20% !!!</h2>
-                                <h3 class="text-dark">Dependiendo de la cantidad de productos que lleve</h3>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Seleccione una marca de la camiseta</label>                                    
-                                <select class="form-select" name="camiSelect" id="">
-                                    <option value="" selected>Seleccione una marca</option>
-                                    <option value="Zara">Zara</option>
-                                    <option value="Dior">Dior</option>
-                                    <option value="Edmmond Studios">Edmmond Studios</option>
-                                    <option value="Trendsplant">Trendsplant</option>
-                                    <option value="Silbon">Silbon</option>
-                                    <option value="Lacoste">Lacoste</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Cantida a llevar</label>                                    
-                                <input class="form-control" type="number" name="cantCami">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Precio de la prenda</label>                                    
-                                <input class="form-control" type="number" name="precioCami">
-                            </div>
-                            <button type="submit" name="enviar8" class="btn btn-primary mt-3">Enviar</button>
+                            <h1>Muestreo de peso por categoría de edad</h1>
+                            <form method="post" action="">
+                                <div class="mb-3">
+                                    <label for="cantidad" class="form-label">Cantidad de personas a muestrear:</label>
+                                    <input type="number" name="cantidad" id="cantidad" class="form-control" min="1" max="50">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Realizar muestreo</button>
                             </form>
+
                             <?php
-                                if (isset($_REQUEST['enviar8'])) {
-                                    $nombreCami = $_REQUEST['camiSelect'];
-                                    $precioCami = $_REQUEST['precioCami'];
-                                    $cantCami = $_REQUEST['cantCami'];
-                                    if ($cantCami >= 3) {
-                                        $monto = $precioCami * $cantCami;
-                                        $descuentoCami = $monto * 0.20;
-                                        $valorNeto = $monto - $descuentoCami;
-                                        echo "Marca: ",$nombreCami,"<br>";
-                                        echo "Precio original: ",$precioCami,"<br>";
-                                        echo "Cantidad: ",$cantCami,"<br>";
-                                        echo "Total: ",$monto,"<br>";
-                                        echo "Descuento: ",$descuentoCami,"<br>";
-                                        echo "Total a pagar: ",$valorNeto;   
-                                    }else if ($cantCami < 3) {
-                                        $monto = $precioCami * $cantCami;
-                                        $descuentoCami = $monto * 0.10;
-                                        $valorNeto = $monto - $descuentoCami;
-                                        echo "Marca: ",$nombreCami,"<br>";
-                                        echo "Precio original: ",$precioCami,"<br>";
-                                        echo "Cantidad: ",$cantCami,"<br>";
-                                        echo "Total: ",$monto,"<br>";
-                                        echo "Descuento: ",$descuentoCami,"<br>";
-                                        echo "Total a pagar: ",$valorNeto;
-                                    }else{
-                                        echo "Error en los campos";
+                            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                                $cantidadPersonas = $_POST['cantidad'];
+
+                                // Validar la cantidad de personas
+                                if ($cantidadPersonas < 1 || $cantidadPersonas > 50) {
+                                    echo "<p class='text-danger'>Debe ingresar una cantidad válida de personas (entre 1 y 50).</p>";
+                                    exit;
+                                }
+
+                                // Inicializar contadores y sumas de pesos por categoría
+                                $contadorNinos = 0;
+                                $contadorJovenes = 0;
+                                $contadorAdultos = 0;
+                                $contadorViejos = 0;
+                                $sumaPesoNinos = 0;
+                                $sumaPesoJovenes = 0;
+                                $sumaPesoAdultos = 0;
+                                $sumaPesoViejos = 0;
+
+                                // Realizar el muestreo
+                                for ($i = 1; $i <= $cantidadPersonas; $i++) {
+                                    echo "<h3>Persona $i</h3>";
+                                    echo "<form method='post' action=''>";
+                                    echo "<div class='mb-3'>";
+                                    echo "<label for='edad_$i' class='form-label'>Edad:</label>";
+                                    echo "<input type='number' name='edad_$i' id='edad_$i' class='form-control' min='0'>";
+                                    echo "</div>";
+                                    echo "<div class='mb-3'>";
+                                    echo "<label for='peso_$i' class='form-label'>Peso:</label>";
+                                    echo "<input type='number' name='peso_$i' id='peso_$i' class='form-control' min='0'>";
+                                    echo "</div>";
+                                    echo "</form>";
+
+                                    // Obtener la edad y peso de la persona
+                                    $edad = $_POST["edad_$i"];
+                                    $peso = $_POST["peso_$i"];
+
+                                    // Determinar la categoría de edad y actualizar los contadores y sumas de pesos
+                                    if ($edad >= 0 && $edad <= 12) {
+                                        $contadorNinos++;
+                                        $sumaPesoNinos += $peso;
+                                    } elseif ($edad >= 13 && $edad <= 29) {
+                                        $contadorJovenes++;
+                                        $sumaPesoJovenes += $peso;
+                                    } elseif ($edad >= 30 && $edad <= 59) {
+                                        $contadorAdultos++;
+                                        $sumaPesoAdultos += $peso;
+                                    } elseif ($edad >= 60) {
+                                        $contadorViejos++;
+                                        $sumaPesoViejos += $peso;
                                     }
                                 }
+
+                                // Calcular los promedios de peso por categoría de edad
+                                $promedioPesoNinos = ($contadorNinos > 0) ? $sumaPesoNinos / $contadorNinos : 0;
+                                $promedioPesoJovenes = ($contadorJovenes > 0) ? $sumaPesoJovenes / $contadorJovenes : 0;
+                                $promedioPesoAdultos = ($contadorAdultos > 0) ? $sumaPesoAdultos / $contadorAdultos : 0;
+                                $promedioPesoViejos = ($contadorViejos > 0) ? $sumaPesoViejos / $contadorViejos : 0;
+
+                                // Mostrar los resultados
+                                echo "<h2>Resultados:</h2>";
+                                echo "<p>Promedio de peso de los niños: $promedioPesoNinos</p>";
+                                echo "<p>Promedio de peso de los jóvenes: $promedioPesoJovenes</p>";
+                                echo "<p>Promedio de peso de los adultos: $promedioPesoAdultos</p>";
+                                echo "<p>Promedio de peso de los viejos: $promedioPesoViejos</p>";
+                            }
                             ?>
+                            </div>
                         </div>
-                        
                     </div>
                 </div>
             </section>
