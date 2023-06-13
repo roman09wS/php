@@ -1,8 +1,6 @@
 <?php
 
 $conexion = new mysqli("localhost", "root", "", "tienda");
-$sql = "SELECT * FROM proveedor";
-$resultado = $conexion->query($sql);
 
 if (isset($_POST['btn_Producto'])) {
     $nombre = $_POST['nombreP'];
@@ -11,7 +9,24 @@ if (isset($_POST['btn_Producto'])) {
     $precio = (float) $_POST['pvp'];
     $cantidad = (int) $_POST['cantidad'];
     $proveedor = $_POST['provSelect'];
-    echo "Guardado con exito";
-    $conexion->query("INSERT INTO producto (nombre,descripcion,costo,precio,cantidad,proveedor) VALUES('$nombre','$descripcion','$costo','$precio','$cantidad','$proveedor',)");
+    $conexion->query("INSERT INTO producto (nombre,descripcion,costo,precio,cantidad,proveedor) VALUES ('$nombre','$descripcion',$costo,$precio,$cantidad,'$proveedor')");
+    echo '<div class="alert alert-success" role="alert">Guardado con éxito!</div>';
+}
+
+    
+if (isset($_POST['btn_Proveedor'])) {
+    $nombre = $_POST['nombreProveedor'];
+    $producto = (int) $_POST['prodSelect'];
+    $ubi = $_POST['Ubicacion'];
+    $cel = $_POST['telefono'];
+    $conexion->query("INSERT INTO proveedor (nombre,producto,ubicacion,telefono) VALUES ('$nombre',$producto,'$ubi','$cel')");
+    echo '<div class="alert alert-success" role="alert">Guardado con éxito!</div>';
+}
+
+if (isset($_POST['btn_Ventas'])) {
+    // $producto = $_REQUEST[''];
+    // $precio = $_REQUEST[''];         nombre -> producto
+    // $costo = $_REQUEST['Cantidad'];
+    // $total = $_REQUEST['Pago'];
 }
 ?>

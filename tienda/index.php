@@ -32,7 +32,10 @@
             </div>
         </div>
 
-        <?php if (isset($_POST['producto'])) { ?>
+        <?php if (isset($_POST['producto'])){ 
+            $sql = "SELECT * FROM proveedor";
+            $resultado = $conexion->query($sql); 
+        ?>
         <div class="container">
             <form action="" method="post" class="row">
                 <div class="col-4 mb-4">
@@ -77,25 +80,110 @@
                 </div>
 
                 <div class="col-2 d-grid mx-auto mt-4">
-                    <button type="submit" name="btn_Producto" class="btn btn-outline-success">Guardar</button>
+                    <button type="submit" id="alertP" name="btn_Producto" class="btn btn-outline-success">Guardar</button>
                 </div>
-                
+    
             </form>
         </div>
         <?php }?>
 
-        <?php if (isset($_POST['proveedor'])) { ?>
-            
+        <?php if (isset($_POST['proveedor'])) { 
+            $sql = "SELECT * FROM producto";
+            $resultado = $conexion->query($sql);    
+        ?>
+            <div class="container">
+                <form action="" method="post" class="row">
+                    <div class="col-6 mb-4">
+                        <label for="" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" name="nombreProveedor" id="" aria-describedby="helpId" placeholder="" required>
+                        <small id="helpId" class="form-text text-muted">Nombre del proveedor</small>
+                    </div>
+
+                    <div class="col-6 mb-4">
+                        <label for="" class="form-label">Producto</label>
+                        <select class="form-select form-select-lg" name="prodSelect" id="" required>
+                            <option value="">Seleccione un producto</option>
+                            <?php foreach ($resultado as $producto) { ?>
+                            <option value="<?php echo $producto['id_producto'];?>"><?php echo $producto['nombre'];?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                    <div class="col-6 mb-4">
+                        <label for="" class="form-label">Ubicacion</label>
+                        <input type="text" class="form-control" name="Ubicacion" id="" aria-describedby="helpId" placeholder="" required>
+                        <small id="helpId" class="form-text text-muted">bajo el puente,etc</small>
+                    </div>
+
+                    <div class="col-6 mb-4">
+                            <label for="" class="form-label">Telefono</label>
+                        <input type="text" class="form-control" name="telefono" id="" aria-describedby="helpId" placeholder="" required>
+                        <small id="helpId" class="form-text text-muted">telefono del perro</small>
+                    </div>
+
+                    <div class="col-2 d-grid mx-auto mt-4">
+                        <button type="submit" id="alertP" name="btn_Proveedor" class="btn btn-outline-success">Guardar</button>
+                    </div>
+                </form>
+            </div>
         <?php }?>
 
-        <?php if (isset($_POST['ventas'])) { ?>
-            
+        <?php if (isset($_POST['ventas'])) { 
+            $sql = "SELECT * FROM producto";
+            $resultado = $conexion->query($sql);
+        ?>
+            <div class="container">
+                <form action="" method="$_GET" class="row">
+                    <div class="col-12 mb-4">
+                        <label for=""  class="form-label">Seleccione el producto a vender</label>
+                        <select <?php echo (isset($_GET['prodSelect'])) ?'disabled':'';?> class="form-select form-select-lg" name="prodSelect" id="" required onChange="this.form.submit()">
+                            <option value="">Seleccione un producto</option>
+                            <?php foreach ($resultado as $producto) { ?>
+                            <option value="<?php echo $producto['id_producto'];?>"><?php echo $producto['nombre'];?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </form>
+                <?php if (isset($_GET['prodSelect'])) { 
+                    $id_producto = (int)  $_GET['prodSelect'];
+                    $producto = $conexion->query("SELECT * FROM producto WHERE id_producto = $id_producto");
+                    while ($columna = $producto->fetch_array()) { 
+                        $nombreTemp = ;
+                        $precioTemp = ;
+                    ?>
+                        <form action="" method="post" class="row">
+                            <div class="col-6 mb-4">
+                                <label for="" class="form-label" name="<?php echo $columna['nombre'];?>"><b>Nombre: </b><?php echo $columna['nombre'];?></label>
+                            </div>
+        
+                            <div class="col-6 mb-4">
+                                <label for="" class="form-label" name="<?php echo $columna['precio']; ?>"><b>Precio: </b><?php echo $columna['precio'];?></label>
+                            </div>
+                            <div class="col-6 mb-4">
+                                <label for="" class="form-label">Cantidad</label>
+                                <input type="text" class="form-control" name="Cantidad" id="" aria-describedby="helpId" placeholder="" required>
+                                <small id="helpId" class="form-text text-muted">Cantidad de <?php echo $columna['nombre'];?></small>
+                            </div>
+
+                            <div class="col-6 mb-4">
+                                <label for="" class="form-label">Dinero recibido</label>
+                                <input type="text" class="form-control" name="Pago" id="" aria-describedby="helpId" placeholder="" required>
+                                <small id="helpId" class="form-text text-muted">Con cuanto va a pagar</small>
+                            </div>
+                            <div class="col-2 d-grid mx-auto mt-4">
+                                <button type="submit" id="alertP" name="btn_Ventas" class="btn btn-outline-success">Guardar</button>
+                            </div>
+                        </form>
+
+                    <?php } ?>
+                <?php }?>
+            </div>
         <?php }?>
 
 
     </main>
     <footer>
-        <div class="container px-5">
+        <div class="container-fluid  px-5">
             <div class="text-white-50 small">
                 <div class="mb-2">&copy; Winder Román 2023 || 99% LEGAL.</div>
             </div>
