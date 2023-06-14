@@ -21,7 +21,7 @@
         <div class="container d-grid gap-2 col-6 mx-auto">
             <div class="row d-grid mx-auto mt-4">
                 <div class="col-12">
-                    <form action="" method="post">
+                    <form <?php echo( (isset($_REQUEST['btn_Ventas'])) )? 'hidden' : '' ;?> action="" method="post">
                         <div class="mb-3 mt-3" role="group" aria-label="Vertical radio toggle button group">
                             <button type="submit" name="producto" class="btn btn-outline-success">Registrar producto</button>
                             <button type="submit" name="proveedor" class="btn btn-outline-success">Registrar proveedor</button>
@@ -144,43 +144,112 @@
                         </select>
                     </div>
                 </form>
-                <?php if (isset($_GET['prodSelect'])) { 
-                    $id_producto = (int)  $_GET['prodSelect'];
-                    $producto = $conexion->query("SELECT * FROM producto WHERE id_producto = $id_producto");
-                    while ($columna = $producto->fetch_array()) { 
-                        $nombreTemp = ;
-                        $precioTemp = ;
-                    ?>
-                        <form action="" method="post" class="row">
-                            <div class="col-6 mb-4">
-                                <label for="" class="form-label" name="<?php echo $columna['nombre'];?>"><b>Nombre: </b><?php echo $columna['nombre'];?></label>
-                            </div>
-        
-                            <div class="col-6 mb-4">
-                                <label for="" class="form-label" name="<?php echo $columna['precio']; ?>"><b>Precio: </b><?php echo $columna['precio'];?></label>
-                            </div>
-                            <div class="col-6 mb-4">
-                                <label for="" class="form-label">Cantidad</label>
-                                <input type="text" class="form-control" name="Cantidad" id="" aria-describedby="helpId" placeholder="" required>
-                                <small id="helpId" class="form-text text-muted">Cantidad de <?php echo $columna['nombre'];?></small>
-                            </div>
-
-                            <div class="col-6 mb-4">
-                                <label for="" class="form-label">Dinero recibido</label>
-                                <input type="text" class="form-control" name="Pago" id="" aria-describedby="helpId" placeholder="" required>
-                                <small id="helpId" class="form-text text-muted">Con cuanto va a pagar</small>
-                            </div>
-                            <div class="col-2 d-grid mx-auto mt-4">
-                                <button type="submit" id="alertP" name="btn_Ventas" class="btn btn-outline-success">Guardar</button>
-                            </div>
-                        </form>
-
-                    <?php } ?>
-                <?php }?>
             </div>
         <?php }?>
 
+        <?php if (isset($_GET['prodSelect'])) { 
+            $id_producto = (int)  $_GET['prodSelect'];
+            $producto = $conexion->query("SELECT * FROM producto WHERE id_producto = $id_producto");
+            while ($columna = $producto->fetch_array()) { ?>
+            <div class="container">
+                <form <?php echo( (isset($_REQUEST['btn_Ventas'])) )? 'hidden' : '' ;?> action="" method="post" class="row">
+                    <div class="col-12 mb-4">
+                        <label for=""  class="form-label">Seleccione el producto a vender</label>
+                        <select class="form-select form-select-lg" disabled>
+                            <option value="">Seleccione un producto</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-6 mb-4">
+                        <label for="" class="form-label"><b>Nombre: </b><?php echo $columna['nombre'];?></label>
+                    </div>
 
+                    <div class="col-6 mb-4">
+                        <label for="" class="form-label" name=""><b>Precio: </b><?php echo $columna['precio'];?></label>
+                    </div>
+                    <div class="col-6 mb-4">
+                        <label for="" class="form-label">Cantidad</label>
+                        <input type="text" class="form-control" name="Cantidad" id="" aria-describedby="helpId" placeholder="" required>
+                        <small id="helpId" class="form-text text-muted">Cantidad de <?php echo $columna['nombre'];?></small>
+                    </div>
+
+                    <div class="col-6 mb-4">
+                        <label for="" class="form-label">Dinero recibido</label>
+                        <input type="text" class="form-control" name="Pago" id="" aria-describedby="helpId" placeholder="" required>
+                        <small id="helpId" class="form-text text-muted">Con cuanto va a pagar</small>
+                    </div>
+                    <div class="col-2 d-grid mx-auto mt-4">
+                        <button type="submit" id="alertP" name="btn_Ventas" class="btn btn-outline-success">Guardar</button>
+                    </div>
+                </form>
+            </div>
+            <?php } ?>
+        
+        <?php }?>
+
+        <?php
+        if (isset($_REQUEST['btn_Ventas'])) {
+            
+            $id_producto = (int) $_GET['prodSelect'];
+            $cantidad = (int) $_REQUEST['Cantidad'];
+            $dineroRecibido = (float) $_REQUEST['Pago'];
+            
+            $productoTemp = $conexion->query("SELECT * FROM producto WHERE id_producto = $id_producto");
+            $row = $productoTemp->fetch_array();
+            
+            $precioTemp = (float) $row['precio'];
+            $nombreTemp = $row['nombre'];
+            $totalTemp = $precioTemp * $cantidad;
+            $cambioTemp = $dineroRecibido - $totalTemp;
+
+            if ($dineroRecibido > $totalTemp) {
+                $conexion->query("INSERT INTO ventas (producto,cantidad,total) VALUES ('$nombreTemp','$cantidad','$totalTemp')");
+                ?>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-3 text-center">
+                                <h1 class="display-2">Factura</h1>
+                            </div>
+        
+                            <table class="table">
+                                <thead class="table-success">
+                                  <tr>
+                                    <th scope="col">Producto</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Precio Unitario</th>
+                                    <th scope="col">Total a pagar</th>
+                                    <th scope="col">Cambio</th>
+                                  </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                  <tr>
+                                    <th><?php echo $row['nombre'];?></th>
+                                    <td><?php echo $cantidad;?></td>
+                                    <td><?php echo $precioTemp;?></td>
+                                    <td><?php echo $totalTemp;?></td>
+                                    <td><?php echo $cambioTemp;?></td>
+                                  </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            <?php
+            } else {
+                ?>
+                
+                <div class="col-2 d-grid mx-auto mt-4">
+                    <div class="alert alert-danger" role="alert">
+                        No tienes dinero suficiente!
+                    </div>
+                    <a href="index.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="btn_Ventas" class="btn btn-outline-success">Volver a inicio</button></a>
+                </div>
+                <?php
+            }
+            
+        }
+        ?>
     </main>
     <footer>
         <div class="container-fluid  px-5">

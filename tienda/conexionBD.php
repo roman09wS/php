@@ -23,10 +23,6 @@ if (isset($_POST['btn_Proveedor'])) {
     echo '<div class="alert alert-success" role="alert">Guardado con éxito!</div>';
 }
 
-if (isset($_POST['btn_Ventas'])) {
-    // $producto = $_REQUEST[''];
-    // $precio = $_REQUEST[''];         nombre -> producto
-    // $costo = $_REQUEST['Cantidad'];
-    // $total = $_REQUEST['Pago'];
-}
+
+  
 ?>

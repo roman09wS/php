@@ -22,9 +22,9 @@ CREATE TABLE proveedor (
 CREATE TABLE ventas (
 	id_ventas INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     producto VARCHAR(100),
-    precio VARCHAR(100),
-    costo VARCHAR(100),
-    total VARCHAR(100)
+    cantidad VARCHAR(100),
+    total VARCHAR(100),
+    fecha TIMESTAMP
 );
 
 -- Insertar datos en la tabla "producto"
