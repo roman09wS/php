@@ -9,6 +9,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="img/icono.jpg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/stylesHD.css">
 </head>
 
 <body>
@@ -18,14 +19,19 @@
         </div>
     </header>
     <main>
-        <div class="container d-grid gap-2 col-6 mx-auto">
-            <div class="row d-grid mx-auto mt-4">
+        <div class="container">
+            <div class="row d-grid mx-auto mt-4 ms-4">
                 <div class="col-12">
                     <form <?php echo( (isset($_REQUEST['btn_Ventas'])) )? 'hidden' : '' ;?> action="" method="post">
-                        <div class="mb-3 mt-3" role="group" aria-label="Vertical radio toggle button group">
+                        <div class="btn-group" role="group" aria-label="Basic outlined example">
                             <button type="submit" name="producto" class="btn btn-outline-success">Registrar producto</button>
                             <button type="submit" name="proveedor" class="btn btn-outline-success">Registrar proveedor</button>
-                            <button type="submit" name="ventas" class="btn btn-outline-success">Reporte de ventas</button>
+                            <button type="submit" name="ventas" class="btn btn-outline-success">Registrar venta</button>
+                            <button type="submit" name="reporteVentas" class="btn btn-outline-success">Reporte ventas</button>
+                            <button type="submit" name="updateProducto" class="btn btn-outline-success">Actualizar Producto</button>
+                            <button type="submit" name="updateProveedor" class="btn btn-outline-success">Actualizar Proveedor</button>
+                            <button type="submit" name="deleteProveedor" class="btn btn-outline-success">Borrar Proveedor</button>
+                            <button type="submit" name="deleteProducto" class="btn btn-outline-success">Borrar Producto</button>
                         </div>
                     </form>
                 </div>
@@ -36,7 +42,7 @@
             $sql = "SELECT * FROM proveedor";
             $resultado = $conexion->query($sql); 
         ?>
-        <div class="container">
+        <div class="container fataliti">
             <form action="" method="post" class="row">
                 <div class="col-4 mb-4">
                     <label for="" class="form-label">Nombre</label>
@@ -250,14 +256,184 @@
             
         }
         ?>
+
+        <?php if (isset($_REQUEST['reporteVentas'])) { ?>
+            
+        <?php } ?>
+
+        <?php if (isset($_REQUEST['updateProducto'])) { 
+            $productoGeneral = $conexion->query("SELECT * FROM producto");
+            $row = $productoGeneral->fetch_array();
+            ?>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="mb-3 text-center">
+                            <h1 class="display-2">Productos</h1>
+                        </div>
+                        <div class="input-group mt-4 mb-4">
+                            <input type="search" class="form-control rounded" placeholder="Digite el nombre del producto" aria-label="Search" aria-describedby="search-addon" />
+                            <button type="button" class="btn btn-outline-success">Buscar</button>
+                        </div>
+                        <table class="table table-hover">
+                            <thead class="table-success">
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Descripcion</th>
+                                    <th scope="col">Costo</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Stock</th>
+                                    <th scope="col">Proveedor</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                
+                                <?php while ($row=$productoGeneral->fetch_array()) { ?>
+                                <tr>
+                                    <th><?php echo $row['nombre'];?></th>
+                                    <td><?php echo $row['descripcion'];?></td>
+                                    <td><?php echo $row['costo'];?></td>
+                                    <td><?php echo $row['precio'];?></td>
+                                    <td><?php echo $row['cantidad'];?></td>
+                                    <td><?php echo $row['proveedor'];?></td>                        
+                                </tr>
+                                <?php }?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        <?php }?>
+
+        <?php if (isset($_REQUEST['updateProveedor'])) { 
+            $proveedorGeneral = $conexion->query("SELECT * FROM proveedor");
+            $row = $proveedorGeneral->fetch_array();
+            ?>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="mb-3 text-center">
+                            <h1 class="display-2">Proveedor</h1>
+                        </div>
+                        <div class="input-group mt-4 mb-4">
+                            <input type="search" class="form-control rounded" placeholder="Digite el nombre del producto" aria-label="Search" aria-describedby="search-addon" />
+                            <button type="button" class="btn btn-outline-success">Buscar</button>
+                        </div>
+                        <table class="table table-hover">
+                            <thead class="table-success">
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Ubicacion</th>
+                                    <th scope="col">Telefono</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                
+                                <?php while ($row=$proveedorGeneral->fetch_array()) { ?>
+                                <tr>
+                                    <th><?php echo $row['nombre'];?></th>
+                                    <td><?php echo $row['ubicacion'];?></td>
+                                    <td><?php echo $row['telefono'];?></td>
+                                </tr>
+                                <?php }?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>    
+        <?php }?>
+
+        <?php if (isset($_REQUEST['deleteProveedor'])) { 
+            $proveedorGeneral = $conexion->query("SELECT * FROM proveedor");
+            $row = $proveedorGeneral->fetch_array();
+            ?>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="mb-3 text-center">
+                            <h1 class="display-2">Proveedor</h1>
+                        </div>
+                        <div class="input-group mt-4 mb-4">
+                            <input type="search" class="form-control rounded" placeholder="Digite el nombre del producto" aria-label="Search" aria-describedby="search-addon" />
+                            <button type="button" class="btn btn-outline-success">Buscar</button>
+                        </div>
+                        <table class="table table-hover">
+                            <thead class="table-success">
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Ubicacion</th>
+                                    <th scope="col">Telefono</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                
+                                <?php while ($row=$proveedorGeneral->fetch_array()) { ?>
+                                <tr>
+                                    <th><?php echo $row['nombre'];?></th>
+                                    <td><?php echo $row['ubicacion'];?></td>
+                                    <td><?php echo $row['telefono'];?></td>
+                                </tr>
+                                <?php }?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        <?php }?>
+
+        <?php if (isset($_REQUEST['deleteProducto'])) { 
+            $productoGeneral = $conexion->query("SELECT * FROM producto");
+            $row = $productoGeneral->fetch_array();
+            ?>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="mb-3 text-center">
+                            <h1 class="display-2">Productos</h1>
+                        </div>
+                        <div class="input-group mt-4 mb-4">
+                            <input type="search" class="form-control rounded" placeholder="Digite el nombre del producto" aria-label="Search" aria-describedby="search-addon" />
+                            <button type="button" class="btn btn-outline-success">Buscar</button>
+                        </div>
+                        <table class="table table-hover">
+                            <thead class="table-success">
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Descripcion</th>
+                                    <th scope="col">Costo</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Stock</th>
+                                    <th scope="col">Proveedor</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                
+                                <?php while ($row=$productoGeneral->fetch_array()) { ?>
+                                <tr>
+                                    <th><?php echo $row['nombre'];?></th>
+                                    <td><?php echo $row['descripcion'];?></td>
+                                    <td><?php echo $row['costo'];?></td>
+                                    <td><?php echo $row['precio'];?></td>
+                                    <td><?php echo $row['cantidad'];?></td>
+                                    <td><?php echo $row['proveedor'];?></td>                        
+                                </tr>
+                                <?php }?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        <?php }?>
     </main>
-    <footer>
+
+
+    <!-- <footer>
         <div class="container-fluid  px-5">
             <div class="text-white-50 small">
                 <div class="mb-2">&copy; Winder Román 2023 || 99% LEGAL.</div>
             </div>
         </div>
-    </footer>
+    </footer> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
     </script>

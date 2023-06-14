@@ -28,19 +28,19 @@ CREATE TABLE ventas (
 );
 
 -- Insertar datos en la tabla "producto"
-INSERT INTO producto (nombre, descripcion, costo, precio, cantidad)
+INSERT INTO producto (nombre, descripcion, costo, precio, cantidad,proveedor)
 VALUES
-    ('Smartphone Galaxy', 'Potente, Versátil, Innovador, Conectado', 10.50, 20.00, 50),
-    ('Laptop Spectre', 'Elegante, Ultradelgada, Rendimiento Potente, Segura', 15.25, 30.50, 100),
-    ('Smart TV UltraHD', 'Pantalla Vibrante, Streaming Integrado, Experiencia Inmersiva, Conectividad Inteligente', 8.75, 18.00, 75),
-    ('Cámara DSLR Alpha', 'Profesional, Alta Resolución, Enfoque Rápido, Creatividad Expandida', 12.00, 25.50, 80),
-    ('Auriculares Bluetooth', 'Inalámbricos, Sonido Envolvente, Cancelación de Ruido, Comodidad Duradera', 9.99, 19.99, 60),
-    ('Consola de videojuegos X-Stream', 'Gráficos Realistas, Juegos de Última Generación, Multijugador Online, Experiencia Gaming Intensa', 7.50, 15.00, 45),
-    ('Smartwatch FitPro', 'Monitoreo de Salud, Seguimiento de Actividades, Notificaciones Inteligentes, Estilo Moderno', 11.25, 22.50, 90),
-    ('Altavoz inalámbrico SonicBoom', 'Sonido Potente, Bluetooth 5.0, Resistente al Agua, Batería Duradera', 13.75, 27.50, 70),
-    ('Impresora LaserJet Pro', 'Impresión Rápida, Calidad Profesional, Conectividad Inalámbrica, Eficiencia Energética', 6.25, 12.50, 35),
-    ('Tableta Digital Nexus', 'Pantalla Táctil HD, Alto Rendimiento, Almacenamiento Expandible, Versatilidad Portátil', 14.99, 29.99, 55),
-    ('Router TurboNet', 'Velocidad Ultra Alta, Cobertura Amplia, Seguridad Avanzada, Fácil Configuración', 8.50, 17.00, 65);
+    ('Smartphone Galaxy', 'Potente, Versátil, Innovador, Conectado', 10.50, 20.00, 50,'Laura'),
+    ('Laptop Spectre', 'Elegante, Ultradelgada, Rendimiento Potente, Segura', 15.25, 30.50, 100,'Carlos'),
+    ('Smart TV UltraHD', 'Pantalla Vibrante, Streaming Integrado, Experiencia Inmersiva, Conectividad Inteligente', 8.75, 18.00, 75,'Emily'),
+    ('Cámara DSLR Alpha', 'Profesional, Alta Resolución, Enfoque Rápido, Creatividad Expandida', 12.00, 25.50, 80,'Alejandro'),
+    ('Auriculares Bluetooth', 'Inalámbricos, Sonido Envolvente, Cancelación de Ruido, Comodidad Duradera', 9.99, 19.99, 60,'Sophia'),
+    ('Consola de videojuegos X-Stream', 'Gráficos Realistas, Juegos de Última Generación, Multijugador Online, Experiencia Gaming Intensa', 7.50, 15.00, 45,'Daniel'),
+    ('Smartwatch FitPro', 'Monitoreo de Salud, Seguimiento de Actividades, Notificaciones Inteligentes, Estilo Moderno', 11.25, 22.50, 90,'Valentina'),
+    ('Altavoz inalámbrico SonicBoom', 'Sonido Potente, Bluetooth 5.0, Resistente al Agua, Batería Duradera', 13.75, 27.50, 70,'Liam'),
+    ('Impresora LaserJet Pro', 'Impresión Rápida, Calidad Profesional, Conectividad Inalámbrica, Eficiencia Energética', 6.25, 12.50, 35,'Isabella'),
+    ('Tableta Digital Nexus', 'Pantalla Táctil HD, Alto Rendimiento, Almacenamiento Expandible, Versatilidad Portátil', 14.99, 29.99, 55,'Mateo'),
+    ('Router TurboNet', 'Velocidad Ultra Alta, Cobertura Amplia, Seguridad Avanzada, Fácil Configuración', 8.50, 17.00, 65,'Sofia');
     
 
 -- Insertar datos en la tabla "proveedor"
