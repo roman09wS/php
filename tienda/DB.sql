@@ -13,10 +13,9 @@ CREATE TABLE producto (
 CREATE TABLE proveedor (
 	id_proveedor INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100),
-    producto INT UNSIGNED,
+    producto VARCHAR(80),
     ubicacion VARCHAR(100),
-    telefono VARCHAR(50),
-    FOREIGN KEY (producto) REFERENCES producto(id_producto)
+    telefono VARCHAR(50)
 );
 
 CREATE TABLE ventas (
@@ -26,6 +25,8 @@ CREATE TABLE ventas (
     total VARCHAR(100),
     fecha TIMESTAMP
 );
+
+INSERT INTO ventas (producto,cantidad,total) VALUES ('Smartphone Galaxy','1','20.00');
 
 -- Insertar datos en la tabla "producto"
 INSERT INTO producto (nombre, descripcion, costo, precio, cantidad,proveedor)
@@ -46,15 +47,15 @@ VALUES
 -- Insertar datos en la tabla "proveedor"
 INSERT INTO proveedor (nombre, producto, ubicacion, telefono)
 VALUES
-    ('Laura Thompson', 1, 'Calle 27', '1234567890'),
-    ('Carlos Rodríguez', 2, 'Calle 98', '9876543210'),
-    ('Emily Johnson', 3, 'Avenida Central', '5555555555'),
-    ('Alejandro López', 4, 'Calle del Sol', '1111111111'),
-    ('Sophia Martinez', 5, 'Boulevard Primavera', '2222222222'),
-    ('Daniel Smith', 6, 'Carrera 10', '3333333333'),
-    ('Valentina García', 7, 'Avenida Libertad', '4444444444'),
-    ('Liam Brown', 8, 'Calle Principal', '5555555555'),
-    ('Isabella Wilson', 9, 'Paseo de los Pinos', '6666666666'),
-    ('Mateo Davis', 10, 'Avenida del Mar', '7777777777'),
-    ('Sofia Anderson', 11, 'Plaza Mayor', '8888888888');
+    ('Laura Thompson','Smartphone Galaxy', 'Calle 27', '1234567890'),
+    ('Carlos Rodríguez','Laptop Spectre', 'Calle 98', '9876543210'),
+    ('Emily Johnson','Smart TV UltraHD', 'Avenida Central', '5555555555'),
+    ('Alejandro López','Cámara DSLR Alpha', 'Calle del Sol', '1111111111'),
+    ('Sophia Martinez','Auriculares Bluetooth', 'Boulevard Primavera', '2222222222'),
+    ('Daniel Smith','Consola de videojuegos X-Stream', 'Carrera 10', '3333333333'),
+    ('Valentina García','Smartwatch FitPro', 'Avenida Libertad', '4444444444'),
+    ('Liam Brown','Altavoz inalámbrico SonicBoom', 'Calle Principal', '5555555555'),
+    ('Isabella Wilson','Impresora LaserJet Pro', 'Paseo de los Pinos', '6666666666'),
+    ('Mateo Davis', 'Tableta Digital Nexus', 'Avenida del Mar', '7777777777'),
+    ('Sofia Anderson', 'Router TurboNet', 'Plaza Mayor', '8888888888');
 
