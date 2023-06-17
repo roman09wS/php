@@ -23,19 +23,15 @@ if (isset($_POST['btn_Proveedor'])) {
     $cel = $_POST['telefono'];
     $conexion->query("INSERT INTO proveedor (nombre,producto,ubicacion,telefono) VALUES ('$nombre','$producto','$ubi','$cel')");
     echo '<div class="alert alert-success" role="alert">Guardado con éxito!</div>';
-    header('Location: index.php');
-    exit;
 }
 
 if (isset($_GET['idEliminarProd'])) {
     $id_producto = (int) $_GET['idEliminarProd'];
     $conexion->query("DELETE FROM producto WHERE id_producto = $id_producto");
+    echo '<div class="alert alert-success" role="alert">Eliminado con éxito!</div>';
 }
 
-if (isset($_GET['idEliminarProv'])) {
-    $id_proveedor = (int) $_GET['idEliminarProv'];
-    $conexion->query("DELETE FROM proveedor WHERE id_proveedor = $id_proveedor");
-}
+
 
 if (isset($_POST['btn_ActualizarProd'])) {
     $id_producto = (int) $_GET['idEditarProd'];
@@ -49,15 +45,7 @@ if (isset($_POST['btn_ActualizarProd'])) {
     echo '<div class="alert alert-success" role="alert">Actualizado con éxito!</div>';
 }
 
-if (isset($_POST['btn_ActualizarProv'])) {
-    $id_proveedor = (int) $_GET['idEditarProv'];
-    $nombre = $_POST['nombre'];
-    $producto = $_POST['prodSelect'];
-    $ubicacion = $_POST['ubicacion'];
-    $telefono = $_POST['telefono'];
-    $conexion->query("UPDATE proveedor SET nombre = '$nombre',producto = '$producto' ,ubicacion = '$ubicacion',telefono = '$telefono' WHERE id_proveedor = $id_proveedor");
-    echo '<div class="alert alert-success" role="alert">Actualizado con éxito!</div>';
-}    
+    
 
 
 
