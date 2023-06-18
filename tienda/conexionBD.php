@@ -9,10 +9,14 @@ if (isset($_POST['btn_Producto'])) {
     $precio = (float) $_POST['pvp'];
     $cantidad = (int) $_POST['cantidad'];
     $proveedor = $_POST['provSelect'];
-    $conexion->query("INSERT INTO producto (nombre,descripcion,costo,precio,cantidad,proveedor) VALUES ('$nombre','$descripcion',$costo,$precio,$cantidad,'$proveedor')");
-    echo '<div class="alert alert-success" role="alert">Guardado con éxito!</div>';
-    header('Location: index.php');
-    exit;
+    try {
+        $conexion->query("INSERT INTO producto (nombre,descripcion,costo,precio,cantidad,proveedor) VALUES ('$nombre','$descripcion',$costo,$precio,$cantidad,'$proveedor')");
+        echo '<div class="alert alert-success" role="alert">Guardado con éxito!</div>';
+    } catch (mysqli_sql_exception $th) {
+        echo '<div class="alert alert-danger" role="alert">Error ya existe ese nombre!</div>';
+    }
+    // header('Location: index.php');
+    // exit;
 }
 
     
@@ -21,8 +25,14 @@ if (isset($_POST['btn_Proveedor'])) {
     $producto = $_POST['prodSelect'];
     $ubi = $_POST['Ubicacion'];
     $cel = $_POST['telefono'];
-    $conexion->query("INSERT INTO proveedor (nombre,producto,ubicacion,telefono) VALUES ('$nombre','$producto','$ubi','$cel')");
-    echo '<div class="alert alert-success" role="alert">Guardado con éxito!</div>';
+    try {
+        $conexion->query("INSERT INTO proveedor (nombre,producto,ubicacion,telefono) VALUES ('$nombre','$producto','$ubi','$cel')");
+        echo '<div class="alert alert-success" role="alert">Guardado con éxito!</div>';
+
+    } catch (mysqli_sql_exception $th) {
+        echo '<div class="alert alert-danger" role="alert">Error ya existe ese numero telefonico!</div>';
+    }
+
 }
 
 if (isset($_GET['idEliminarProd'])) {

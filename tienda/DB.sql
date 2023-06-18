@@ -2,7 +2,7 @@ CREATE DATABASE tienda;
 USE tienda;
 CREATE TABLE producto (
 	id_producto INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100),
+    nombre VARCHAR(100) UNIQUE,
     descripcion TEXT,
     costo FLOAT,
     precio FLOAT,
@@ -15,7 +15,7 @@ CREATE TABLE proveedor (
     nombre VARCHAR(100),
     producto VARCHAR(80),
     ubicacion VARCHAR(100),
-    telefono VARCHAR(50)
+    telefono VARCHAR(50) UNIQUE
 );
 
 CREATE TABLE ventas (
@@ -54,7 +54,7 @@ VALUES
     ('Sophia Martinez','Auriculares Bluetooth', 'Boulevard Primavera', '2222222222'),
     ('Daniel Smith','Consola de videojuegos X-Stream', 'Carrera 10', '3333333333'),
     ('Valentina García','Smartwatch FitPro', 'Avenida Libertad', '4444444444'),
-    ('Liam Brown','Altavoz inalámbrico SonicBoom', 'Calle Principal', '5555555555'),
+    ('Liam Brown','Altavoz inalámbrico SonicBoom', 'Calle Principal', '5554555555'),
     ('Isabella Wilson','Impresora LaserJet Pro', 'Paseo de los Pinos', '6666666666'),
     ('Mateo Davis', 'Tableta Digital Nexus', 'Avenida del Mar', '7777777777'),
     ('Sofia Anderson', 'Router TurboNet', 'Plaza Mayor', '8888888888');
