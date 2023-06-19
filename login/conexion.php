@@ -12,6 +12,8 @@ if (isset($_POST['btn_login'])) {
     if ($numeroResultado != 0) {
         echo "BIENVENIDO ".$row['nombre'];
         echo '<div class="alert alert-success" role="alert">Eres un duro</div>';
+        header('Location: ../tienda/index.php');
+        exit;
     } else {
         echo "Error en el nombre o contraseña VERIFIQUE DE NUEVO";
     }
