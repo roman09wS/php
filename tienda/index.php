@@ -248,7 +248,7 @@
                 $totalTemp = $precioTemp * $cantidad;
                 $cambioTemp = $dineroRecibido - $totalTemp;
 
-                if ($dineroRecibido > $totalTemp && $cantidad <= $stockTemp) {
+                if ($dineroRecibido >= $totalTemp && $cantidad <= $stockTemp) {
                     $conexion->query("INSERT INTO ventas (producto,cantidad,total) VALUES ('$nombreTemp','$cantidad','$totalTemp')");
                     $conexion->query("UPDATE producto SET cantidad = (cantidad - $cantidad) WHERE id_producto = $id_producto");
                     ?>
