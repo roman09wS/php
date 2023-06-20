@@ -20,7 +20,7 @@
                     <div class="mb-3 text-center">
                         <h1 class="display-2">Proveedores</h1>
                     </div>
-                    <form action="" method="post">
+                    <form action="" method="post" <?php echo( (isset($_GET['idEditarProv'])) || (isset($_GET['idEliminarProv'])) )? 'hidden' : '' ;?>>
                         <div class="input-group mt-4 mb-4">
                             <input type="search" class="form-control rounded" name="buscarProveedor" placeholder="Digite el nombre del proveedor" aria-label="Search" aria-describedby="search-addon" />
                             <button type="submit" name="btn_buscarProveedor" class="btn btn-outline-success">Buscar</button>
@@ -37,7 +37,7 @@
             }?>
 
 
-                <div class="container"<?php echo( (isset($_GET['idEditarProv'])) )? 'hidden' : '' ;?>>
+                <div class="container"<?php echo( (isset($_GET['idEditarProv'])) || (isset($_GET['idEliminarProv'])) )? 'hidden' : '' ;?>>
                     <div class="row">
                         <div class="col-12 mt-4">
                             <table class="table table-hover">
@@ -62,28 +62,11 @@
                                             <i class="icon-edit">Editar</i></a>
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</button>
+                                        <a class="btn btn-outline-danger" onChange="this.form.submit()" href="?idEliminarProv=<?php echo $row['id_proveedor'] ?>">
+                                        <i class="icon-edit">Eliminar</i></a>
                                         </td>
                                     </tr>
                                 </form>
-        
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Borrar proveedor</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p>¿Estas seguro de eliminar a <?php echo $row['nombre'];?>?</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                    <a class="btn btn-outline-danger" onChange="this.form.submit()" href="?idEliminarProv=<?php echo $row['id_proveedor'] ?>" title="Eliminar"><i class="icon-edit">Confirmar</i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 <?php }?>
                                 </tbody>
                             </table>
@@ -102,17 +85,16 @@
             $id_proveedor = (int)  $_GET['idEditarProv'];
             $proveedor = $conexion->query("SELECT * FROM proveedor WHERE id_proveedor = $id_proveedor");
             while ($columna = $proveedor->fetch_array()) { ?>
-            <div class="container">
+            <div class="container" <?php echo( (isset($_GET['idEditarProv'])) || (isset($_GET['idEliminarProv'])) )? 'hidden' : '' ;?>>
                 <form action="" method="post" class="row">
                     <div class="col-6 mb-4">
                         <label for="" class="form-label"><b>Nombre: </b></label>
-                        <input type="text" class="form-control" name="nombre" id="" aria-describedby="helpId" placeholder="<?php echo $columna['nombre'];?>" required>
+                        <input type="text" class="form-control" name="nombre" id="" aria-describedby="helpId" value="<?php echo $columna['nombre'];?>">
                     </div>
 
                     <div class="col-6 mb-4">
                         <label for="" class="form-label">Producto</label>
-                        <select class="form-select form-select-lg" name="prodSelect" id="" required>
-                            <option value="">Seleccione un producto</option>
+                        <select class="form-select form-select-lg" name="prodSelect" id="">
                             <?php foreach ($resultado as $productos) { ?>
                             <option value="<?php echo $productos['nombre']?>"><?php echo $productos['nombre'];?></option>
                             <?php } ?>
@@ -121,12 +103,12 @@
 
                     <div class="col-6 mb-4">
                         <label for="" class="form-label">Ubicacion</label>
-                        <input type="text" class="form-control" name="ubicacion" id="" aria-describedby="helpId" placeholder="<?php echo $columna['ubicacion'];?>" required>
+                        <input type="text" class="form-control" name="ubicacion" id="" aria-describedby="helpId" value="<?php echo $columna['ubicacion'];?>">
                     </div>
 
                     <div class="col-6 mb-4">
                         <label for="" class="form-label">Telefono</label>
-                        <input type="text" class="form-control" name="telefono" id="" aria-describedby="helpId" placeholder="<?php echo $columna['telefono'];?>" required>
+                        <input type="text" class="form-control" name="telefono" id="" aria-describedby="helpId" value="<?php echo $columna['telefono'];?>">
                     </div>
 
                     <div class="col-2 d-grid mx-auto mt-4">
@@ -143,19 +125,21 @@
 
     <?php
     if (isset($_GET['idEliminarProv'])) {
-    $id_proveedor = (int) $_GET['idEliminarProv'];
-    $conexion->query("DELETE FROM proveedor WHERE id_proveedor = $id_proveedor");
-    echo '<div class="alert alert-success" role="alert">Eliminado con éxito!</div>';
+        $id_proveedor = (int) $_GET['idEliminarProv'];
+        $conexion->query("DELETE FROM proveedor WHERE id_proveedor = $id_proveedor");
+        echo '<div class="alert alert-success" role="alert">Eliminado con éxito!</div>';
+        echo '<a href="index.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success">Volver a inicio</button></a>';
     }
 
     if (isset($_POST['btn_ActualizarProv'])) {
-    $id_proveedor = (int) $_GET['idEditarProv'];
-    $nombre = $_POST['nombre'];
-    $producto = $_POST['prodSelect'];
-    $ubicacion = $_POST['ubicacion'];
-    $telefono = $_POST['telefono'];
-    $conexion->query("UPDATE proveedor SET nombre = '$nombre',producto = '$producto' ,ubicacion = '$ubicacion',telefono = '$telefono' WHERE id_proveedor = $id_proveedor");
-    echo '<div class="alert alert-success" role="alert">Actualizado con éxito!</div>';
+        $id_proveedor = (int) $_GET['idEditarProv'];
+        $nombre = $_POST['nombre'];
+        $producto = $_POST['prodSelect'];
+        $ubicacion = $_POST['ubicacion'];
+        $telefono = $_POST['telefono'];
+        $conexion->query("UPDATE proveedor SET nombre = '$nombre',producto = '$producto' ,ubicacion = '$ubicacion',telefono = '$telefono' WHERE id_proveedor = $id_proveedor");
+        echo '<div class="alert alert-success" role="alert">Actualizado con éxito!</div>';
+        echo '<a href="index.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success">Volver a inicio</button></a>';
     }
 
     ?>

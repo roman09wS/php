@@ -35,25 +35,7 @@ if (isset($_POST['btn_Proveedor'])) {
 
 }
 
-if (isset($_GET['idEliminarProd'])) {
-    $id_producto = (int) $_GET['idEliminarProd'];
-    $conexion->query("DELETE FROM producto WHERE id_producto = $id_producto");
-    echo '<div class="alert alert-success" role="alert">Eliminado con éxito!</div>';
-}
 
-
-
-if (isset($_POST['btn_ActualizarProd'])) {
-    $id_producto = (int) $_GET['idEditarProd'];
-    $nombre = $_POST['nombre'];
-    $descripcionP = $_POST['descripcionP'];
-    $costo = (float) $_POST['costo'];
-    $precio = (float) $_POST['precio'];
-    $cantidad = (int) $_POST['cantidad'];
-    $proveedor = $_POST['provSelect'];
-    $conexion->query("UPDATE producto SET nombre = '$nombre', descripcion = '$descripcionP', costo = $costo, precio = $precio,cantidad = $cantidad,proveedor = '$proveedor' WHERE id_producto = $id_producto");
-    echo '<div class="alert alert-success" role="alert">Actualizado con éxito!</div>';
-}
 
     
 

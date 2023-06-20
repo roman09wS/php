@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-12">
                 <section class="vh-100">
-                    <div class="container py-5 h-100" <?php echo ( (isset($_POST['btn_registro'])) )?'hidden': '' ;?> >
+                    <div class="container py-5 h-100" <?php echo ( (isset($_POST['btn_registro'])) || (isset($_POST['btn_restablecer'])) || (isset($_POST['btn_verificar'])) )?'hidden': '' ;?> >
                         <div class="row d-flex justify-content-center align-items-center h-100">
                             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                                 <div class="card bg-dark text-white" style="border-radius: 1rem;">
@@ -35,7 +35,7 @@
                                                 <label for="floatingPassword">Contraseña</label>
                                             </div>
 
-                                            <p class="small mb-5 pb-lg-2"><a class="text-white-50 mt-4" href="#!">¿Olvidó su contraseña?</a></p>
+                                            <p class="mb-0">Olvide mi contraseña<button class=" mb-3 ms-2 fw-bold btn btn-outline-light" name="btn_verificar">Restablecer</button></p>
 
                                             <button class="btn btn-outline-light btn-lg px-5" name="btn_login" type="submit">Iniciar Sesion</button>
                                         </form>
@@ -97,6 +97,85 @@
                             </div>
                         </section>
                     <?php } ?>
+                    
+
+                    <?php if (isset($_POST['btn_verificar'])) { ?>
+                        <section class="vh-100">
+                            <div class="container py-5 h-100" >
+                                <div class="row d-flex justify-content-center align-items-center h-100">
+                                    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                                        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                                            <div class="card-body p-5 text-center">
+
+                                                <div class="mb-md-5 mt-md-4 pb-5">
+
+                                                <h2 class="fw-bold mb-2 text-uppercase">Restablecer contraseña</h2>
+                                                <p class="text-white-50 mb-5">¡Ingrese su correo!</p>
+
+                                                <form action="" method="post">
+                                                
+                                                    <div class="form-floating text-dark mb-5">
+                                                        <input type="email" class="form-control" id="floatingPassword" name="email" placeholder="example@gmail.com" require>
+                                                        <label for="floatingPassword">Email</label>
+                                                    </div>
+
+                                                    <button class="btn btn-outline-light btn-lg px-5" name="btn_restablecer" type="submit">Restablecer</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    <?php } ?>
+
+                    <?php if (isset($_POST['btn_restablecer'])) { 
+                        $correo = $_POST['email'];
+                        $Consultacorreo = $conexion->query("SELECT correo FROM usuarios WHERE correo LIKE '%$correo%' ");
+                        $result = mysqli_num_rows($Consultacorreo);
+                        if ($result != 0) {?>
+                            
+                            <section class="vh-100">
+                                <div class="container py-5 h-100" >
+                                    <div class="row d-flex justify-content-center align-items-center h-100">
+                                        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                                            <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                                                <div class="card-body p-5 text-center">
+    
+                                                    <div class="mb-md-5 mt-md-4 pb-5">
+    
+                                                    <h2 class="fw-bold mb-2 text-uppercase">Restablecer contraseña</h2>
+                                                    <p class="text-white-50 mb-5">¡Ingrese la nueva contraseña!</p>
+    
+                                                    <form action="" method="post">
+                                                        <div class="form-floating text-dark mb-4">
+                                                            <input type="password" class="form-control" id="floatingInput" name="contrasena" placeholder="ingrese su nombre" require>
+                                                            <label for="floatingInput">Nueva contraseña</label>
+                                                        </div>
+                                                        
+                                                        <div class="form-floating text-dark mb-5">
+                                                            <input type="password" class="form-control" id="floatingPassword" name="contrasena" placeholder="example@gmail.com" require>
+                                                            <label for="floatingPassword">Confirmar contraseña</label>
+                                                        </div>
+    
+                                                        <button class="btn btn-outline-light btn-lg px-5" name="confirmacion" type="submit">Restablecer</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                        <?php }?>
+                    <?php } ?>
+
+                    <?php if (isset($_POST['confirmacion'])) {
+                        $nvContrasena = $_POST['contrasena'];
+                        $sql = $conexion->query("UPDATE usuarios SET contrasena = $nvContrasena WHERE email = $correo");
+                    }
+                    
+                    ?>
 
                 </section>
             </div>

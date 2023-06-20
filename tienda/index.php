@@ -28,7 +28,6 @@
                             <button type="submit" name="createProveedor" class="btn btn-outline-success">Registrar proveedor</button>
                             <button type="submit" name="ventas" class="btn btn-outline-success">Registrar venta</button>
                             <button type="submit" name="reporteVentas" class="btn btn-outline-success">Reporte ventas</button>
-                            <button type="submit" name="productos" class="btn btn-outline-success">Productos</button>
 
                         </div>
                     </form>
@@ -81,6 +80,7 @@
             $sql = "SELECT * FROM proveedor";
             $resultado = $conexion->query($sql); 
             ?>
+            
             <div class="container fataliti">
                 <form action="" method="post" class="row mt-4">
                     <div class="col-4 mb-4">
@@ -336,137 +336,9 @@
             </div>
         <?php } ?>
 
-        <?php if (isset($_REQUEST['productos'])) { ?>
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="mb-3 text-center">
-                            <h1 class="display-2">Productos</h1>
-                        </div>
-                        
-                        <form action="" method="post">
-                            <div class="input-group mt-4 mb-4">
-                                <input type="search" class="form-control rounded" name="buscarProducto" placeholder="Digite el nombre del producto" aria-label="Search" aria-describedby="search-addon" />
-                                <button type="submit" name="btn_buscarProducto" class="btn btn-outline-success">Buscar</button>
-                            </div>
-                        </form>
-                        <table class="table table-hover">
-                            <thead class="table-success">
-                                <tr>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Descripcion</th>
-                                    <th scope="col">Costo</th>
-                                    <th scope="col">Precio</th>
-                                    <th scope="col">Stock</th>
-                                    <th scope="col">Proveedor</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-group-divider">
-                                <?php
-                                if ( isset($_POST['btn_buscarProducto']) ) {
-                                    $producto = $_POST['buscarProducto'];
-                                    $consultaProducto=$conexion->query("SELECT * FROM producto WHERE nombre LIKE '%$producto%' ORDER BY nombre DESC");
-                                } else {
-                                    $consultaProducto=$conexion->query("SELECT * FROM producto");
-                                }
-
-                                 while ($row=$consultaProducto->fetch_array()) { 
-                                ?>
-                                <form action="" method="post">
-                                    <tr>
-                                        <th><?php echo $row['nombre'];?></th>
-                                        <td><?php echo $row['descripcion'];?></td>
-                                        <td><?php echo $row['costo'];?></td>
-                                        <td><?php echo $row['precio'];?></td>
-                                        <td><?php echo $row['cantidad'];?></td>
-                                        <td><?php echo $row['proveedor'];?></td>
-                                        <td>
-                                            <a class="btn btn-outline-success" onChange="this.form.submit()" href="?idEditarProd=<?php echo $row['id_producto'] ?>" name="editarProducto">
-                                            <i class="icon-edit">Editar</i></a>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</button>
-
-                                        </td>            
-                                    </tr>
-
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Borrar proveedor</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p>¿Estas seguro de eliminar <?php echo $row['nombre'];?>?</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                    <a class="btn btn-outline-danger" onChange="this.form.submit()" href="?idEliminarProd=<?php echo $row['id_producto'] ?>" name="eliminarProducto"><i class="icon-edit">Confirmar</i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                                <?php }?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        <?php }?>
-            
-        <?php if (isset($_GET['idEditarProd'])) { 
-            $sql = "SELECT * FROM proveedor";
-            $resultado = $conexion->query($sql); 
-            $id_producto = (int)  $_GET['idEditarProd'];
-            $producto = $conexion->query("SELECT * FROM producto WHERE id_producto = $id_producto");
-            while ($columna = $producto->fetch_array()) { ?>
-            <div class="container">
-                <form <?php echo( (isset($_POST['btn_ActualizarProd'])) )? 'hidden' : '' ;?> action="" method="post" class="row">
-                    <div class="col-4 mb-4">
-                        <label for="" class="form-label"><b>Nombre: </b></label>
-                        <input type="text" class="form-control" name="nombre" id="" aria-describedby="helpId" placeholder="<?php echo $columna['nombre'];?>" required>
-                    </div>
-
-                    <div class="col-4 mb-4">
-                        <label for="" class="form-label" name=""><b>Descripcion: </b></label>
-                        <textarea class="form-control" name="descripcionP" id="" rows="3" placeholder="<?php echo $columna['descripcion'];?>" required></textarea>
-                    </div>
-
-                    <div class="col-4 mb-4">
-                        <label for="" class="form-label">Costo</label>
-                        <input type="text" class="form-control" name="costo" id="" aria-describedby="helpId" placeholder="<?php echo $columna['costo'];?>" required>
-                    </div>
-
-                    <div class="col-4 mb-4">
-                        <label for="" class="form-label">Precio</label>
-                        <input type="text" class="form-control" name="precio" id="" aria-describedby="helpId" placeholder="<?php echo $columna['precio'];?>" required>
-                    </div>
-
-                    <div class="col-4 mb-4">
-                        <label for="" class="form-label">Cantidad</label>
-                        <input type="text" class="form-control" name="cantidad" id="" aria-describedby="helpId" placeholder="<?php echo $columna['cantidad'];?>" required>
-                    </div>
-
-                    <div class="col-4 mb-4">
-                        <label for="" class="form-label">Proveedor</label>
-                        <select class="form-select form-select-lg" name="provSelect" id="" required>
-                            <option value="">Seleccione un proveedor</option>
-                            <?php foreach ($resultado as $proveedores) { ?>
-                            <option value="<?php echo $proveedores['nombre']?>"><?php echo $proveedores['nombre'];?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-
-                    <div class="col-2 d-grid mx-auto mt-4">
-                        <button type="submit" id="alertP" name="btn_ActualizarProd" class="btn btn-outline-success">Actualizar</button>
-                    </div>
-                </form>
-            </div>
-            <?php } ?>
         
-        <?php }?>
+            
+        
         
         
         
