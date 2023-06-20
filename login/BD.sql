@@ -5,7 +5,7 @@ CREATE TABLE usuarios (
     id_user INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(70),
     contrasena VARCHAR(25),
-    email VARCHAR(80)
+    email VARCHAR(80) UNIQUE
 );
 
 INSERT INTO usuarios (nombre,contrasena,email) VALUES 
