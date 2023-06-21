@@ -59,12 +59,4 @@ VALUES
     ('Mateo Davis', 'Tableta Digital Nexus', 'Avenida del Mar', '7777777777'),
     ('Sofia Anderson', 'Router TurboNet', 'Plaza Mayor', '8888888888');
 
-DELIMITER //
-CREATE TRIGGER proveedorRepetido BEFORE INSERT ON proveedor
-FOR EACH ROW
-BEGIN
-    WHILE DO
 
-    END WHILE;
-END
-DELIMITER ;
