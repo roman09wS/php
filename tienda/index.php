@@ -82,7 +82,7 @@
             ?>
             
             <div class="container fataliti">
-                <form action="" method="post" class="row mt-4">
+                <form action="registrarProducto.php" method="post" class="row mt-4">
                     <div class="col-4 mb-4">
                         <label for="" class="form-label">Nombre</label>
                         <input type="text" class="form-control" name="nombreP" id="" aria-describedby="helpId" placeholder="" required>
@@ -137,7 +137,7 @@
             $resultado = $conexion->query($sql);    
             ?>
             <div class="container">
-                <form action="" method="post" class="row mt-4">
+                <form action="registrarProveedor" method="post" class="row mt-4">
                     <div class="col-6 mb-4">
                         <label for="" class="form-label">Nombre</label>
                         <input type="text" class="form-control" name="nombreProveedor" id="" aria-describedby="helpId" placeholder="" required>
