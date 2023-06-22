@@ -1,7 +1,7 @@
 <?php
 // Varios destinatarios
-$para  = 'winderroman3131@gmail.com' . ', '; // atención a la coma
-//$para .= 'wez@example.com';
+$para  = $correo ; // atención a la coma
+//$para .= 'Papercut@user.com';
 
 // título
 $título = 'Restablecer contraseña';
@@ -15,6 +15,7 @@ $mensaje = '
 <body>
   <p>¡Este es tu codigo de verificacion!</p>
   <p><b>'.$codigo.'</b></p>
+  <p> <a href="http://localhost/php/login/reset.php?email='.$correo.'&token='.$token.'"> Para restablecer da click aqui</a> </p>
 </body>
 </html>
 ';
@@ -24,11 +25,14 @@ $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
 $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
 // Cabeceras adicionales
-$cabeceras .= 'To: Mary <mary@example.com>, Kelly <kelly@example.com>' . "\r\n";
-$cabeceras .= 'From: Recordatorio <cumples@example.com>' . "\r\n";
-$cabeceras .= 'Cc: birthdayarchive@example.com' . "\r\n";
-$cabeceras .= 'Bcc: birthdaycheck@example.com' . "\r\n";
-
+// $cabeceras .= 'To: Mary <mary@example.com>, Kelly <kelly@example.com>' . "\r\n";
+$cabeceras .= 'From: Winder Roman <winderroman3131@gmail.com>' . "\r\n";
+// $cabeceras .= 'Cc: birthdayarchive@example.com' . "\r\n";
+// $cabeceras .= 'Bcc: birthdaycheck@example.com' . "\r\n";
+// ;sendmail_from = winderroman3131@gmail.com
 // Enviarlo
-mail($para, $título, $mensaje, $cabeceras);
+$enviado = false;
+if ( mail($para, $título, $mensaje, $cabeceras) ) {
+    $enviado = true;
+}
 ?>

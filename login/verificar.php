@@ -17,7 +17,15 @@
                     $correo = $_POST['email'];
                     $Consultacorreo = $conexion->query("SELECT email FROM usuarios WHERE email LIKE '%$correo%' ");
                     $result = mysqli_num_rows($Consultacorreo);
-                    if ($result != 0) {?>
+
+                    if ($result != 0) {
+                        $token = random_bytes(5);
+                        include("mail_recu.php");
+                        if ($enviado) {
+                            $conexion->query("INSERT INTO password (email,token,codigo) VALUES ('$correo','$token',$codigo )") or die($conexion->error);                        
+                            echo '<div class="alert alert-success" role="alert">Verifica tu email para restablecer</div>';
+                        }
+                        ?>
                         
                         <section class="vh-100">
                             <div class="container py-5 h-100" >
