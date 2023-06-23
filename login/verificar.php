@@ -19,7 +19,8 @@
                     $result = mysqli_num_rows($Consultacorreo);
 
                     if ($result != 0) {
-                        $token = random_bytes(5);
+                        $bytes = random_bytes(5);
+                        $token = bin2hex($bytes);
                         include("mail_recu.php");
                         if ($enviado) {
                             $conexion->query("INSERT INTO password (email,token,codigo) VALUES ('$correo','$token',$codigo )") or die($conexion->error);                        
