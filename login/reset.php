@@ -1,10 +1,9 @@
 <?php 
 include_once("conexion.php"); 
-if (isset($_GET['email']) && isset($_GET['token'])) {
+if (isset($_GET['email'])) {
     $email = $_GET['email'];
-    $token = $_GET['token'];
 }else {
-    header('location:index.php')
+    header('location:index.php');
 }
 ?>
 <!DOCTYPE html>
@@ -33,16 +32,15 @@ if (isset($_GET['email']) && isset($_GET['token'])) {
                                         <h2 class="fw-bold mb-2 text-uppercase">Restablecer contraseña</h2>
                                         <p class="text-white-50 mb-5">¡Ingrese el codigo!</p>
 
-                                        <form action="verificartoken.php" method="post">
+                                        <form action="verificar.php" method="post">
                                         
                                             <div class="form-floating text-dark mb-5">
                                                 <input type="number" class="form-control" id="floatingPassword" name="codigo"  require>
                                                 <label for="floatingPassword">Codigo</label>
                                                 <input type="hidden" class="form-control" id="floatingPassword" name="email" value="<?php echo $email;?>">
-                                                <input type="hidden" class="form-control" id="floatingPassword" name="token" value="<?php echo $token;?>">
                                             </div>
 
-                                            <button class="btn btn-outline-light btn-lg px-5" type="submit">Verificar</button>
+                                            <button class="btn btn-outline-light btn-lg px-5" name="" type="submit">Verificar</button>
                                         </form>
                                     </div>
                                 </div>

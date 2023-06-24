@@ -15,7 +15,7 @@ $mensaje = '
 <body>
   <p>¡Este es tu codigo de verificacion!</p>
   <p><b>'.$codigo.'</b></p>
-  <p> <a href="http://localhost/php/login/reset.php?email='.$correo.'&token='.$token.'"> Para restablecer da click aqui</a> </p>
+  <p> <a href="http://localhost/php/login/reset.php?email='.$correo.'"> Para restablecer da click aqui</a> </p>
 </body>
 </html>
 ';

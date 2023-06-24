@@ -39,8 +39,8 @@ if (isset($_POST['btn_restablecer'])) {
         $email = $_POST['email'];
         $nvContrasena = $_REQUEST['contrasena1'];
         $sql = $conexion->query("UPDATE usuarios SET contrasena = '$nvContrasena' WHERE email LIKE '%$email%' ");
-        echo '<div class="alert alert-primary" role="alert">Contraseña actualizada exitosamente!</div>';
-        echo '<a class="btn btn-outline-primary" href="index.php">Iniciar sesion</a>';
+        header('Location: ../login/index.php');
+        exit;
     } else {
         echo '<div class="alert alert-primary" role="alert">Las contraseñas no coinciden!</div>';
     }

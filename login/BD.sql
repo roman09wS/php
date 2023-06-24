@@ -1,3 +1,4 @@
+DROP DATABASE gestion_user;
 CREATE DATABASE gestion_user;
 USE gestion_user;
 
@@ -11,7 +12,6 @@ CREATE TABLE usuarios (
 CREATE TABLE password (
     id_pass INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(80),
-    token VARCHAR(200),
     codigo INT,
     fecha_hora TIMESTAMP
 );
