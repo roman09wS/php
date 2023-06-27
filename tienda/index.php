@@ -27,12 +27,11 @@
                             <button type="submit" name="createProducto" class="btn btn-outline-success">Registrar producto</button>
                             <button type="submit" name="createProveedor" class="btn btn-outline-success">Registrar proveedor</button>
                             <button type="submit" name="ventas" class="btn btn-outline-success">Registrar venta</button>
-                            <button type="submit" name="reporteVentas" class="btn btn-outline-success">Reporte ventas</button>
-
                         </div>
                     </form>
                     <a href="producto.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success mt-4">Productos</button></a>
                     <a href="proveedor.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success mt-4">Proveedores</button></a>
+                    <a href="reporte.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success mt-4">Reporte ventas</button></a>
                 </div>
             </div>
 
@@ -81,8 +80,8 @@
             $resultado = $conexion->query($sql); 
             ?>
             
-            <div class="container fataliti">
-                <form action="registrarProducto.php" method="post" class="row mt-4">
+            <div class="container">
+                <form action="" method="post" class="row mt-4">
                     <div class="col-4 mb-4">
                         <label for="" class="form-label">Nombre</label>
                         <input type="text" class="form-control" name="nombreP" id="" aria-describedby="helpId" placeholder="" required>
@@ -137,7 +136,7 @@
             $resultado = $conexion->query($sql);    
             ?>
             <div class="container">
-                <form action="registrarProveedor" method="post" class="row mt-4">
+                <form action="" method="post" class="row mt-4">
                     <div class="col-6 mb-4">
                         <label for="" class="form-label">Nombre</label>
                         <input type="text" class="form-control" name="nombreProveedor" id="" aria-describedby="helpId" placeholder="" required>
@@ -299,48 +298,6 @@
                 
             }
         ?>
-
-        <?php if (isset($_REQUEST['reporteVentas'])) { 
-            $reporte = $conexion->query("SELECT * FROM ventas");
-            $row = $reporte->fetch_array();
-            ?>
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="mb-3 text-center">
-                            <h1 class="display-2">Reporte Ventas</h1>
-                        </div>
-
-                        <table class="table table-hover">
-                            <thead class="table-success">
-                                <tr>
-                                    <th scope="col">Producto</th>
-                                    <th scope="col">Cantidad</th>
-                                    <th scope="col">Total</th>
-                                    <th scope="col">Fecha</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-group-divider">
-                                <?php while ($row=$reporte->fetch_array()) { ?>
-                                    <tr>
-                                        <th><?php echo $row['producto'];?></th>
-                                        <td><?php echo $row['cantidad'];?></td>
-                                        <td><?php echo $row['total'];?></td>
-                                        <td><?php echo $row['fecha'];?></td>
-                                    </tr>
-                                <?php }?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        <?php } ?>
-
-        
-            
-        
-        
-        
         
     </main>
 

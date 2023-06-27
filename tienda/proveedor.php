@@ -37,7 +37,7 @@
             }?>
 
 
-                <div class="container"<?php echo( (isset($_GET['idEditarProv'])) || (isset($_GET['idEliminarProv'])) )? 'hidden' : '' ;?>>
+                <div class="container"<?php echo( (isset($_GET['idEditarProv'])) || (isset($_GET['idEliminarProv'])) )? 'hidden' : '' ;?> >
                     <div class="row">
                         <div class="col-12 mt-4">
                             <table class="table table-hover">
@@ -85,7 +85,7 @@
             $id_proveedor = (int)  $_GET['idEditarProv'];
             $proveedor = $conexion->query("SELECT * FROM proveedor WHERE id_proveedor = $id_proveedor");
             while ($columna = $proveedor->fetch_array()) { ?>
-            <div class="container" <?php echo( (isset($_GET['idEditarProv'])) || (isset($_GET['idEliminarProv'])) )? 'hidden' : '' ;?>>
+            <div class="container" <?php echo( (isset($_GET['idEliminarProv'])) )? 'hidden' : '' ;?>>
                 <form action="" method="post" class="row">
                     <div class="col-6 mb-4">
                         <label for="" class="form-label"><b>Nombre: </b></label>
@@ -95,8 +95,10 @@
                     <div class="col-6 mb-4">
                         <label for="" class="form-label">Producto</label>
                         <select class="form-select form-select-lg" name="prodSelect" id="">
+                            <option value="<?php echo $columna['producto']?>"><?php echo $columna['producto'];?></option>
                             <?php foreach ($resultado as $productos) { ?>
                             <option value="<?php echo $productos['nombre']?>"><?php echo $productos['nombre'];?></option>
+
                             <?php } ?>
                         </select>
                     </div>

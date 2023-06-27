@@ -36,15 +36,18 @@
                 $consultaProducto=$conexion->query("SELECT * FROM producto");
             }?>
 
-                <div class="container"<?php echo( (isset($_GET['idEditarProv'])) || (isset($_GET['idEliminarProd'])) )? 'hidden' : '' ;?>>
+                <div class="container"<?php echo( (isset($_GET['idEditarProd'])) || (isset($_GET['idEliminarProd'])) )? 'hidden' : '' ;?>>
                     <div class="row">
                         <div class="col-12 mt-4">
                             <table class="table table-hover">
                                 <thead class="table-success">
                                     <tr>
                                         <th scope="col">Nombre</th>
-                                        <th scope="col">Ubicacion</th>
-                                        <th scope="col">Telefono</th>
+                                        <th scope="col">Descripcion</th>
+                                        <th scope="col">Costo</th>
+                                        <th scope="col">Precio</th>
+                                        <th scope="col">Stock</th>
+                                        <th scope="col">Proveedor</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divider">
@@ -115,9 +118,10 @@
 
                         <div class="col-4 mb-4">
                             <label for="" class="form-label">Proveedor</label>
-                            <select class="form-select form-select-lg" name="provSelect" id="" required>
+                            <select class="form-select form-select-lg" name="provSelect" id="">
+                                <option value="<?php echo $columna['proveedor']?>"><?php echo $columna['proveedor'];?></option>
                                 <?php foreach ($resultado as $proveedores) { ?>
-                                <option value="<?php echo $proveedores['nombre']?>"><?php echo $proveedores['nombre'];?></option>
+                                    <option value="<?php echo $proveedores['nombre']?>"><?php echo $proveedores['nombre'];?></option>
                                 <?php } ?>
                             </select>
                         </div>
