@@ -23,7 +23,7 @@ CREATE TABLE ventas (
 	id_ventas INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     producto VARCHAR(100),
     cantidad VARCHAR(100),
-    total VARCHAR(100),
+    total FLOAT,
     fecha TIMESTAMP
 );
 ALTER TABLE `ventas` CHANGE `fecha` `fecha` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP;

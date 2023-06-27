@@ -43,12 +43,21 @@ if(isset($_POST['ini']) and isset($_POST['fin'])){
                 $ini=($_POST['ini']);
                 $fin=($_POST['fin']);
                 $consulta=$conexion->query("SELECT * FROM ventas WHERE fecha BETWEEN '$ini' and '$fin' ");
+                $recaudo = $conexion->query("SELECT SUM(total) AS total FROM ventas WHERE fecha BETWEEN '$ini' and '$fin' ");
             }else{
                 $consulta = $conexion->query("SELECT * FROM ventas");
+                $recaudo = $conexion->query("SELECT SUM(total) AS total FROM ventas");
             }?>
 
-                <div class="container" <?php echo( (isset($_GET['anular'])) || (isset($_GET['activar'])) )? 'hidden' : '' ;?>>
+                <div class="container" <?php echo( (isset($_GET['idAnular'])) || (isset($_GET['idActivar'])) )? 'hidden' : '' ;?>>
                     <div class="row">
+                        <div class="col-12 text-center">
+                            <h3>Total recaudado: <?php
+                            $col=$recaudo->fetch_array();
+                            $total_recolectado = number_format($col['total'],2,',','.');
+                            print_r($total_recolectado);
+                            ?></h3>
+                        </div>
                         <div class="col-12 mt-4">
                             <table class="table table-hover">
                                 <thead class="table-success">
@@ -71,7 +80,6 @@ if(isset($_POST['ini']) and isset($_POST['fin'])){
                                         <?php
                                         if ($row['estado'] == 'ACTIVO') { ?>
                                             <td>
-                                                <?php $acumTotal = $acumTotal + $row['total']; ?>
                                                 <a class="btn btn-outline-danger" onChange="this.form.submit()" href="?idAnular=<?php echo $row['id_ventas'];?>" name="anular">
                                                 <i class="icon-edit">Anular</i></a>
                                             </td>
@@ -80,20 +88,18 @@ if(isset($_POST['ini']) and isset($_POST['fin'])){
                                                 <a class="btn btn-outline-success" onChange="this.form.submit()" href="?idActivar=<?php echo $row['id_ventas'];?>" name="activar">
                                                 <i class="icon-edit">Activar</i></a>
                                             </td>
-                                        <?php } 
-                                        $formatoMoneda = number_format($acumTotal,2,',','.');
-                                        ?>
+                                        <?php } ?>
                                     </tr>
                                 <?php }?>
                                 </tbody>
                             </table>
-                            <div class="col-2 d-grid mx-auto mt-4">
-                                <a href="index.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success">Volver a inicio</button></a>
-                            </div>
                         </div>
                     </div>
                 </div>
-
+                
+                <div class="col-2 d-grid mx-auto mt-4">
+                    <a href="index.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success">Volver a inicio</button></a>
+                </div>
 
         <?php
         if (isset($_GET['idAnular'])) {
@@ -106,6 +112,7 @@ if(isset($_POST['ini']) and isset($_POST['fin'])){
             $cantidad = (int) $row['cantidad'];
             $producto = $row['producto'];
             $conexion->query("UPDATE producto SET cantidad = cantidad - $cantidad WHERE nombre LIKE '%$producto%' ");
+            echo '<div class="alert alert-success" role="alert">Cambio guardado con éxito!</div>';
 
         }elseif (isset($_GET['idActivar'])) {
             $id_ventas = $_GET['idActivar'];
@@ -117,6 +124,8 @@ if(isset($_POST['ini']) and isset($_POST['fin'])){
             $cantidad = (int) $row['cantidad'];
             $producto = $row['producto'];
             $conexion->query("UPDATE producto SET cantidad = cantidad + $cantidad WHERE nombre LIKE '%$producto%' ");
+            echo '<div class="alert alert-success" role="alert">Cambio guardado con éxito!</div>';
+
         }
         ?>
     </main>
