@@ -19,6 +19,7 @@
                 <h1>Registrar producto</h1>
             </div>
         </header>
+        <?php include("layouts/header.php");?>
        
         <?php
         $sql = "SELECT * FROM proveedor";
@@ -73,7 +74,6 @@
                 </div>
     
             </form>
-            <a href="index.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success">Volver a inicio</button></a>
         </div>
 
    

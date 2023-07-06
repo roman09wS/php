@@ -19,6 +19,8 @@
                 <h1>Proveedores</h1>
             </div>
         </header>
+        <?php include("layouts/header.php");?>
+
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -87,7 +89,7 @@
             $id_proveedor = (int)  $_GET['idEditarProv'];
             $proveedor = $conexion->query("SELECT * FROM proveedor WHERE id_proveedor = $id_proveedor");
             while ($columna = $proveedor->fetch_array()) { ?>
-            <div class="container" <?php echo( (isset($_GET['idEliminarProv'])) )? 'hidden' : '' ;?>>
+            <div class="container mt-5" <?php echo( (isset($_GET['idEliminarProv'])) )? 'hidden' : '' ;?>>
                 <form action="" method="post" class="row">
                     <div class="col-6 mb-4">
                         <label for="" class="form-label"><b>Nombre: </b></label>
@@ -119,9 +121,6 @@
                         <button type="submit" id="alertP" name="btn_ActualizarProv" class="btn btn-outline-success">Actualizar</button>
                     </div>
                 </form>
-                <div class="col-12 d-grid mx-auto mt-4">
-                    <a href="index.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success">Volver a inicio</button></a>
-                </div>
             </div>
             <?php } ?>
         
@@ -132,7 +131,6 @@
         $id_proveedor = (int) $_GET['idEliminarProv'];
         $conexion->query("DELETE FROM proveedor WHERE id_proveedor = $id_proveedor");
         echo '<div class="alert alert-success" role="alert">Eliminado con éxito!</div>';
-        echo '<a href="index.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success">Volver a inicio</button></a>';
     }
 
     if (isset($_POST['btn_ActualizarProv'])) {
@@ -143,7 +141,6 @@
         $telefono = $_POST['telefono'];
         $conexion->query("UPDATE proveedor SET nombre = '$nombre',producto = '$producto' ,ubicacion = '$ubicacion',telefono = '$telefono' WHERE id_proveedor = $id_proveedor");
         echo '<div class="alert alert-success" role="alert">Actualizado con éxito!</div>';
-        echo '<a href="index.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success">Volver a inicio</button></a>';
     }
 
     ?>

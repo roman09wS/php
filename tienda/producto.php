@@ -19,6 +19,8 @@
                 <h1>Productos</h1>
             </div>
         </header>
+        <?php include("layouts/header.php");?>
+
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -76,9 +78,7 @@
                                 <?php }?>
                                 </tbody>
                             </table>
-                            <div class="col-2 d-grid mx-auto mt-4">
-                                <a href="index.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success">Volver a inicio</button></a>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                 $id_producto = (int)  $_GET['idEditarProd'];
                 $producto = $conexion->query("SELECT * FROM producto WHERE id_producto = $id_producto");
                 while ($columna = $producto->fetch_array()) { ?>
-                <div class="container">
+                <div class="container mt-5">
                     <form <?php echo( (isset($_POST['btn_ActualizarProd'])) )? 'hidden' : '' ;?> action="" method="post" class="row">
                         <div class="col-4 mb-4">
                             <label for="" class="form-label"><b>Nombre: </b></label>
@@ -141,7 +141,6 @@
         $id_producto = (int) $_GET['idEliminarProd'];
         $conexion->query("DELETE FROM producto WHERE id_producto = $id_producto");
         echo '<div class="alert alert-success" role="alert">Eliminado con éxito!</div>';
-        echo '<a href="index.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success">Volver a inicio</button></a>';
     }
     
     
@@ -156,13 +155,13 @@
         $proveedor = $_POST['provSelect'];
         $conexion->query("UPDATE producto SET nombre = '$nombre', descripcion = '$descripcionP', costo = $costo, precio = $precio,cantidad = $cantidad,proveedor = '$proveedor' WHERE id_producto = $id_producto");
         echo '<div class="alert alert-success" role="alert">Actualizado con éxito!</div>';
-        echo '<a href="index.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success">Volver a inicio</button></a>';
 
     }
 
     ?>
     </main>
 
+    <?php include("layouts/footer.php");?>
 
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"

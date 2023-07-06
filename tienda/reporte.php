@@ -23,12 +23,16 @@ if(isset($_POST['ini']) and isset($_POST['fin'])){
 
 <body>
     <main>
+        <header>
+            <div class="p-5 bg-dark text-white text-center">
+                <h1>Reporte ventas</h1>
+            </div>
+        </header>
+        <?php include("layouts/header.php");?>
+
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="mb-3 text-center">
-                        <h1 class="display-2">Reporte ventas</h1>
-                    </div>
                     <form action="" method="post">
                         <div class="input-group mt-4 mb-4">
                             <input type="date" class="form-control " name="ini" value="<?php echo $inicio;?>"/>

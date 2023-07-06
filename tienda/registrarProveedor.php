@@ -19,9 +19,8 @@
                 <h1>Registrar proveedor</h1>
             </div>
         </header>
-       
+        <?php include("layouts/header.php");?>
              
-        
         <?php
         $sql = "SELECT * FROM producto";
         $resultado = $conexion->query($sql);    

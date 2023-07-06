@@ -19,7 +19,10 @@
             <h1>Tienda Roman</h1>
         </div>
     </header>
-    <main>
+    <?php include("layouts/header.php");?>
+    <!-- Navigation-->
+
+    <main class="mb-5">
         <div class="container">
             <div class="row mt-4">
                 <div class="col-12 text-center">
@@ -28,11 +31,6 @@
                             <button type="submit" name="ventas" class="btn btn-outline-success">Registrar venta</button>
                         </div>
                     </form>
-                    <a href="registrarProveedor.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success mt-4">Registrar proveedor</button></a>
-                    <a href="registrarProducto.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success mt-4">Registrar producto</button></a>
-                    <a href="producto.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success mt-4">Productos</button></a>
-                    <a href="proveedor.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success mt-4">Proveedores</button></a>
-                    <a href="reporte.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success mt-4">Reporte ventas</button></a>
                 </div>
             </div>
 
@@ -75,12 +73,12 @@
             <?php }?>
             
         </div>
-        
+
         <?php if (isset($_POST['ventas'])) { 
             $sql = "SELECT * FROM producto";
             $resultado = $conexion->query($sql);
             ?>
-            <div class="container">
+            <div class="container mt-4">
                 <form action="" method="$_GET" class="row">
                     <div class="col-12 mb-4">
                         <label for=""  class="form-label">Seleccione el producto a vender</label>
@@ -115,6 +113,8 @@
                     <div class="col-6 mb-4">
                         <label for="" class="form-label" name=""><b>Precio: </b><?php echo $columna['precio'];?></label>
                     </div>
+
+                    
                     <div class="col-6 mb-4">
                         <label for="" class="form-label">Cantidad</label>
                         <input type="text" class="form-control" name="Cantidad" id="" aria-describedby="helpId" placeholder="" required>
@@ -126,6 +126,24 @@
                         <input type="text" class="form-control" name="Pago" id="" aria-describedby="helpId" placeholder="" required>
                         <small id="helpId" class="form-text text-muted">Con cuanto va a pagar</small>
                     </div>
+                    <div class="col-2 d-grid mx-auto mt-4">
+                        <div class="block-4 text-center border">
+                            <figure class="block-4-image">
+                                <a href="shop-single.php"><img src="img/cloth_1.jpg" alt="Image placeholder" class="img-fluid"></a>
+                            </figure>
+                            <div class="mb-5">
+              <div class="input-group mb-3" style="max-width: 120px;">
+              <div class="input-group-prepend">
+                <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+              </div>
+              <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+              <div class="input-group-append">
+                <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+              </div>
+            </div>
+                        </div>
+                    </div>
+
                     <div class="col-2 d-grid mx-auto mt-4">
                         <button type="submit" id="alertP" name="btn_Ventas" class="btn btn-outline-success">Guardar</button>
                     </div>
@@ -183,9 +201,6 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-2 d-grid mx-auto mt-4">
-                                <a href="index.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success">Volver a inicio</button></a>
-                            </div>
                         </div>
                     </div>
                 <?php
@@ -206,22 +221,8 @@
     </main>
 
 
-    <footer class="footer py-4 mt-5">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-4 text-lg-start">Copyright &copy; winderoman 2023</div>
-                <div class="col-lg-4 my-3 my-lg-0" >
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-                <div class="col-lg-4 text-lg-end">
-                    <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
-                    <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <?php include("layouts/footer.php");?>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
     </script>
