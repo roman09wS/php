@@ -1,18 +1,19 @@
 <?php
+define('ch', curl_init());
+
 function connection($id_poke) {
-    $ch = curl_init();
     $url = 'https://pokeapi.co/api/v2/pokemon/'.$id_poke.'';        
-    curl_setopt($ch,CURLOPT_URL,$url);
-    curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-    $response = curl_exec($ch);
+    curl_setopt(ch,CURLOPT_URL,$url);
+    curl_setopt(ch,CURLOPT_RETURNTRANSFER,true);
+    $response = curl_exec(ch);
+    return $response;
 }
 
 function api($ini) {
-    $ch = curl_init();
     $fin = $ini + 30;
-        for ($i=$ini; $i < $fin; $i++) { 
-            
-            curl_close($ch);
+    for ($i=$ini; $i < $fin; $i++) {
+            $response = connection($i);          
+            curl_close(ch);
             $pokemon_data = json_decode($response,true); ?>
             <div class="col-lg-4 col-sm-6 mb-4">
                 <!-- Portfolio item 1-->

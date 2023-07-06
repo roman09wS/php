@@ -7,6 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" type="image/x-icon" href="img/icono.jpg">
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="css/stylesHD.css">
@@ -24,11 +25,11 @@
                 <div class="col-12 text-center">
                     <form <?php echo( (isset($_REQUEST['btn_Ventas'])) )? 'hidden' : '' ;?> action="" method="post">
                         <div class="btn-group" role="group" aria-label="Basic outlined example">
-                            <button type="submit" name="createProducto" class="btn btn-outline-success">Registrar producto</button>
-                            <button type="submit" name="createProveedor" class="btn btn-outline-success">Registrar proveedor</button>
                             <button type="submit" name="ventas" class="btn btn-outline-success">Registrar venta</button>
                         </div>
                     </form>
+                    <a href="registrarProveedor.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success mt-4">Registrar proveedor</button></a>
+                    <a href="registrarProducto.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success mt-4">Registrar producto</button></a>
                     <a href="producto.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success mt-4">Productos</button></a>
                     <a href="proveedor.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success mt-4">Proveedores</button></a>
                     <a href="reporte.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success mt-4">Reporte ventas</button></a>
@@ -74,104 +75,7 @@
             <?php }?>
             
         </div>
-
-        <?php if (isset($_POST['createProducto'])){ 
-            $sql = "SELECT * FROM proveedor";
-            $resultado = $conexion->query($sql); 
-            ?>
-            
-            <div class="container">
-                <form action="" method="post" class="row mt-4">
-                    <div class="col-4 mb-4">
-                        <label for="" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" name="nombreP" id="" aria-describedby="helpId" placeholder="" required>
-                        <small id="helpId" class="form-text text-muted">Nombre del producto</small>
-                    </div>
-
-                    <div class="col-4 mb-4">
-                        <label for="" class="form-label">Descripcion</label>
-                        <textarea class="form-control" name="descripcionP" id="" rows="3" required></textarea>
-                        <small id="helpId" class="form-text text-muted">Descripcion del producto</small>
-                    </div>
-
-                    <div class="col-4 mb-4">
-                            <label for="" class="form-label">Costo</label>
-                        <input type="text" class="form-control" name="costoP" id="" aria-describedby="helpId" placeholder="" required>
-                        <small id="helpId" class="form-text text-muted">Costo del producto</small>
-                    </div>
-
-
-                    <div class="col-4 mb-4">
-                        <label for="" class="form-label">Precio</label>
-                        <input type="text" class="form-control" name="pvp" id="" aria-describedby="helpId" placeholder="" required>
-                        <small id="helpId" class="form-text text-muted">Precio a la venta</small>
-                    </div>
-
-                    <div class="col-4 mb-4">
-                        <label for="" class="form-label">Cantidad</label>
-                        <input type="text" class="form-control" name="cantidad" id="" aria-describedby="helpId" placeholder="" required>
-                        <small id="helpId" class="form-text text-muted">Cantidad de productos</small>
-                    </div>
-
-                    <div class="col-4 mb-4">
-                        <label for="" class="form-label">Proveedor</label>
-                        <select class="form-select form-select-lg" name="provSelect" id="" required>
-                            <option value="">Seleccione un proveedor</option>
-                            <?php foreach ($resultado as $proveedores) { ?>
-                            <option value="<?php echo $proveedores['nombre']?>"><?php echo $proveedores['nombre'];?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-
-                    <div class="col-2 d-grid mx-auto mt-4">
-                        <button type="submit" id="alertP" name="btn_Producto" class="btn btn-outline-success">Guardar</button>
-                    </div>
         
-                </form>
-            </div>
-        <?php }?>
-
-        <?php if (isset($_POST['createProveedor'])) { 
-            $sql = "SELECT * FROM producto";
-            $resultado = $conexion->query($sql);    
-            ?>
-            <div class="container">
-                <form action="" method="post" class="row mt-4">
-                    <div class="col-6 mb-4">
-                        <label for="" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" name="nombreProveedor" id="" aria-describedby="helpId" placeholder="" required>
-                        <small id="helpId" class="form-text text-muted">Nombre del proveedor</small>
-                    </div>
-
-                    <div class="col-6 mb-4">
-                        <label for="" class="form-label">Producto</label>
-                        <select class="form-select form-select-lg" name="prodSelect" id="" required>
-                            <option value="">Seleccione un producto</option>
-                            <?php foreach ($resultado as $producto) { ?>
-                            <option value="<?php echo $producto['nombre'];?>"><?php echo $producto['nombre'];?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-
-                    <div class="col-6 mb-4">
-                        <label for="" class="form-label">Ubicacion</label>
-                        <input type="text" class="form-control" name="Ubicacion" id="" aria-describedby="helpId" placeholder="" required>
-                        <small id="helpId" class="form-text text-muted">bajo el puente,etc</small>
-                    </div>
-
-                    <div class="col-6 mb-4">
-                            <label for="" class="form-label">Telefono</label>
-                        <input type="text" class="form-control" name="telefono" id="" aria-describedby="helpId" placeholder="" required>
-                        <small id="helpId" class="form-text text-muted">telefono del perro</small>
-                    </div>
-
-                    <div class="col-2 d-grid mx-auto mt-4">
-                        <button type="submit" id="alertP" name="btn_Proveedor" class="btn btn-outline-success">Guardar</button>
-                    </div>
-                </form>
-            </div>
-        <?php }?>
-
         <?php if (isset($_POST['ventas'])) { 
             $sql = "SELECT * FROM producto";
             $resultado = $conexion->query($sql);
@@ -302,9 +206,20 @@
     </main>
 
 
-    <footer>
-        <div class="mt-5 p-4 bg-dark text-white text-center">
-            <div class="mb-2">&copy; Winder Román 2023 || 99% LEGAL.</div>
+    <footer class="footer py-4 mt-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-4 text-lg-start">Copyright &copy; winderoman 2023</div>
+                <div class="col-lg-4 my-3 my-lg-0" >
+                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
+                    <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
+                </div>
+            </div>
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"

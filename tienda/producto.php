@@ -14,12 +14,14 @@
 
 <body>
     <main>
+        <header>
+            <div class="p-5 bg-dark text-white text-center">
+                <h1>Productos</h1>
+            </div>
+        </header>
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="mb-3 text-center">
-                        <h1 class="display-2">Productos</h1>
-                    </div>
                     <form action="" method="post" <?php echo( (isset($_GET['idEditarProd'])) || (isset($_GET['idEliminarProd'])) )? 'hidden' : '' ;?>>
                         <div class="input-group mt-4 mb-4">
                             <input type="search" class="form-control rounded" name="buscarProducto" placeholder="Digite el nombre del producto" aria-label="Search" aria-describedby="search-addon" />

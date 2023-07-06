@@ -43,10 +43,10 @@ if(isset($_POST['ini']) and isset($_POST['fin'])){
                 $ini=($_POST['ini']);
                 $fin=($_POST['fin']);
                 $consulta=$conexion->query("SELECT * FROM ventas WHERE fecha BETWEEN '$ini' and '$fin' ");
-                $recaudo = $conexion->query("SELECT SUM(total) AS total FROM ventas WHERE fecha BETWEEN '$ini' and '$fin' ");
+                $recaudo = $conexion->query("SELECT SUM(total) AS total FROM ventas WHERE estado = 'ACTIVO' AND fecha BETWEEN '$ini' and '$fin' ");
             }else{
                 $consulta = $conexion->query("SELECT * FROM ventas");
-                $recaudo = $conexion->query("SELECT SUM(total) AS total FROM ventas");
+                $recaudo = $conexion->query("SELECT SUM(total) AS total FROM ventas WHERE estado = 'ACTIVO' ");
             }?>
 
                 <div class="container" <?php echo( (isset($_GET['idAnular'])) || (isset($_GET['idActivar'])) )? 'hidden' : '' ;?>>
