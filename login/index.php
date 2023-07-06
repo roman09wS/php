@@ -27,8 +27,8 @@
 
                                         <form action="" method="post">
                                             <div class="form-floating text-dark mb-4">
-                                                <input type="text" class="form-control" id="floatingInput" name="nombre" placeholder="ingrese su nombre" require>
-                                                <label for="floatingInput">Usuario</label>
+                                                <input type="text" class="form-control" id="floatingInput" name="nombre" placeholder="ingrese su nombre o email" require>
+                                                <label for="floatingInput">Usuario o Email</label>
                                             </div>
                                             <div class="form-floating text-dark mb-5">
                                                 <input type="password" class="form-control" id="floatingPassword" name="pass" placeholder="contraseña" require>

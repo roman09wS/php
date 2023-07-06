@@ -5,7 +5,7 @@ USE gestion_user;
 CREATE TABLE usuarios (
     id_user INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(70),
-    contrasena VARCHAR(25),
+    contrasena VARCHAR(255),
     email VARCHAR(80) UNIQUE
 );
 
