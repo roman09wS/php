@@ -26,7 +26,7 @@
         <div class="container">
             <div class="row mt-4">
                 <div class="col-12 text-center">
-                    <form <?php echo( (isset($_REQUEST['btn_Ventas'])) )? 'hidden' : '' ;?> action="" method="post">
+                    <form <?php echo( (isset($_REQUEST['btn_Ventas'])) || (isset($_GET['prodSelect'])) )? 'hidden' : '' ;?> action="" method="post">
                         <div class="btn-group" role="group" aria-label="Basic outlined example">
                             <button type="submit" name="ventas" class="btn btn-outline-success">Registrar venta</button>
                         </div>
@@ -109,43 +109,35 @@
                     <div class="col-6 mb-4">
                         <label for="" class="form-label"><b>Nombre: </b><?php echo $columna['nombre'];?></label>
                     </div>
-
-                    <div class="col-6 mb-4">
-                        <label for="" class="form-label" name=""><b>Precio: </b><?php echo $columna['precio'];?></label>
-                    </div>
-
                     
                     <div class="col-6 mb-4">
+                        <label for="" class="form-label" name=""><b>Descripcion: </b><?php echo $columna['descripcion'];?></label>
+                    </div>
+
+                    <div class="col-6 mb-4">
+                        <label for="" class="form-label" name=""><b>Precio: </b></label>
+                        <input type="number" class="form-control" id="precio" value="<?php echo $columna['precio'];?>" disabled>
+                    </div>
+
+                    <div class="col-6 mb-4">
                         <label for="" class="form-label">Cantidad</label>
-                        <input type="text" class="form-control" name="Cantidad" id="" aria-describedby="helpId" placeholder="" required>
+                        <input type="number" class="form-control" name="Cantidad" id="numeroInput" aria-describedby="helpId" placeholder="" required>
                         <small id="helpId" class="form-text text-muted">Cantidad de <?php echo $columna['nombre'];?></small>
                     </div>
 
                     <div class="col-6 mb-4">
-                        <label for="" class="form-label">Dinero recibido</label>
-                        <input type="text" class="form-control" name="Pago" id="" aria-describedby="helpId" placeholder="" required>
-                        <small id="helpId" class="form-text text-muted">Con cuanto va a pagar</small>
-                    </div>
-                    <div class="col-2 d-grid mx-auto mt-4">
-                        <div class="block-4 text-center border">
-                            <figure class="block-4-image">
-                                <a href="shop-single.php"><img src="img/cloth_1.jpg" alt="Image placeholder" class="img-fluid"></a>
-                            </figure>
-                            <div class="mb-5">
-              <div class="input-group mb-3" style="max-width: 120px;">
-              <div class="input-group-prepend">
-                <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
-              </div>
-              <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-              <div class="input-group-append">
-                <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
-              </div>
-            </div>
-                        </div>
+                        <label for="" class="form-label"><b>Total a pagar:</b><h2 id="total"></h2></label>
                     </div>
 
+                    <div class="col-6 mb-4">
+                        <label for="" class="form-label">Dinero recibido</label>
+                        <input type="number" class="form-control" name="Pago" id="" aria-describedby="helpId" placeholder="" required>
+                        <small id="helpId" class="form-text text-muted">Con cuanto va a pagar</small>
+                    </div>
+                    
+
                     <div class="col-2 d-grid mx-auto mt-4">
-                        <button type="submit" id="alertP" name="btn_Ventas" class="btn btn-outline-success">Guardar</button>
+                        <button type="submit" id="alertP" name="btn_Ventas" class="btn btn-outline-success">Generar factura</button>
                     </div>
                 </form>
             </div>
@@ -203,26 +195,27 @@
                             </div>
                         </div>
                     </div>
-                <?php
-                } else {
-                    ?>
+                <?php } elseif($dineroRecibido < $totalTemp) { ?>
                     <div class="col-2 d-grid mx-auto mt-4">
                         <div class="alert alert-danger" role="alert">
-                            No tienes dinero suficiente! O la cantidad ingresada supera el stock del producto!
+                            No tienes dinero suficiente!
                         </div>
-                        <a href="index.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success">Volver a inicio</button></a>
                     </div>
-                    <?php
+                <?php } elseif ($cantidad > $stockTemp) { ?>
+                    <div class="col-2 d-grid mx-auto mt-4">
+                        <div class="alert alert-danger" role="alert">
+                            La cantidad ingresada supera el stock del producto!
+                        </div>
+                    </div>
+                <?php
                 }
-                
             }
         ?>
-        
     </main>
 
 
     <?php include("layouts/footer.php");?>
-
+    <script src="js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
     </script>

@@ -30,7 +30,7 @@ if(isset($_POST['ini']) and isset($_POST['fin'])){
         </header>
         <?php include("layouts/header.php");?>
 
-        <div class="container">
+        <div class="container" <?php echo( (isset($_GET['idAnular'])) || (isset($_GET['idActivar'])) )? 'hidden' : '' ;?>>
             <div class="row">
                 <div class="col-12">
                     <form action="" method="post">
@@ -99,10 +99,6 @@ if(isset($_POST['ini']) and isset($_POST['fin'])){
                             </table>
                         </div>
                     </div>
-                </div>
-                
-                <div class="col-2 d-grid mx-auto mt-4">
-                    <a href="index.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success">Volver a inicio</button></a>
                 </div>
 
         <?php
