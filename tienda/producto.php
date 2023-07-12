@@ -95,32 +95,32 @@
                     <form <?php echo( (isset($_POST['btn_ActualizarProd'])) )? 'hidden' : '' ;?> action="" method="post" class="row">
                         <div class="col-4 mb-4">
                             <label for="" class="form-label"><b>Nombre: </b></label>
-                            <input type="text" class="form-control" name="nombre" id="" aria-describedby="helpId" value="<?php echo $columna['nombre'];?>">
+                            <input type="text" class="form-control" name="nombre" aria-describedby="helpId" pattern="[A-Za-z ]+" value="<?php echo $columna['nombre'];?>">
                         </div>
 
                         <div class="col-4 mb-4">
                             <label for="" class="form-label" name=""><b>Descripcion: </b></label>
-                            <input class="form-control" name="descripcionP" id="" rows="3" value="<?php echo $columna['descripcion'];?>"></input>
+                            <input class="form-control" name="descripcionP" rows="3" value="<?php echo $columna['descripcion'];?>"></input>
                         </div>
 
                         <div class="col-4 mb-4">
                             <label for="" class="form-label">Costo</label>
-                            <input type="text" class="form-control" name="costo" id="" aria-describedby="helpId" value="<?php echo $columna['costo'];?>">
+                            <input type="number" class="form-control" name="costo" aria-describedby="helpId" min="0" pattern="[1-9]+" value="<?php echo $columna['costo'];?>">
                         </div>
 
                         <div class="col-4 mb-4">
                             <label for="" class="form-label">Precio</label>
-                            <input type="text" class="form-control" name="precio" id="" aria-describedby="helpId" value="<?php echo $columna['precio'];?>">
+                            <input type="number" class="form-control" name="precio" min="0" aria-describedby="helpId" value="<?php echo $columna['precio'];?>">
                         </div>
 
                         <div class="col-4 mb-4">
                             <label for="" class="form-label">Cantidad</label>
-                            <input type="text" class="form-control" name="cantidad" id="" aria-describedby="helpId" value="<?php echo $columna['cantidad'];?>">
+                            <input type="number" class="form-control" name="cantidad" aria-describedby="helpId" min="1" value="<?php echo $columna['cantidad'];?>">
                         </div>
 
                         <div class="col-4 mb-4">
                             <label for="" class="form-label">Proveedor</label>
-                            <select class="form-select form-select-lg" name="provSelect" id="">
+                            <select class="form-select form-select-lg" name="provSelect">
                                 <option value="<?php echo $columna['proveedor']?>"><?php echo $columna['proveedor'];?></option>
                                 <?php foreach ($resultado as $proveedores) { ?>
                                     <option value="<?php echo $proveedores['nombre']?>"><?php echo $proveedores['nombre'];?></option>
@@ -150,7 +150,7 @@
         $nombre = $_POST['nombre'];
         $descripcionP = $_POST['descripcionP'];
         $costo = (float) $_POST['costo'];
-        $precio = (float) $_POST['precio'];
+        $precio = (int) $_POST['precio'];
         $cantidad = (int) $_POST['cantidad'];
         $proveedor = $_POST['provSelect'];
         $conexion->query("UPDATE producto SET nombre = '$nombre', descripcion = '$descripcionP', costo = $costo, precio = $precio,cantidad = $cantidad,proveedor = '$proveedor' WHERE id_producto = $id_producto");

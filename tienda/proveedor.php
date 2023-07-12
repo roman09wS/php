@@ -89,16 +89,16 @@
             $id_proveedor = (int)  $_GET['idEditarProv'];
             $proveedor = $conexion->query("SELECT * FROM proveedor WHERE id_proveedor = $id_proveedor");
             while ($columna = $proveedor->fetch_array()) { ?>
-            <div class="container mt-5" <?php echo( (isset($_GET['idEliminarProv'])) )? 'hidden' : '' ;?>>
+            <div class="container mt-5" <?php echo( (isset($_POST['btn_ActualizarProv'])) )? 'hidden' : '' ;?>>
                 <form action="" method="post" class="row">
                     <div class="col-6 mb-4">
                         <label for="" class="form-label"><b>Nombre: </b></label>
-                        <input type="text" class="form-control" name="nombre" id="" aria-describedby="helpId" value="<?php echo $columna['nombre'];?>">
+                        <input type="text" class="form-control" name="nombre" pattern="[A-Za-z ]+" aria-describedby="helpId" value="<?php echo $columna['nombre'];?>">
                     </div>
 
                     <div class="col-6 mb-4">
                         <label for="" class="form-label">Producto</label>
-                        <select class="form-select form-select-lg" name="prodSelect" id="">
+                        <select class="form-select form-select-lg" name="prodSelect">
                             <option value="<?php echo $columna['producto']?>"><?php echo $columna['producto'];?></option>
                             <?php foreach ($resultado as $productos) { ?>
                             <option value="<?php echo $productos['nombre']?>"><?php echo $productos['nombre'];?></option>
@@ -109,12 +109,12 @@
 
                     <div class="col-6 mb-4">
                         <label for="" class="form-label">Ubicacion</label>
-                        <input type="text" class="form-control" name="ubicacion" id="" aria-describedby="helpId" value="<?php echo $columna['ubicacion'];?>">
+                        <input type="text" class="form-control" name="ubicacion" aria-describedby="helpId" value="<?php echo $columna['ubicacion'];?>">
                     </div>
 
                     <div class="col-6 mb-4">
                         <label for="" class="form-label">Telefono</label>
-                        <input type="text" class="form-control" name="telefono" id="" aria-describedby="helpId" value="<?php echo $columna['telefono'];?>">
+                        <input type="number" class="form-control" name="telefono" min=0 max=9999999999 aria-describedby="helpId" value="<?php echo $columna['telefono'];?>">
                     </div>
 
                     <div class="col-2 d-grid mx-auto mt-4">

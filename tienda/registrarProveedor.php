@@ -29,13 +29,13 @@
             <form action="" method="post" class="row mt-4" <?php echo( isset($_POST['btn_Proveedor'])? 'hidden': '')?>>
                 <div class="col-6 mb-4">
                     <label for="" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" name="nombreProveedor" id="" aria-describedby="helpId" placeholder="Ingrese el nombre" pattern="[A-Za-z ]+" required="required">
+                    <input type="text" class="form-control" name="nombreProveedor" aria-describedby="helpId" placeholder="Ingrese el nombre" pattern="[A-Za-z ]+" required="required">
                     <small id="helpId" class="form-text text-muted">Nombre del proveedor</small>
                 </div>
 
                 <div class="col-6 mb-4">
                     <label for="" class="form-label">Producto</label>
-                    <select class="form-select form-select-lg" name="prodSelect" id="" required>
+                    <select class="form-select form-select-lg" name="prodSelect" required>
                         <option value="">Seleccione un producto</option>
                         <?php foreach ($resultado as $producto) { ?>
                         <option value="<?php echo $producto['nombre'];?>"><?php echo $producto['nombre'];?></option>
@@ -45,13 +45,13 @@
 
                 <div class="col-6 mb-4">
                     <label for="" class="form-label">Ubicacion</label>
-                    <input type="text" class="form-control" name="Ubicacion" id="" aria-describedby="helpId" placeholder="Ingrese la ubicacion" required>
+                    <input type="text" class="form-control" name="Ubicacion" aria-describedby="helpId" placeholder="Ingrese la ubicacion" required>
                     <small id="helpId" class="form-text text-muted">direccion de donde vive</small>
                 </div>
 
                 <div class="col-6 mb-4">
                     <label for="" class="form-label">Telefono</label>
-                    <input type="number" class="form-control" name="telefono" id="" aria-describedby="helpId" placeholder="Ingrese el numero telefonico" min=0 max=9999999999 required>
+                    <input type="number" class="form-control" name="telefono" aria-describedby="helpId" placeholder="Ingrese el numero telefonico" min=0 max=9999999999 required>
                     <small id="helpId" class="form-text text-muted">número de contacto</small>
                 </div>
 

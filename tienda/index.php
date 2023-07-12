@@ -106,7 +106,7 @@
 
                     <div class="col-6 mb-4">
                         <label for="" class="form-label" name=""><b>Precio: </b></label>
-                        <input type="number" step="0.01" class="form-control" id="precio" value="<?php echo $columna['precio'];?>" disabled>
+                        <input type="decimal" step="0.01" class="form-control" id="precio" value="<?php echo $columna['precio'];?>" disabled>
                     </div>
 
                     <div class="col-6 mb-4">
@@ -116,7 +116,10 @@
                     </div>
 
                     <div class="col-6 mb-4">
-                        <label for="" class="form-label"><b>Total a pagar:</b><h2 id="total"></h2></label>
+                        <label for="" class="form-label">
+                            <b>Total a pagar:</b>
+                            <h2 id="total"></h2>
+                        </label>
                     </div>
 
                     <div class="col-6 mb-4">

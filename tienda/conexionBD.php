@@ -6,7 +6,7 @@ if (isset($_POST['btn_Producto'])) {
     $nombre = $_POST['nombreP'];
     $descripcion = $_POST['descripcionP'];
     $costo = (float) $_POST['costoP'];
-    $precio = (float) $_POST['pvp'];
+    $precio = (int) $_POST['pvp'];
     $cantidad = (int) $_POST['cantidad'];
     $proveedor = $_POST['provSelect'];
     try {
