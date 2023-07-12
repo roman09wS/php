@@ -12,7 +12,9 @@
                 <li class="nav-item"><a class="nav-link active navbar-brand mb-0 h1" href="registrarProducto.php">Registrar producto</a></li>
                 <li class="nav-item"><a class="nav-link active navbar-brand mb-0 h1" href="producto.php">Productos</a></li>
                 <li class="nav-item"><a class="nav-link active navbar-brand mb-0 h1" href="proveedor.php">Proveedores</a></li>
+                <li class="nav-item"><a class="nav-link active navbar-brand mb-0 h1" href="?ventas">Registrar venta</a></li>
                 <li class="nav-item"><a class="nav-link active navbar-brand mb-0 h1" href="reporte.php">Reporte ventas</a></li>
+                <li class="nav-item"><a class="nav-link active navbar-brand mb-0 h1 ms-5" href="../login/index.php"><i class="fa-solid fa-right-to-bracket"></i> Cerrar sesion</a></li>
             </ul>
         </div>
     </div>

@@ -24,12 +24,16 @@ if (isset($_POST['registro'])) {
     $pass = $_POST['pass'];
     $hashedPass = password_hash($pass, PASSWORD_DEFAULT); #encriptar password
     $email = $_POST['email'];
-    try {
-        $sql = $conexion->query("INSERT INTO usuarios (nombre,contrasena,email) VALUES ('$nombre','$hashedPass','$email') ");
-        echo '<div class="alert alert-primary" role="alert">Registrado con éxito!</div>';
-        echo '<a class="btn btn-outline-primary" href="index.php">Iniciar sesion</a>';
-    } catch (mysqli_sql_exception $th) {
-        echo '<div class="alert alert-danger" role="alert">Error ya existe ese correo</div>';
+    if (!is_string($email) && !filter_var($email,FILTER_VALIDATE_EMAIL)) {
+        echo '<div class="alert alert-danger" role="alert">Error en el Email</div>';
+    }else{
+        try {
+            $sql = $conexion->query("INSERT INTO usuarios (nombre,contrasena,email) VALUES ('$nombre','$hashedPass','$email') ");
+            echo '<div class="alert alert-primary" role="alert">Registrado con éxito!</div>';
+            echo '<a class="btn btn-outline-primary" href="index.php">Iniciar sesion</a>';
+        } catch (mysqli_sql_exception $th) {
+            echo '<div class="alert alert-danger" role="alert">Error ya existe ese correo</div>';
+        }
     }
 }
 

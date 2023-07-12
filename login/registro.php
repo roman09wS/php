@@ -27,17 +27,17 @@
 
                                         <form action="" method="post">
                                             <div class="form-floating text-dark mb-4">
-                                                <input type="text" class="form-control" id="floatingInput" name="nombre" placeholder="ingrese su nombre" require>
+                                                <input type="text" class="form-control" id="floatingInput" name="nombre" pattern="[A-Za-z ]+" placeholder="ingrese su nombre" required>
                                                 <label for="floatingInput">Nombre de usuario</label>
                                             </div>
                                             
                                             <div class="form-floating text-dark mb-5">
-                                                <input type="email" class="form-control" id="floatingPassword" name="email" placeholder="example@gmail.com" require>
+                                                <input type="email" class="form-control" id="floatingPassword" name="email" placeholder="example@gmail.com" required>
                                                 <label for="floatingPassword">Email</label>
                                             </div>
 
                                             <div class="form-floating text-dark mb-5">
-                                                <input type="password" class="form-control" id="floatingPassword" name="pass" placeholder="contraseña" require>
+                                                <input type="password" class="form-control" id="floatingPassword" name="pass" placeholder="contraseña" required>
                                                 <label for="floatingPassword">Contraseña</label>
                                             </div>
 

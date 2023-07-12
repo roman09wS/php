@@ -49,7 +49,7 @@
         <!-- Masthead-->
         <header class="masthead">
             <div class="container">
-                <div class="masthead-subheading">Bienvenido!</div>
+                <div class="masthead-subheading text-dark">Bienvenido!</div>
                 <div class="masthead-heading text-uppercase">Winder Roman</div>
             </div>
         </header>

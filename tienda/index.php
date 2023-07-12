@@ -24,16 +24,6 @@
 
     <main class="mb-5">
         <div class="container">
-            <div class="row mt-4">
-                <div class="col-12 text-center">
-                    <form <?php echo( (isset($_REQUEST['btn_Ventas'])) || (isset($_GET['prodSelect'])) )? 'hidden' : '' ;?> action="" method="post">
-                        <div class="btn-group" role="group" aria-label="Basic outlined example">
-                            <button type="submit" name="ventas" class="btn btn-outline-success">Registrar venta</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
             <?php if( empty($_POST) && empty($_GET) ){ ?>
                 <div class="row">
                 <div class="col-12 mt-4">
@@ -74,7 +64,7 @@
             
         </div>
 
-        <?php if (isset($_POST['ventas'])) { 
+        <?php if (isset($_GET['ventas'])) { 
             $sql = "SELECT * FROM producto";
             $resultado = $conexion->query($sql);
             ?>
@@ -116,12 +106,12 @@
 
                     <div class="col-6 mb-4">
                         <label for="" class="form-label" name=""><b>Precio: </b></label>
-                        <input type="number" class="form-control" id="precio" value="<?php echo $columna['precio'];?>" disabled>
+                        <input type="number" step="0.01" class="form-control" id="precio" value="<?php echo $columna['precio'];?>" disabled>
                     </div>
 
                     <div class="col-6 mb-4">
                         <label for="" class="form-label">Cantidad</label>
-                        <input type="number" class="form-control" name="Cantidad" id="numeroInput" aria-describedby="helpId" placeholder="" required>
+                        <input type="number" class="form-control" name="Cantidad" id="numeroInput" aria-describedby="helpId" placeholder="" min="1" required>
                         <small id="helpId" class="form-text text-muted">Cantidad de <?php echo $columna['nombre'];?></small>
                     </div>
 

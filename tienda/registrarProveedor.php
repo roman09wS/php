@@ -29,7 +29,7 @@
             <form action="" method="post" class="row mt-4" <?php echo( isset($_POST['btn_Proveedor'])? 'hidden': '')?>>
                 <div class="col-6 mb-4">
                     <label for="" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" name="nombreProveedor" id="" aria-describedby="helpId" placeholder="" required>
+                    <input type="text" class="form-control" name="nombreProveedor" id="" aria-describedby="helpId" placeholder="Ingrese el nombre" pattern="[A-Za-z ]+" required="required">
                     <small id="helpId" class="form-text text-muted">Nombre del proveedor</small>
                 </div>
 
@@ -45,21 +45,20 @@
 
                 <div class="col-6 mb-4">
                     <label for="" class="form-label">Ubicacion</label>
-                    <input type="text" class="form-control" name="Ubicacion" id="" aria-describedby="helpId" placeholder="" required>
-                    <small id="helpId" class="form-text text-muted">bajo el puente,etc</small>
+                    <input type="text" class="form-control" name="Ubicacion" id="" aria-describedby="helpId" placeholder="Ingrese la ubicacion" required>
+                    <small id="helpId" class="form-text text-muted">direccion de donde vive</small>
                 </div>
 
                 <div class="col-6 mb-4">
-                        <label for="" class="form-label">Telefono</label>
-                    <input type="text" class="form-control" name="telefono" id="" aria-describedby="helpId" placeholder="" required>
-                    <small id="helpId" class="form-text text-muted">telefono del perro</small>
+                    <label for="" class="form-label">Telefono</label>
+                    <input type="number" class="form-control" name="telefono" id="" aria-describedby="helpId" placeholder="Ingrese el numero telefonico" min=0 max=9999999999 required>
+                    <small id="helpId" class="form-text text-muted">número de contacto</small>
                 </div>
 
                 <div class="col-2 d-grid mx-auto mt-4">
                     <button type="submit" id="alertP" name="btn_Proveedor" class="btn btn-outline-success">Guardar</button>
                 </div>
             </form>
-            <a href="index.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success">Volver a inicio</button></a>
         </div>
     </main>
 

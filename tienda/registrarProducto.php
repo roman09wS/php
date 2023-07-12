@@ -30,7 +30,7 @@
             <form action="" method="post" class="row mt-4" <?php echo( isset($_POST['btn_Producto'])? 'hidden':'' );?>>
                 <div class="col-4 mb-4">
                     <label for="" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" name="nombreP" id="" aria-describedby="helpId" placeholder="" required>
+                    <input type="text" class="form-control" name="nombreP" id="" aria-describedby="helpId" placeholder="Nombre del producto" pattern="[A-Za-z]+" required>
                     <small id="helpId" class="form-text text-muted">Nombre del producto</small>
                 </div>
     
@@ -42,20 +42,20 @@
     
                 <div class="col-4 mb-4">
                         <label for="" class="form-label">Costo</label>
-                    <input type="text" class="form-control" name="costoP" id="" aria-describedby="helpId" placeholder="" required>
+                    <input type="number" class="form-control" name="costoP" id="" aria-describedby="helpId" placeholder="" min="0" required>
                     <small id="helpId" class="form-text text-muted">Costo del producto</small>
                 </div>
     
     
                 <div class="col-4 mb-4">
                     <label for="" class="form-label">Precio</label>
-                    <input type="text" class="form-control" name="pvp" id="" aria-describedby="helpId" placeholder="" required>
+                    <input type="number" class="form-control" name="pvp" id="" aria-describedby="helpId" min="0" placeholder="" required>
                     <small id="helpId" class="form-text text-muted">Precio a la venta</small>
                 </div>
     
                 <div class="col-4 mb-4">
                     <label for="" class="form-label">Cantidad</label>
-                    <input type="text" class="form-control" name="cantidad" id="" aria-describedby="helpId" placeholder="" required>
+                    <input type="number" class="form-control" name="cantidad" id="" aria-describedby="helpId" min="1" placeholder="" required>
                     <small id="helpId" class="form-text text-muted">Cantidad de productos</small>
                 </div>
     

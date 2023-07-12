@@ -9,7 +9,7 @@ numeroInput.addEventListener("input", calcularTotal);
 function calcularTotal() {
   // Obtener el valor del número ingresado
   const numero = parseInt(numeroInput.value);
-  const precio = parseInt(_precio.value);
+  const precio = parseFloat(_precio.value);
     if (numero < 0 ) {
         totalElement.textContent = 'No se puede calcular, ingrese un valor positivo';
     }else if(isNaN(numero)){
