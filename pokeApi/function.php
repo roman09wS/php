@@ -61,7 +61,7 @@ function api($ini) {
                                         </ul>
                                         <button class="btn btn-warning btn-xl  text-uppercase" data-bs-dismiss="modal" type="button">
                                             <i class="fas fa-xmark me-1"></i>
-                                            Close Project
+                                            Cerrar
                                         </button>
                                     </div>
                                 </div>
