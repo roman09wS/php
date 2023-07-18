@@ -74,9 +74,6 @@
                                 <?php }?>
                                 </tbody>
                             </table>
-                            <div class="col-2 d-grid mx-auto mt-4">
-                                <a href="index.php" rel="noopener noreferrer"><button type="submit" id="alertP" name="" class="btn btn-outline-success">Volver a inicio</button></a>
-                            </div>
                         </div>
                     </div>
                 </div>
