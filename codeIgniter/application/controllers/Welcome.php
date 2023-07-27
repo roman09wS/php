@@ -26,4 +26,11 @@ class Welcome extends CI_Controller {
 	public function test(){
 		echo ("HolaMundo");
 	}
+
+	public function vista() {
+		$data['titulo'] = 'Nuevo titulo';
+		$data['animals'] = ['leon','tigre','zebra']; 
+		$this->load->view('vista',$data);
+		$this->load->view('footer');
+	}
 }
