@@ -22,68 +22,11 @@ class Personas extends CI_Controller {
         $this->load->view('Personas/listado',$vdata);
     }
 
-    // public function guardar($persona_id = null){
-
-
-
-        
-    //     if($this->input->server("REQUEST_METHOD")=="POST"){
-
-    //         $vdata["nombre"] = $vdata["apellido"] = $vdata["edad"] = "";
-	// 	    if(isset($persona_id)){
-	// 		    $persona = $this->Persona->find($persona_id);
-
-    //             if(isset($persona)){
-    //                 $vdata["nombre"] = $persona->nombre;
-    //                 $vdata["apellido"] = $persona->apellido;
-    //                 $vdata["edad"] = $persona->edad;
-    //             }
-	// 	    }
-
-
-    //         $data["nombre"] = $this->input->post("nombre");
-    //         $data["apellido"] = $this->input->post("apellido");
-    //         $data["edad"] = $this->input->post("edad");
-    //         $data["genero"] = $this->input->post("genero");
-    //         $data["estado_civil"] = $this->input->post("estado_civil");
-    //         $data["php"] = $this->input->post("php");
-    //         $data["html"] = $this->input->post("html");
-    //         $data["python"] = $this->input->post("python");
-    //         $data["aws"] = $this->input->post("aws");
-    //         if ($data["php"] == null) {
-    //             $data["php"] = 'no sabe';
-    //         }
-    //         if ($data["html"] == null) {
-    //             $data["html"] = 'no sabe';
-    //         }
-    //         if ($data["python"] == null) {
-    //             $data["python"] = 'no sabe';
-    //         }
-    //         if ($data["aws"] == null) {
-    //             $data["aws"] = "no sabe";
-    //         }
-            
-    //         if (($data["nombre"] != null) && ($data["apellido"] != null) && ($data["edad"] != null) && ($data["genero"] != null) && ($data["estado_civil"] != null)) {
-    //             $this->Persona->insert($data);  
-    //         }
-    //     }
-
-    //     if (isset($persona_id)){
-    //         $this->Persona->update($persona_id, $data);		
-    //     }else{
-    //         $this->Persona->insert($data);
-    //     }
-        
-        
-        
-    //     $this->load->view('Personas/guardar', $vdata);
-            
-
-    // }
  
-
     public function delete($persona_id) {
-        $this->Persona->delete($persona_id);		
+        $this->Persona->delete($persona_id);
+        $vdata["personas"] = $this->Persona->findAll();
+        $this->load->view('Personas/listado',$vdata);		
     }
     public function guardar($persona_id = null)
 	{
@@ -145,19 +88,23 @@ class Personas extends CI_Controller {
             }
 				
 			if (isset($persona_id)){
-				$this->Persona->update($persona_id, $data);		
+				$this->Persona->update($persona_id, $data);
+                goto listar;
 			}else{
-				$this->Persona->insert($data);
+                $this->Persona->insert($data);
+                goto listar;
             }
-
 	    }
 
-		$this->load->view('personas/guardar', $vdata);
+        $this->load->view('personas/guardar',$vdata);
+
+        listar:
+            $vdata["personas"] = $this->Persona->findAll();
+            $this->load->view('Personas/listado',$vdata);
+        
+        
+
 	}
 
 
-    public function borrar()
-    {
-
-    }
 }

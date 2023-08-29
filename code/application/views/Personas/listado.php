@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <a href="guardar" class="btn btn-outline-success">Crear persona</a>
+                <a href="/php/code/index.php/Personas/guardar" class="btn btn-outline-success">Registrar persona</a>
             </div>
         </div>
         <div class="row">
@@ -35,10 +35,10 @@
                             <td><?= $persona->apellido ?></td>
                             <td><?= $persona->edad ?></td>
                             <td>
-                                <a href="guardar/<?= $persona->persona_id?>" class="btn btn-outline-success">Editar</a>
+                                <a href="/php/code/index.php/Personas/guardar/<?= $persona->persona_id?>" class="btn btn-outline-success">Editar</a>
                             </td>
                             <td>
-                                <a href="delete/<?= $persona->persona_id?>" class="btn btn-outline-danger">Borrar</a>
+                                <a href="/php/code/index.php/Personas/delete/<?= $persona->persona_id?>" class="btn btn-outline-danger">Borrar</a>
                             </td>
                         </tr>
                         <?php endforeach; ?>

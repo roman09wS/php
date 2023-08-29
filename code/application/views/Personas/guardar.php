@@ -8,7 +8,7 @@
   </head>
   <body>
     <div class="container">
-        <a href="../listado" class="btn btn-outline-dark mt-5 mb-5">Volver al listado</a>
+        <a href="/php/code/index.php/Personas/listado" class="btn btn-outline-dark mt-5 mb-5">Volver al listado</a>
         <?php echo form_open('');?>
             <div class="form-group">
                 <?php
@@ -55,9 +55,9 @@
 
                     $data = [
                         'name'      => 'genero',
-                        'value'     => $genero,
+                        'value'     => 'Masculino',
                         'class'     => 'form-check-input',
-                        'checked'     => $genero == 'Masculino'? true:false , 
+                        'checked'   => isset($genero)?true:false,
                     ];
                     echo form_radio($data);
                     ?>
@@ -65,13 +65,21 @@
             <div class="form-group">
                 <?php
                     echo form_label('Femenino', 'genero');
-
-                    $data = [
-                        'name'      => 'genero',
-                        'value'     => 'Femenino',
-                        'class'     => 'form-check-input',
-                        'checked'     => $genero == 'Femenino   '? true:false ,
-                    ];
+                    if (isset($genero) && $genero == 'Femenino') {
+                        $data = [
+                            'name'      => 'genero',
+                            'value'     => 'Femenino',
+                            'class'     => 'form-check-input',
+                            'checked'   => true,
+                        ];
+                    }else{
+                        $data = [
+                            'name'      => 'genero',
+                            'value'     => 'Femenino',
+                            'class'     => 'form-check-input',
+                            'checked'   => false,
+                        ];
+                    }
                     echo form_radio($data);
                     ?>
             </div>
@@ -131,9 +139,24 @@
                     echo form_checkbox($data);
                 ?>
             </div>
+            <a href=""></a>
+            <?php
+            $data = array(
+            'name'          => 'mysubmit',
+            'id'            => 'boton',
+            'type'          => 'submit',
+            'class'         => 'btn btn-outline-dark',
+            'content'       => 'Enviar!'
+            );
 
-            <?php echo form_submit('mysubmit', 'Enviar!','class=btn-outline-dark');?> 
-            <?php echo form_close();?>
+            echo form_button($data);
+
+            // Would produce: <button name="button" id="button" value="true" type="reset">Reset</button>
+            
+            
+            echo form_close();?>
+            
+            
 
 
 
