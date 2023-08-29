@@ -8,6 +8,7 @@
   </head>
   <body>
     <div class="container">
+        <a href="../listado" class="btn btn-outline-dark mt-5 mb-5">Volver al listado</a>
         <?php echo form_open('');?>
             <div class="form-group">
                 <?php
@@ -15,8 +16,8 @@
 
                     $data = [
                         'name'      => 'nombre',
-                        'value'     => '',
-                        'class'     => 'form-control input-lg', 
+                        'value'     => $nombre,
+                        'class'     => 'form-control input-sm', 
                     ];
                     echo form_input($data);
                     ?>
@@ -27,8 +28,8 @@
 
                     $data = [
                         'name'      => 'apellido',
-                        'value'     => '',
-                        'class'     => 'form-control input-lg', 
+                        'value'     => $apellido,
+                        'class'     => 'form-control input-sm', 
                     ];
                     echo form_input($data);
                     ?>
@@ -40,18 +41,102 @@
                     $data = [
                         'name'      => 'edad',
                         'type'      => 'number',
-                        'value'     => '',
+                        'value'     => $edad,
                         'class'     => 'form-control input-lg', 
                     ];
                     echo form_input($data);
                     ?>
             </div>
+            <div class="form-group">
+                <label for=""><b>Genero:</b></label>
+                <br>
+                <?php
+                    echo form_label('Masculino', 'genero');
+
+                    $data = [
+                        'name'      => 'genero',
+                        'value'     => $genero,
+                        'class'     => 'form-check-input',
+                        'checked'     => $genero == 'Masculino'? true:false , 
+                    ];
+                    echo form_radio($data);
+                    ?>
+            </div>
+            <div class="form-group">
+                <?php
+                    echo form_label('Femenino', 'genero');
+
+                    $data = [
+                        'name'      => 'genero',
+                        'value'     => 'Femenino',
+                        'class'     => 'form-check-input',
+                        'checked'     => $genero == 'Femenino   '? true:false ,
+                    ];
+                    echo form_radio($data);
+                    ?>
+            </div>
+            <div class="form-group">
+                <?php
+                    $options = [
+                    '' => 'Seleccione su estado',
+                    'soltero'  => 'Soltero(contento)',
+                    'casado'    => 'Casado(triste)',
+                    'viudo'  => 'Viudo(contento)',
+                    ];
+
+                    echo form_dropdown('estado_civil', $options);
+                   
+                ?>
+            </div>
+            <div class="form-group">
+                <h2 class="">Habilidades:</h2>
+                <label for="">PHP</label>
+                <?php
+                    $data = [
+                        'name'    => 'php',
+                        'value'   => 'si sabe',
+                        'class'   => 'form-check-input',
+                    ];
+
+                    echo form_checkbox($data);
+                ?>
+                <label for="">HTML</label>
+                <?php
+                    $data = [
+                        'name'    => 'html',
+                        'value'   => 'si sabe',
+                        'class'   => 'form-check-input',
+                    ];
+
+                    echo form_checkbox($data);
+                ?>
+                <label for="">Python</label>
+                <?php
+                    $data = [
+                        'name'    => 'python',
+                        'value'   => 'si sabe',
+                        'class'   => 'form-check-input',
+                    ];
+
+                    echo form_checkbox($data);
+                ?>
+                <label for="">AWS</label>
+                <?php
+                    $data = [
+                        'name'    => 'aws',
+                        'value'   => 'si sabe',
+                        'class'   => 'form-check-input',
+                    ];
+
+                    echo form_checkbox($data);
+                ?>
+            </div>
 
             <?php echo form_submit('mysubmit', 'Enviar!','class=btn-outline-dark');?> 
+            <?php echo form_close();?>
 
 
 
-        <?php echo form_close();?>
 
        
     </div>

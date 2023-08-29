@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Persona extends CI_Model {
     
     Public $table = 'personas';
-    Public $table_id = 'personas_id';
+    Public $table_id = 'persona_id';
 
 	Public function __construct(){
         parent::__construct();
@@ -13,24 +13,38 @@ class Persona extends CI_Model {
     }
 
 
+    function findAll(){
+        $this->db->select();
+        $this->db->from($this->table);
+
+        $query = $this->db->get();
+        return $query->result();
+    }
+
 	public function index()
 	{
 		
 	}
 
-    public function listado()
-    {
+    public function find($id){
+        $this->db->select();
+        $this->db->from($this->table);
+        $this->db->where($this->table_id,$id);
 
+        $query = $this->db->get();
+        return $query->row();
     }
 
-    public function guardar(){
-        
-
+    public function update($id, $data){
+        $this->db->where($this->table_id,$id);
+        $this->db->update($this->table,$data);
     }
 
-    public function borrar()
-    {
 
+    public function delete($id)
+    {
+        $this->db->where($this->table_id,$id);
+        $this->db->delete($this->table);
     }
 
     public function insert($data){
