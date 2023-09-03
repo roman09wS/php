@@ -85,57 +85,106 @@
             </div>
             <div class="form-group">
                 <?php
+                if (isset($estado_civil) && $estado_civil !== '') {
+                    $options = [
+                        $estado_civil => $estado_civil,
+                        'soltero'  => 'Soltero(contento)',
+                        'casado'    => 'Casado(triste)',
+                        'viudo'  => 'Viudo(contento)'
+                    ];
+                }else {
                     $options = [
                     '' => 'Seleccione su estado',
                     'soltero'  => 'Soltero(contento)',
                     'casado'    => 'Casado(triste)',
-                    'viudo'  => 'Viudo(contento)',
+                    'viudo'  => 'Viudo(contento)'
                     ];
-
-                    echo form_dropdown('estado_civil', $options);
-                   
+                }
+                echo form_dropdown('estado_civil', $options);
                 ?>
             </div>
             <div class="form-group">
                 <h2 class="">Habilidades:</h2>
                 <label for="">PHP</label>
                 <?php
-                    $data = [
-                        'name'    => 'php',
-                        'value'   => 'si sabe',
-                        'class'   => 'form-check-input',
-                    ];
+                    if (isset($php) && $php == 'si sabe') {
+                        $data = [
+                            'name'    => 'php',
+                            'value'   => 'si sabe',
+                            'class'   => 'form-check-input',
+                            'checked' =>  true
+                        ];
+                    }else {
+                        $data = [
+                            'name'    => 'php',
+                            'value'   => 'si sabe',
+                            'class'   => 'form-check-input',
+                            'checked' =>  false
+                        ];
+                    }
 
                     echo form_checkbox($data);
                 ?>
                 <label for="">HTML</label>
                 <?php
-                    $data = [
-                        'name'    => 'html',
-                        'value'   => 'si sabe',
-                        'class'   => 'form-check-input',
-                    ];
+                    if (isset($html) && $html == 'si sabe') {
+                        $data = [
+                            'name'    => 'html',
+                            'value'   => 'si sabe',
+                            'class'   => 'form-check-input',
+                            'checked' =>  true
+                        ];
+                        
+                    }else{
+                        $data = [
+                            'name'    => 'html',
+                            'value'   => 'si sabe',
+                            'class'   => 'form-check-input',
+                            'checked' =>  false
+                        ];
+                    }
 
                     echo form_checkbox($data);
                 ?>
                 <label for="">Python</label>
                 <?php
-                    $data = [
-                        'name'    => 'python',
-                        'value'   => 'si sabe',
-                        'class'   => 'form-check-input',
-                    ];
+                     if (isset($python) && $python == 'si sabe') {
+                        $data = [
+                            'name'    => 'python',
+                            'value'   => 'si sabe',
+                            'class'   => 'form-check-input',
+                            'checked' =>  true
+                        ];
+                        
+                    }else{
+                        $data = [
+                            'name'    => 'python',
+                            'value'   => 'si sabe',
+                            'class'   => 'form-check-input',
+                            'checked' =>  false
+                        ];
+                    }
 
                     echo form_checkbox($data);
                 ?>
                 <label for="">AWS</label>
                 <?php
-                    $data = [
-                        'name'    => 'aws',
-                        'value'   => 'si sabe',
-                        'class'   => 'form-check-input',
-                    ];
-
+                      if (isset($aws) && $aws == 'si sabe') {
+                        $data = [
+                            'name'    => 'aws',
+                            'value'   => 'si sabe',
+                            'class'   => 'form-check-input',
+                            'checked' =>  true
+                        ];
+                        
+                    }else{
+                        $data = [
+                            'name'    => 'aws',
+                            'value'   => 'si sabe',
+                            'class'   => 'form-check-input',
+                            'checked' =>  false
+                        ];
+                    }
                     echo form_checkbox($data);
                 ?>
             </div>

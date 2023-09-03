@@ -28,8 +28,9 @@ class Personas extends CI_Controller {
         $vdata["personas"] = $this->Persona->findAll();
         $this->load->view('Personas/listado',$vdata);		
     }
-    public function guardar($persona_id = null)
-	{
+
+    public function guardar($persona_id = null){
+        $vistaListado = false;
 		$vdata["nombre"] = $vdata["apellido"] = $vdata["edad"] = "";
 		if(isset($persona_id)){
 			$persona = $this->Persona->find($persona_id);
@@ -39,6 +40,12 @@ class Personas extends CI_Controller {
 				$vdata["apellido"] = $persona->apellido;
 				$vdata["edad"] = $persona->edad;
 				$vdata["genero"] = $persona->genero;
+                $vdata["php"] = $persona->php;
+                $vdata["html"] = $persona->html;
+                $vdata["python"] = $persona->python;
+                $vdata["aws"] = $persona->aws;
+                $vdata["estado_civil"] = $persona->estado_civil;
+                
 			}
 		}
         if($this->input->server("REQUEST_METHOD")== "POST"){
@@ -88,22 +95,21 @@ class Personas extends CI_Controller {
             }
 				
 			if (isset($persona_id)){
-				$this->Persona->update($persona_id, $data);
-                goto listar;
+                $this->Persona->update($persona_id, $data);
+                $vistaListado = true;
 			}else{
                 $this->Persona->insert($data);
-                goto listar;
+                $vistaListado = true;    
             }
 	    }
 
-        $this->load->view('personas/guardar',$vdata);
-
-        listar:
+        if ($vistaListado) {
             $vdata["personas"] = $this->Persona->findAll();
             $this->load->view('Personas/listado',$vdata);
+        }else{
+            $this->load->view('personas/guardar',$vdata);
+        }
         
-        
-
 	}
 
 
