@@ -21,8 +21,7 @@ class Persona extends CI_Model {
         return $query->result();
     }
 
-	public function index()
-	{
+	public function index(){
 		
 	}
 

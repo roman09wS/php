@@ -6,13 +6,13 @@ class Personas extends CI_Controller {
 	Public function __construct(){
         parent::__construct();
         $this->load->helper('form');
+        $this->load->helper('url');
         $this->load->model('Persona');
         $this->load->database();
     }
 
 
-	public function index()
-	{
+	public function index(){
 		
 	}
 
@@ -25,8 +25,7 @@ class Personas extends CI_Controller {
  
     public function delete($persona_id) {
         $this->Persona->delete($persona_id);
-        $vdata["personas"] = $this->Persona->findAll();
-        $this->load->view('Personas/listado',$vdata);		
+        redirect("/personas/listado");
     }
 
     public function guardar($persona_id = null){
@@ -104,13 +103,26 @@ class Personas extends CI_Controller {
 	    }
 
         if ($vistaListado) {
-            $vdata["personas"] = $this->Persona->findAll();
-            $this->load->view('Personas/listado',$vdata);
+            // $vdata["personas"] = $this->Persona->findAll();
+            // $this->load->view('Personas/listado',$vdata);
+            redirect("/personas/listado");	
         }else{
             $this->load->view('personas/guardar',$vdata);
         }
         
 	}
+
+    public function ver($persona_id = null) {
+        $persona = $this->Persona->find($persona_id);
+        if (isset($persona)) {
+            $vdata["nombre"] = $persona->nombre;
+            $vdata["apellido"] = $persona->apellido;
+            $vdata["edad"] = $persona->edad;
+        }else{
+            $vdata["nombre"] = $vdata["apellido"] = $vdata["edad"] = "";
+        }
+        $this->load->view('Personas/ver',$vdata);
+    }
 
 
 }

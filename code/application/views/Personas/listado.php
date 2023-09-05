@@ -22,6 +22,7 @@
                             <th scope="col">Nombre</th>
                             <th scope="col">Apellido</th>
                             <th scope="col">Edad</th>
+                            <th scope="col">Acciones</th>
                             <th></th>
                             <th></th>
                             
@@ -35,7 +36,10 @@
                             <td><?= $persona->apellido ?></td>
                             <td><?= $persona->edad ?></td>
                             <td>
-                                <a href="/php/code/index.php/Personas/guardar/<?= $persona->persona_id?>" class="btn btn-outline-success">Editar</a>
+                                <a href="/php/code/index.php/Personas/guardar/<?= $persona->persona_id?>" class="btn btn-outline-dark">Editar</a>
+                            </td>
+                            <td>
+                                <a href="/php/code/index.php/Personas/ver/<?= $persona->persona_id?>" class="btn btn-outline-primary">Ver</a>
                             </td>
                             <td>
                                 <a href="/php/code/index.php/Personas/delete/<?= $persona->persona_id?>" class="btn btn-outline-danger">Borrar</a>
