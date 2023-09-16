@@ -34,6 +34,10 @@ class Usuario extends CI_Model {
         return $query->row();
     }
 
+    public function login($data) {
+        
+    }
+
     public function update($id, $data){
         $this->db->where($this->table_id,$id);
         $this->db->update($this->table,$data);

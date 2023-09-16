@@ -46,13 +46,6 @@ CREATE TABLE `personas` (
 -- Volcado de datos para la tabla `personas`
 --
 
-INSERT INTO `personas` (`persona_id`, `nombre`, `apellido`, `edad`, `genero`, `estado_civil`, `php`, `html`, `python`, `aws`) VALUES
-(25, 'Mauricio', 'Roman', 38, 'Masculino', 'soltero', 'si sabe', 'si sabe', NULL, NULL),
-(26, 'Mauricio', 'Roman', 37, 'Masculino', 'casado', 'si sabe', NULL, NULL, NULL),
-(27, 'Mauricio', 'Roman', 100, 'Masculino', 'soltero', 'si sabe', 'si sabe', 'no sabe', NULL),
-(28, 'Mauricio', 'Roman', 24, 'Masculino', 'viudo', 'si sabe', 'no sabe', NULL, 'si sabe'),
-(32, 'Carlos', 'Bustamaneta', 29, 'Masculino', 'viudo', 'si sabe', 'si sabe', 'si sabe', 'si sabe'),
-(34, 'Carlos', 'Bustamante', 9999, 'Masculino', 'soltero', 'si sabe', 'si sabe', 'si sabe', 'si sabe');
 
 -- --------------------------------------------------------
 

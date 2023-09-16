@@ -16,6 +16,29 @@ class Gestion_user extends CI_Controller {
 		
 	}
 
+    public function login() {
+         // Obtener el nombre de usuario y la contraseña del formulario
+         $username = $this->input->post('username');
+         $password = $this->input->post('password');
+ 
+         // Obtener el hash de la contraseña almacenada en la base de datos para el usuario dado
+         $stored_password_hash = $this->auth_model->get_password_hash_by_username($username);
+ 
+         // Calcular el hash de la contraseña ingresada por el usuario
+         $input_password_hash = md5($password);
+ 
+         // Verificar si los hashes coinciden
+         if ($input_password_hash === $stored_password_hash) {
+             // Las contraseñas coinciden, el usuario está autenticado
+             // Realiza las acciones apropiadas después de la autenticación
+         } else {
+             // Las contraseñas no coinciden, muestra un mensaje de error
+         }
+ 
+         // Resto de tu lógica de inicio de sesión aquí...
+        $this->load->view('Usuarios/loginv2');
+    }
+
     public function listar_user()
     {
         $vdata["usuarios"] = $this->Usuario->findAll();
@@ -45,6 +68,10 @@ class Gestion_user extends CI_Controller {
             $data["password"] = $this->input->post("password");
             $data["correo"] = $this->input->post("correo");
 
+          
+            // Cifrar la contraseña usando MD5
+            $encrypted_password = $this->auth_model->encrypt_password_md5($data["password"]);
+
 
             $vdata["nombre"] = $this->input->post("nombre");
             $vdata["password"] = $this->input->post("password");
@@ -60,8 +87,6 @@ class Gestion_user extends CI_Controller {
 	    }
 
         if ($vistaListado) {
-            // $vdata["usuarios"] = $this->Usuario->findAll();
-            // $this->load->view('Usuarios/listar_user',$vdata);
             redirect("/Gestion_user/listar_user");	
         }else{
             $this->load->view('Usuarios/registrar',$vdata);

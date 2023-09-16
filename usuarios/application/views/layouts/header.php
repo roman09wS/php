@@ -16,7 +16,7 @@
           <a class="nav-link active ms-3 fs-5 fw-semibold" href="/php/usuarios/index.php/Gestion_user/listar_user">Ver lista de usuarios</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active ms-3 fs-5 fw-semibold" href="#">Cerrar Session</a>
+          <a class="nav-link active ms-3 fs-5 fw-semibold" href="/php/usuarios/index.php/Gestion_user/login">Cerrar Session</a>
         </li>
       </ul>
     </div>
