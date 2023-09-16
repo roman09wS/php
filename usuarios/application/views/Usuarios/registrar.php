@@ -20,7 +20,7 @@
   <div class="container">
     <div class="row text-center">
         <div class="col-12">
-            <h4 class="fs-1 text-center mt-5 mb-5 font-monospace">Registrar Usuario</h4>
+            <h4 class="fs-1 text-center mt-5 mb-5 font-monospace"><?php echo(isset($id_usuario)?'Editar Usuario':'Registrar Usuario');?></h4>
             <img src="https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg" alt="" class="img-fluid">    
         </div>
     </div>

@@ -44,7 +44,7 @@
                             <td><?= $user->password?></td>
                             <td><?= $user->correo ?></td>
                             <td>
-                                <a href="guardar/<?= $user->id_usuario ?>" class="btn btn-outline-primary"><i class="fa-solid fa-square-pen fa-xl"></i></a>
+                                <a href="registrar/<?= $user->id_usuario ?>" class="btn btn-outline-primary"><i class="fa-solid fa-square-pen fa-xl"></i></a>
                                 <a href="ver/<?= $user->id_usuario ?>" class="btn btn-outline-dark"><i class="fa-solid fa-eye"></i></a>
                                 <a href="delete/<?= $user->id_usuario ?>" class="btn btn-outline-danger"><i class="fa-solid fa-circle-minus"></i></a>
                             </td>

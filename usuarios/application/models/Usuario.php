@@ -34,9 +34,35 @@ class Usuario extends CI_Model {
         return $query->row();
     }
 
-    public function login($data) {
+    private function get_user_by_email_or_nombre($identifier) {
+        $this->db->select();
+        $this->db->from($this->table);
+        $this->db->where('nombre', $identifier);
+        $this->db->or_where('correo', $identifier);
         
+        $query = $this->db->get();
+        return $query->row();
     }
+
+    public function login($data) {
+        if (isset($data['password']) && isset($data['correo'])) {
+            $correo = $data['correo'];
+            $password = $data['password'];
+            $password_hash = md5($password);
+            $user = $this->get_user_by_email_or_nombre($correo);
+    
+            if ($user && $user->password === $password_hash) {
+                // La contraseña coincide
+                return $user;
+            } else {
+                // La contraseña no coincide o el usuario no existe
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+    
 
     public function update($id, $data){
         $this->db->where($this->table_id,$id);
@@ -51,6 +77,7 @@ class Usuario extends CI_Model {
     }
 
     public function insert($data){
+       $data['password'] = md5($data['password']);
         $this->db->insert($this->table, $data);
         return $this->db->insert_id();
     }

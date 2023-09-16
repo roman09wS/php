@@ -18,25 +18,41 @@ class Gestion_user extends CI_Controller {
 
     public function login() {
          // Obtener el nombre de usuario y la contraseña del formulario
-         $username = $this->input->post('username');
-         $password = $this->input->post('password');
+        //  $username = $this->input->post('username');
+        //  $password = $this->input->post('password');
  
-         // Obtener el hash de la contraseña almacenada en la base de datos para el usuario dado
-         $stored_password_hash = $this->auth_model->get_password_hash_by_username($username);
+        //  // Obtener el hash de la contraseña almacenada en la base de datos para el usuario dado
+        //  $stored_password_hash = $this->auth_model->get_password_hash_by_username($username);
  
-         // Calcular el hash de la contraseña ingresada por el usuario
-         $input_password_hash = md5($password);
+        //  // Calcular el hash de la contraseña ingresada por el usuario
+        //  $input_password_hash = md5($password);
  
-         // Verificar si los hashes coinciden
-         if ($input_password_hash === $stored_password_hash) {
-             // Las contraseñas coinciden, el usuario está autenticado
-             // Realiza las acciones apropiadas después de la autenticación
-         } else {
-             // Las contraseñas no coinciden, muestra un mensaje de error
-         }
+        //  // Verificar si los hashes coinciden
+        //  if ($input_password_hash === $stored_password_hash) {
+        //      // Las contraseñas coinciden, el usuario está autenticado
+        //      // Realiza las acciones apropiadas después de la autenticación
+        //  } else {
+        //      // Las contraseñas no coinciden, muestra un mensaje de error
+        //  }
  
          // Resto de tu lógica de inicio de sesión aquí...
-        $this->load->view('Usuarios/loginv2');
+         
+         if($this->input->server("REQUEST_METHOD")== "POST"){
+            $data["password"] = $this->input->post("password");
+            $data["correo"] = $this->input->post("correo");
+            $usuario = $this->Usuario->login($data);
+            if ($usuario) {
+                redirect("/Gestion_user/listar_user");	
+            }else{
+                $mensaje['msg'] = "Error";
+            }
+	    }
+
+        if (isset($mensaje)) {
+            $this->load->view('Usuarios/login',$mensaje);
+        }else{
+            $this->load->view('Usuarios/login');
+        }
     }
 
     public function listar_user()
@@ -48,7 +64,7 @@ class Gestion_user extends CI_Controller {
  
     public function delete($usuario_id) {
         $this->Usuario->delete($usuario_id);
-        redirect("/Usuarios/listar_user");
+        redirect("/Gestion_user/listar_user");
     }
 
     public function registrar($usuario_id = null){
@@ -58,9 +74,10 @@ class Gestion_user extends CI_Controller {
 			$usuario = $this->Usuario->find($usuario_id);
 
 			if(isset($usuario)){
+				$vdata["id_usuario"] = $usuario->id_usuario;
 				$vdata["nombre"] = $usuario->nombre;
 				$vdata["correo"] = $usuario->correo;
-				$vdata["passw"] = $usuario->passw;         
+				$vdata["password"] = $usuario->password;         
 			}
 		}
         if($this->input->server("REQUEST_METHOD")== "POST"){
@@ -70,7 +87,7 @@ class Gestion_user extends CI_Controller {
 
           
             // Cifrar la contraseña usando MD5
-            $encrypted_password = $this->auth_model->encrypt_password_md5($data["password"]);
+            // $encrypted_password = $this->auth_model->encrypt_password_md5($data["password"]);
 
 
             $vdata["nombre"] = $this->input->post("nombre");
@@ -97,16 +114,13 @@ class Gestion_user extends CI_Controller {
     public function ver($persona_id = null) {
         $persona = $this->Usuario->find($persona_id);
         if (isset($persona)) {
-            $vdata["serial"] = $persona->serial;
             $vdata["nombre"] = $persona->nombre;
-            $vdata["descripcion"] = $persona->descripcion;
-            $vdata["costo"] = $persona->costo;
-            $vdata["precio"] = $persona->precio;
-            $vdata["cantidad"] = $persona->cantidad;
+            $vdata["password"] = $persona->password;
+            $vdata["correo"] = $persona->correo;
         }else{
-            $vdata["nombre"] = $vdata["serial"] = $vdata["descripcion"] = $vdata["costo"] = "";
+            $vdata["nombre"] = $vdata["password"] = $vdata["correo"] = "";
         }
-        $this->load->view('Productos/ver',$vdata);
+        $this->load->view('Usuarios/ver',$vdata);
     }
 
 
