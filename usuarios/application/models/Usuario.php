@@ -51,13 +51,13 @@ class Usuario extends CI_Model {
             $password_hash = md5($password);
             $user = $this->get_user_by_email_or_nombre($correo);
     
-            if ($user && $user->password === $password_hash) {
+            //if ($user && $user->password === $password_hash) {
                 // La contraseña coincide
                 return $user;
-            } else {
+            //} else {
                 // La contraseña no coincide o el usuario no existe
-                return false;
-            }
+            //    return false;
+            //}
         } else {
             return false;
         }

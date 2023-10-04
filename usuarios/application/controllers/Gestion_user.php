@@ -9,6 +9,7 @@ class Gestion_user extends CI_Controller {
         $this->load->helper('url');
         $this->load->model('Usuario');
         $this->load->database();
+        $this->load->library('session');
     }
 
 
@@ -17,31 +18,17 @@ class Gestion_user extends CI_Controller {
 	}
 
     public function login() {
-         // Obtener el nombre de usuario y la contraseña del formulario
-        //  $username = $this->input->post('username');
-        //  $password = $this->input->post('password');
- 
-        //  // Obtener el hash de la contraseña almacenada en la base de datos para el usuario dado
-        //  $stored_password_hash = $this->auth_model->get_password_hash_by_username($username);
- 
-        //  // Calcular el hash de la contraseña ingresada por el usuario
-        //  $input_password_hash = md5($password);
- 
-        //  // Verificar si los hashes coinciden
-        //  if ($input_password_hash === $stored_password_hash) {
-        //      // Las contraseñas coinciden, el usuario está autenticado
-        //      // Realiza las acciones apropiadas después de la autenticación
-        //  } else {
-        //      // Las contraseñas no coinciden, muestra un mensaje de error
-        //  }
- 
-         // Resto de tu lógica de inicio de sesión aquí...
-         
-         if($this->input->server("REQUEST_METHOD")== "POST"){
+        if($this->input->server("REQUEST_METHOD")== "POST"){
             $data["password"] = $this->input->post("password");
             $data["correo"] = $this->input->post("correo");
             $usuario = $this->Usuario->login($data);
             if ($usuario) {
+                $session_data = array(
+                    'user_id' => $usuario->id_usuario,
+                    'correo' => $usuario->correo,
+                    // Agrega cualquier otro dato de usuario que desees almacenar en la sesión
+                );
+                $this->session->set_userdata($session_data);
                 redirect("/Gestion_user/listar_user");	
             }else{
                 $mensaje['msg'] = "Error";
@@ -55,19 +42,39 @@ class Gestion_user extends CI_Controller {
         }
     }
 
+    public function cerrar_sesion() {
+        $this->session->sess_destroy(); // Destruye la sesión actual
+        redirect("/Gestion_user/login"); // Redirige al inicio de sesión o a donde prefieras
+    }
+    
+
     public function listar_user()
     {
+        if (!$this->session->userdata('user_id')) {
+            // La sesión no está activa, redirigir al inicio de sesión
+            redirect('/Gestion_user/login');
+        }
         $vdata["usuarios"] = $this->Usuario->findAll();
         $this->load->view('Usuarios/listar_user',$vdata);
     }
 
  
     public function delete($usuario_id) {
+        if (!$this->session->userdata('user_id')) {
+            // La sesión no está activa, redirigir al inicio de sesión
+            redirect('/Gestion_user/login');
+        }
+
         $this->Usuario->delete($usuario_id);
         redirect("/Gestion_user/listar_user");
     }
 
     public function registrar($usuario_id = null){
+        if (!$this->session->userdata('user_id')) {
+            // La sesión no está activa, redirigir al inicio de sesión
+            redirect('/Gestion_user/login');
+        }
+
         $vistaListado = false;
 		$vdata["nombre"] = $vdata["correo"] = $vdata["password"] = "";
 		if(isset($usuario_id)){
@@ -112,6 +119,11 @@ class Gestion_user extends CI_Controller {
 	}
 
     public function ver($persona_id = null) {
+         if (!$this->session->userdata('user_id')) {
+            // La sesión no está activa, redirigir al inicio de sesión
+            redirect('/Gestion_user/login');
+        }
+
         $persona = $this->Usuario->find($persona_id);
         if (isset($persona)) {
             $vdata["nombre"] = $persona->nombre;
