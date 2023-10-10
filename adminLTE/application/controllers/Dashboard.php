@@ -26,6 +26,7 @@ class Dashboard extends CI_Controller {
                 $session_data = array(
                     'user_id' => $usuario->id_usuario,
                     'correo' => $usuario->correo,
+                    'rol' => $usuario->rol,
                     // Agrega cualquier otro dato de usuario que desees almacenar en la sesión
                 );
                 $this->session->set_userdata($session_data);
@@ -56,6 +57,19 @@ class Dashboard extends CI_Controller {
         }
         $vdata["usuarios"] = $this->Usuario->findAll();
         $this->load->view('Dashboard/plantilla',$vdata);
+    }
+
+    public function tabla() {
+        if (!$this->session->userdata('user_id')) {
+            redirect('/Dashboard/login');
+        }
+
+        if ($this->session->userdata('rol') == 'admin') {
+            $rolUser["rol"] = "permiso";
+            $vdata["usuarios"] = $this->Usuario->findAll();
+            $this->load->view('Dashboard/tabla',$vdata,$rolUser);
+        }
+
     }
 
  
