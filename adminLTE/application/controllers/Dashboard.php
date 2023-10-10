@@ -51,12 +51,22 @@ class Dashboard extends CI_Controller {
 
     public function plantilla()
     {
+        $user_rol = $this->session->userdata('rol');
+        $correo = $this->session->userdata('correo');
+        $nombre = $this->Usuario->get_name($correo);
+        $datos = array(
+            "nombre" => $nombre,
+            "rol" => $user_rol,
+            "correo" => $correo,
+        );
+
         if (!$this->session->userdata('user_id')) {
             // La sesión no está activa, redirigir al inicio de sesión
             redirect('/Dashboard/login');
         }
-        $vdata["usuarios"] = $this->Usuario->findAll();
-        $this->load->view('Dashboard/plantilla',$vdata);
+        
+
+        $this->load->view('Dashboard/plantilla',$datos);
     }
 
     public function tabla() {
@@ -64,11 +74,8 @@ class Dashboard extends CI_Controller {
             redirect('/Dashboard/login');
         }
 
-        if ($this->session->userdata('rol') == 'admin') {
-            $rolUser["rol"] = "permiso";
-            $vdata["usuarios"] = $this->Usuario->findAll();
-            $this->load->view('Dashboard/tabla',$vdata,$rolUser);
-        }
+        $vdata["usuarios"] = $this->Usuario->findAll();
+        $this->load->view('Dashboard/tabla',$vdata);
 
     }
 
@@ -80,7 +87,7 @@ class Dashboard extends CI_Controller {
         }
 
         $this->Usuario->delete($usuario_id);
-        redirect("/Dashboard/plantilla");
+        redirect("/Dashboard/tabla");
     }
 
     public function registrar($usuario_id = null){
@@ -90,30 +97,25 @@ class Dashboard extends CI_Controller {
         }
 
         $vistaListado = false;
-		$vdata["nombre"] = $vdata["correo"] = $vdata["password"] = "";
+		$vdata["nombre"] = $vdata["correo"] = $vdata["passw"] = $vdata["rol"] = "";
 		if(isset($usuario_id)){
 			$usuario = $this->Usuario->find($usuario_id);
 
 			if(isset($usuario)){
 				$vdata["id_usuario"] = $usuario->id_usuario;
-				$vdata["nombre"] = $usuario->nombre;
 				$vdata["correo"] = $usuario->correo;
-				$vdata["password"] = $usuario->password;         
+				$vdata["passw"] = $usuario->passw;         
+				$vdata["rol"] = $usuario->rol;         
 			}
 		}
         if($this->input->server("REQUEST_METHOD")== "POST"){
-            $data["nombre"] = $this->input->post("nombre");
-            $data["password"] = $this->input->post("password");
+            $data["passw"] = $this->input->post("passw");
             $data["correo"] = $this->input->post("correo");
-
-          
-            // Cifrar la contraseña usando MD5
-            // $encrypted_password = $this->auth_model->encrypt_password_md5($data["password"]);
-
-
-            $vdata["nombre"] = $this->input->post("nombre");
-            $vdata["password"] = $this->input->post("password");
+            $data["rol"] = $this->input->post("rol");
+            #---------------------------------------------------
+            $vdata["passw"] = $this->input->post("passw");
             $vdata["correo"] = $this->input->post("correo");
+            $vdata["rol"] = $this->input->post("rol");
            
 			if (isset($usuario_id)){
                 $this->Usuario->update($usuario_id, $data);
@@ -125,28 +127,22 @@ class Dashboard extends CI_Controller {
 	    }
 
         if ($vistaListado) {
-            redirect("/Dashboard/plantilla");	
+            redirect("/Dashboard/tabla");	
         }else{
             $this->load->view('Dashboard/registrar',$vdata);
         }
         
 	}
 
-    public function ver($persona_id = null) {
+    public function perfil() {
          if (!$this->session->userdata('user_id')) {
             // La sesión no está activa, redirigir al inicio de sesión
             redirect('/Dashboard/login');
         }
 
-        $persona = $this->Usuario->find($persona_id);
-        if (isset($persona)) {
-            $vdata["nombre"] = $persona->nombre;
-            $vdata["password"] = $persona->password;
-            $vdata["correo"] = $persona->correo;
-        }else{
-            $vdata["nombre"] = $vdata["password"] = $vdata["correo"] = "";
-        }
-        $this->load->view('Dashboard/ver',$vdata);
+        $this->load->view('Dashboard/profile');
+
+        
     }
 
 

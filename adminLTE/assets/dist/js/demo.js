@@ -680,7 +680,7 @@
   }
 })(jQuery)
 
-
+// Cambiar modo nocturno y viceversa
 let switchButton = document.getElementById('customSwitch1');
 let bodyChange = document.getElementById('bodyChange');
 let iconMode = document.getElementById('iconMode');
@@ -695,4 +695,4 @@ switchButton.addEventListener('click', () => {
     iconMode.setAttribute('class', 'fa-solid fa-moon');
     switchMode = true;
   }
-})
+});

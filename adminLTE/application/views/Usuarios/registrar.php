@@ -92,7 +92,7 @@
         </div>
         
     </div>
-        <?= form_close(); ?>
+    <?= form_close(); ?>
   </div>
   <!--img https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg -->
   <?php include('application/views/layouts/footer.php')?>

@@ -70,13 +70,28 @@ class Usuario extends CI_Model {
 
     public function delete($id)
     {
-        $this->db->where($this->table_id,$id);
-        $this->db->delete($this->table);
+        $data = array('estado' => 0);
+        $this->db->where($this->table_id, $id);
+        $this->db->update($this->table, $data);
     }
 
     public function insert($data){
-       $data['password'] = md5($data['password']);
+        //$data['password'] = md5($data['password']);
         $this->db->insert($this->table, $data);
         return $this->db->insert_id();
+    }
+
+    public function get_name($correo) {
+        $pos_arroba = strpos($correo, "@");
+        if ($pos_arroba !== false) {
+            // Extrae la parte antes de "@"
+            $nombre_usuario = substr($correo, 0, $pos_arroba);
+            
+            // Imprime el nombre de usuario
+            return $nombre_usuario;
+        } else {
+            // Maneja el caso en el que no se encuentra la "@" en el correo
+            return null ;
+        }
     }
 }
