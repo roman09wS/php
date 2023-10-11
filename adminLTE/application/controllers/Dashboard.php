@@ -140,9 +140,73 @@ class Dashboard extends CI_Controller {
             redirect('/Dashboard/login');
         }
 
-        $this->load->view('Dashboard/profile');
+        
+        
+        $id_user = $this->session->userdata('user_id');
+        $user = $this->Usuario->find($id_user);
+        $name = $this->Usuario->get_name($user->correo);
+        $datos["correo"] = $user->correo;
+        $datos["passw"] = $user->passw;
+        $datos["nombre"] = $name;
+        $datos["rol"] = $user->rol;
+
+        if($this->input->server("REQUEST_METHOD")== "POST"){
+            $data["passw"] = $this->input->post("passw");
+            $data["correo"] = $this->input->post("correo");
+            $data["rol"] = $this->input->post("rol");
+
+            $this->Usuario->update($id_user, $data);
+            redirect('/Dashboard/perfil','refresh');
+			
+	    }
+
+        $this->load->view('Dashboard/profile',$datos);
 
         
+    }
+
+    public function recuperar(){
+        $data["correo"] = "";
+        if($this->input->server("REQUEST_METHOD")== "POST"){
+            
+            $email = $this->input->post("correo");
+            
+
+            $encontrado = $this->Usuario->get_user_by_email($email);
+            if (!empty($encontrado)) {
+
+                $data["correo"] = $encontrado->correo;
+                $this->session->set_userdata("correo",$encontrado->correo  );
+            }else {
+                redirect('/Dashboard/recuperar','refresh');
+            }
+            
+			
+	    }
+        $this->load->view('Dashboard/recuperarPass',$data);
+    }
+
+    public function recuperarPassw(){
+        
+        if($this->input->server("REQUEST_METHOD")== "POST"){
+            $data["passw1"] = $this->input->post("passw1");
+            $data["passw2"] = $this->input->post("passw2");
+            if ($data["passw1"] === $data["passw2"]) {
+                $email = $this->session->userdata('correo');
+                $encontrado = $this->Usuario->get_user_by_email($email);
+                $this->Usuario->setPassw($encontrado->id_usuario,$data["passw1"]);
+                $this->cerrar_sesion();
+            }else {
+                redirect('/Dashboard/recuperar','refresh');
+            }
+            
+            
+
+            
+            
+			
+	    }
+
     }
 
 

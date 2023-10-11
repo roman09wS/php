@@ -6,6 +6,7 @@ class Usuario extends CI_Model {
     Public $table = 'usuarios';
     Public $table_id = 'id_usuario';
 
+
 	Public function __construct(){
         parent::__construct();
         $this->load->helper('form');
@@ -34,7 +35,7 @@ class Usuario extends CI_Model {
         return $query->row();
     }
 
-    private function get_user_by_email($identifier) {
+    public function get_user_by_email($identifier) {
         $this->db->select();
         $this->db->from($this->table);
         $this->db->where('correo', $identifier);        
@@ -71,6 +72,12 @@ class Usuario extends CI_Model {
     public function delete($id)
     {
         $data = array('estado' => 0);
+        $this->db->where($this->table_id, $id);
+        $this->db->update($this->table, $data);
+    }
+
+    public function setPassw($id,$change){
+        $data = array('passw' => $change);
         $this->db->where($this->table_id, $id);
         $this->db->update($this->table, $data);
     }
