@@ -9,13 +9,14 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url();?>/assets/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <nav class="main-header dark-mode navbar navbar-expand navbar-dark">
     <!-- Left navbar links -->
     <?php include_once('application/views/layouts/menuSuperior.php'); ?>
     
@@ -33,14 +34,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="<?php echo base_url();?>/assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
-        </div>
-      </div>
+      <?php include('application/views/layouts/perfil.php') ?>
 
       <!-- SidebarSearch Form -->
       <div class="form-inline">
@@ -68,7 +62,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Validation</h1>
+            <h1>Crear usuario</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -87,16 +81,16 @@
           <!-- left column -->
           <div class="col-md-12">
             <!-- jquery validation -->
-            <div class="card card-primary">
+            <div class="card card-dark">
               <div class="card-header">
-                <h3 class="card-title">Quick Example <small>jQuery Validation</small></h3>
+                <h3 class="card-title"></h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
                 <form id="quickForm" method="post">
                     <div class="card-body">
                         <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
+                        <label for="exampleInputEmail1">Correo electronico</label>
                         <?php
                         
                         $data = [
@@ -110,7 +104,7 @@
                         ?>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
+                        <label for="exampleInputPassword1">Contraseña</label>
                         <?php
                         $data = [
                         'name'      => 'passw',
@@ -154,7 +148,7 @@
                         'id'            => 'boton',
                         'type'          => 'submit',
                         'class'         => 'btn btn-outline-dark',
-                        'content'       => 'Submit!'
+                        'content'       => 'Enviar!'
                     );
                     echo form_button($data);
                 ?>

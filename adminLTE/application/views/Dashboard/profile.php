@@ -15,7 +15,7 @@
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <nav class="main-header dark-mode navbar navbar-expand navbar-dark">
     <!-- Left navbar links -->
     <?php include_once('application/views/layouts/menuSuperior.php'); ?>
 
@@ -35,14 +35,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="<?php echo base_url();?>/assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
-        </div>
-      </div>
+      <?php include('application/views/layouts/perfil.php') ?>
 
       <!-- SidebarSearch Form -->
       <div class="form-inline">
@@ -93,11 +86,11 @@
               <div class="card-body box-profile">
                 <div class="text-center">
                   <img class="profile-user-img img-fluid img-circle"
-                       src="<?php echo base_url();?>/assets/dist/img/user4-128x128.jpg"
+                       src="<?php echo base_url();?>/assets/dist/img/user2-160x160.jpg"
                        alt="User profile picture">
                 </div>
 
-                <h3 class="profile-username text-center"><?= $nombre?></h3>
+                <h3 class="profile-username text-center"><?= $name?></h3>
 
                 <p class="text-muted text-center">Software Engineer</p>
 
@@ -136,25 +129,25 @@
 
                 <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
 
-                <p class="text-muted">Malibu, California</p>
+                <p class="text-muted">Pereira City, Colombia</p>
 
                 <hr>
 
                 <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
 
                 <p class="text-muted">
-                  <span class="tag tag-danger">UI Design</span>
-                  <span class="tag tag-success">Coding</span>
+                  <span class="tag tag-danger">Pseint</span>
+                  <span class="tag tag-success">PHP</span>
                   <span class="tag tag-info">Javascript</span>
-                  <span class="tag tag-warning">PHP</span>
-                  <span class="tag tag-primary">Node.js</span>
+                  <span class="tag tag-warning">JAVA</span>
+                  <span class="tag tag-primary">Python</span>
                 </p>
 
                 <hr>
 
                 <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
 
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                <p class="text-muted">Enseñanza pura de Felipe Londoño Arrastaeta</p>
               </div>
               <!-- /.card-body -->
             </div>
@@ -409,16 +402,7 @@
                       </div>
                       <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                          <button type="submit" class="btn btn-danger">Submit</button>
+                          <button type="submit" class="btn btn-secondary">Editar</button>
                         </div>
                       </div>
                     </form>

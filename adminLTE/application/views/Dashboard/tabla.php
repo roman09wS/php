@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- DataTables -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -43,14 +44,7 @@
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="<?= base_url(); ?>/assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-                    </div>
-                    <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
-                    </div>
-                </div>
+                <?php include('application/views/layouts/perfil.php') ?>
 
                 <!-- SidebarSearch Form -->
                 <div class="form-inline">
@@ -77,8 +71,14 @@
             <section class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
-                        <div class="col-sm-4">
+                        <div class="col-sm-5">
                             <h1>Usuarios Registrados</h1>
+                        </div>
+                        <div class="col-sm-5">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item">DataTables</li>
+                            </ol>
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
@@ -87,12 +87,6 @@
                                     <label class="custom-control-label" for="customSwitch1"><i class="fa-solid fa-moon" id="iconMode"></i></label>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item">DataTables</li>
-                            </ol>
                         </div>
                     </div>
                 </div><!-- /.container-fluid -->
@@ -106,14 +100,6 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">Lista de usuarios</h3>
-                                    <button type="button" class="btn btn-warning 
-                                    <?php
-                                    if (isset($rol)) {
-                                        echo "swalDefaultSuccess";
-                                    } else {
-                                        echo "swalDefaultWarning";
-                                    }
-                                    ?>">Launch Warning Toast</button>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -136,10 +122,11 @@
                                                     <td><?= $user->passw ?></td>
                                                     <td class="text-center"><?= ($user->estado == 0)?'<i class=" fa-solid fa-circle" style="color: #af0d0d;"></i>':'<i class=" fa-solid fa-circle" style="color: #0abd16;"></i>'?></td>
                                                     <td>
-                                                        <a href="registrar/<?= $user->id_usuario ?>" class="btn bg-gradient-secondary"><i class="fas fa-edit"></i> Editar</a>
+                                                        <?= ($rol !== 'admin')?'<button class="btn bg-gradient-secondary swalDefaultWarning"><i class="fas fa-edit"></i> Editar</button>':"<a href='registrar/$user->id_usuario' class='btn bg-gradient-secondary'><i class='fas fa-edit'></i> Editar</a>"?>
                                                     </td>
                                                     <td>
-                                                        <a href="delete/<?= $user->id_usuario ?>" class="btn bg-gradient-danger"><i class="fa-solid fa-trash"></i> Eliminar</a>
+                                                        <?= ($rol !== 'admin')?'<button class="btn bg-gradient-danger swalDefaultWarning"><i class="fa-solid fa-trash"></i> Eliminar</button>':"<a href='delete/$user->id_usuario' class='btn bg-gradient-danger'><i class='fa-solid fa-trash'></i> Eliminar</a>"?>
+                                                        
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>

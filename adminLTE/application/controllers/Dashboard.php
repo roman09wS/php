@@ -51,19 +51,20 @@ class Dashboard extends CI_Controller {
 
     public function plantilla()
     {
-        $user_rol = $this->session->userdata('rol');
-        $correo = $this->session->userdata('correo');
-        $nombre = $this->Usuario->get_name($correo);
-        $datos = array(
-            "nombre" => $nombre,
-            "rol" => $user_rol,
-            "correo" => $correo,
-        );
-
         if (!$this->session->userdata('user_id')) {
             // La sesión no está activa, redirigir al inicio de sesión
             redirect('/Dashboard/login');
         }
+
+        $user_rol = $this->session->userdata('rol');
+        $correo = $this->session->userdata('correo');
+        $nombre = $this->Usuario->get_name($correo);
+        $datos = array(
+            "name" => $nombre,
+            "rol" => $user_rol,
+            "correo" => $correo,
+        );
+
         
 
         $this->load->view('Dashboard/plantilla',$datos);
@@ -74,8 +75,18 @@ class Dashboard extends CI_Controller {
             redirect('/Dashboard/login');
         }
 
+        $user_rol = $this->session->userdata('rol');
+        $correo = $this->session->userdata('correo');
+        $nombre = $this->Usuario->get_name($correo);
         $vdata["usuarios"] = $this->Usuario->findAll();
-        $this->load->view('Dashboard/tabla',$vdata);
+        $datos = array(
+            "name" => $nombre,
+            "rol" => $user_rol,
+            "correo" => $correo,
+            "usuarios" => $vdata["usuarios"],
+        );
+
+        $this->load->view('Dashboard/tabla',$datos);
 
     }
 
@@ -84,6 +95,10 @@ class Dashboard extends CI_Controller {
         if (!$this->session->userdata('user_id')) {
             // La sesión no está activa, redirigir al inicio de sesión
             redirect('/Dashboard/login');
+        }
+
+        if ($this->session->userdata('rol') != 'admin') {
+            redirect("/Dashboard/tabla");
         }
 
         $this->Usuario->delete($usuario_id);
@@ -96,7 +111,15 @@ class Dashboard extends CI_Controller {
             redirect('/Dashboard/login');
         }
 
+        if ($this->session->userdata('rol') != 'admin') {
+            redirect('/Dashboard/plantilla');
+        }
+
+        
         $vistaListado = false;
+        $correo = $this->session->userdata('correo');
+        $nombre = $this->Usuario->get_name($correo);
+        $vdata["name"] = $nombre;
 		$vdata["nombre"] = $vdata["correo"] = $vdata["passw"] = $vdata["rol"] = "";
 		if(isset($usuario_id)){
 			$usuario = $this->Usuario->find($usuario_id);
@@ -147,7 +170,7 @@ class Dashboard extends CI_Controller {
         $name = $this->Usuario->get_name($user->correo);
         $datos["correo"] = $user->correo;
         $datos["passw"] = $user->passw;
-        $datos["nombre"] = $name;
+        $datos["name"] = $name;
         $datos["rol"] = $user->rol;
 
         if($this->input->server("REQUEST_METHOD")== "POST"){
