@@ -47,12 +47,17 @@ class Usuario extends CI_Model {
         if (isset($data['password']) && isset($data['correo'])) {
             $correo = $data['correo'];
             $password = $data['password'];
-            $password_hash = md5($password);
+            //$password_hash = md5($password);
             $user = $this->get_user_by_email($correo);
-    
+            if ($user->correo == $correo && $user->passw == $password && $user->estado == '1') {
+                return $user;
+            }else {
+                return false;
+            }
+
+
             //if ($user && $user->password === $password_hash) {
                 // La contraseña coincide
-                return $user;
             //} else {
                 // La contraseña no coincide o el usuario no existe
             //    return false;
@@ -69,9 +74,14 @@ class Usuario extends CI_Model {
     }
 
 
-    public function delete($id)
-    {
+    public function delete($id){
         $data = array('estado' => 0);
+        $this->db->where($this->table_id, $id);
+        $this->db->update($this->table, $data);
+    }
+
+    public function updateActivate($id){
+        $data = array('estado' => 1);
         $this->db->where($this->table_id, $id);
         $this->db->update($this->table, $data);
     }

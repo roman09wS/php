@@ -122,10 +122,25 @@
                                                     <td><?= $user->passw ?></td>
                                                     <td class="text-center"><?= ($user->estado == 0)?'<i class=" fa-solid fa-circle" style="color: #af0d0d;"></i>':'<i class=" fa-solid fa-circle" style="color: #0abd16;"></i>'?></td>
                                                     <td>
-                                                        <?= ($rol !== 'admin')?'<button class="btn bg-gradient-secondary swalDefaultWarning"><i class="fas fa-edit"></i> Editar</button>':"<a href='registrar/$user->id_usuario' class='btn bg-gradient-secondary'><i class='fas fa-edit'></i> Editar</a>"?>
+                                                        <?= ($rol !== 'admin')?'<button class="btn bg-gradient-secondary swalDefaultError"><i class="fas fa-edit"></i> Editar</button>':"<a href='registrar/$user->id_usuario' class='btn bg-gradient-secondary'><i class='fas fa-edit'></i> Editar</a>"?>
                                                     </td>
                                                     <td>
-                                                        <?= ($rol !== 'admin')?'<button class="btn bg-gradient-danger swalDefaultWarning"><i class="fa-solid fa-trash"></i> Eliminar</button>':"<a href='delete/$user->id_usuario' class='btn bg-gradient-danger'><i class='fa-solid fa-trash'></i> Eliminar</a>"?>
+                                                        <?php 
+                                                        if ($user->estado != '1') {
+                                                            if ($rol !== 'admin') {
+                                                                echo '<button class="btn bg-gradient-success swalDefaultError">Activar</button>';
+                                                            }else {
+                                                                echo "<a href='activate/$user->id_usuario' class='btn bg-gradient-success'>Activar</a>";
+                                                            }
+                                                        }else {                                                                                                                        
+                                                            if ($rol !== 'admin') {
+                                                                echo '<button class="btn bg-gradient-danger swalDefaultError"><i class="fa-solid fa-trash"></i> Eliminar</button>';
+                                                            }else {
+                                                                echo "<a href='delete/$user->id_usuario' class='btn bg-gradient-danger'><i class='fa-solid fa-trash'></i> Eliminar</a>";
+                                                            }
+                                                        }
+                                                        ?>
+                                                        
                                                         
                                                     </td>
                                                 </tr>
@@ -281,7 +296,7 @@
             $('.swalDefaultError').click(function() {
                 Toast.fire({
                     icon: 'error',
-                    title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                    title: 'No tiene permiso para realizar la accion'
                 })
             });
             $('.swalDefaultWarning').click(function() {

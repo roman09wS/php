@@ -62,7 +62,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Crear usuario</h1>
+            <h1>Usuario</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -83,13 +83,13 @@
             <!-- jquery validation -->
             <div class="card card-dark">
               <div class="card-header">
-                <h3 class="card-title"></h3>
+                <h3 class="card-title">Datos del usuario</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
                 <form id="quickForm" method="post">
                     <div class="card-body">
-                        <div class="form-group">
+                      <div class="form-group">
                         <label for="exampleInputEmail1">Correo electronico</label>
                         <?php
                         
@@ -102,8 +102,8 @@
                         ];
                         echo form_input($data);
                         ?>
-                    </div>
-                    <div class="form-group">
+                      </div>
+                      <div class="form-group">
                         <label for="exampleInputPassword1">Contraseña</label>
                         <?php
                         $data = [
@@ -115,16 +115,16 @@
                         ];
                         echo form_input($data);
                         ?>
-                    </div>
-                    <div class="form-group mb-0">
-                        <div class="form-group">
-                            <div class="custom-control custom-switch ">
-                                <input type="checkbox" class="custom-control-input" id="customSwitch3">
-                                <label class="custom-control-label" for="customSwitch3">Mostrar contraseña</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
+                      </div>
+                      <div class="form-group mb-0">
+                          <div class="form-group">
+                              <div class="custom-control custom-switch ">
+                                  <input type="checkbox" class="custom-control-input" id="customSwitch3">
+                                  <label class="custom-control-label" for="customSwitch3">Mostrar contraseña</label>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="form-group">
                         <label for="">Rol</label>
                         <select name="rol" class="custom-select">
                             <?php if (isset($rol) && $rol !== '') { ?>
@@ -137,24 +137,26 @@
                                     <option value="lector">Lector</option>
                             <?php   } ?>
                         </select>
-                        
+                      </div>
+                      <div class="form-group">                        
+                        <?php //($estado == '0')?'<button class="btn bg-gradient-success">Activar</button>':'' ?>
+                      </div>
                     </div>
+                
+                    <div class="card-footer">
+                    <?php
+                        $data = array(
+                            'name'          => 'mysubmit',
+                            'id'            => 'boton',
+                            'type'          => 'submit',
+                            'class'         => 'btn bg-gradient-secondary',
+                            'content'       => 'Enviar!'
+                        );
+                        echo form_button($data);
+                    ?>
+                    </div>
+                  </form>
                 </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                <?php
-                    $data = array(
-                        'name'          => 'mysubmit',
-                        'id'            => 'boton',
-                        'type'          => 'submit',
-                        'class'         => 'btn btn-outline-dark',
-                        'content'       => 'Enviar!'
-                    );
-                    echo form_button($data);
-                ?>
-                </div>
-              </form>
-            </div>
             <!-- /.card -->
             </div>
           <!--/.col (left) -->

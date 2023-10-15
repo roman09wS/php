@@ -384,11 +384,19 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="inputExperience" class="col-sm-2 col-form-label">Passw</label>
+                        <label for="inputExperience" class="col-sm-2 col-form-label">Contraseña</label>
                         <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputName2" name="passw" placeholder="Name" value="<?= $passw;?>">
+                        <input type="password" class="form-control" id="exampleInputPassword1" name="passw" placeholder="Name" value="<?= $passw;?>">
                         </div>
                       </div>
+                      <div class="form-group mb-0">
+                        <div class="form-group">
+                            <div class="custom-control custom-switch ">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch3">
+                                <label class="custom-control-label" for="customSwitch3">Mostrar contraseña</label>
+                            </div>
+                        </div>
+                    </div>
                       <div class="form-group row" <?= ($rol == 'lector') ? 'hidden':''?>>
                         <label for="inputSkills" class="col-sm-2 col-form-label">Rol</label>
                         <div class="col-sm-10">
@@ -445,5 +453,6 @@
 <script src="<?= base_url();?>/assets/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?= base_url();?>/assets/dist/js/demo.js"></script>
+<script src="<?php echo base_url();?>/assets/dist/js/main.js"></script>
 </body>
 </html>

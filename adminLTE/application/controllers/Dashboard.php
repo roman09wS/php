@@ -105,6 +105,20 @@ class Dashboard extends CI_Controller {
         redirect("/Dashboard/tabla");
     }
 
+    public function activate($usuario_id) {
+        if (!$this->session->userdata('user_id')) {
+            // La sesión no está activa, redirigir al inicio de sesión
+            redirect('/Dashboard/login');
+        }
+
+        if ($this->session->userdata('rol') != 'admin') {
+            redirect("/Dashboard/tabla");
+        }
+
+        $this->Usuario->updateActivate($usuario_id);
+        redirect("/Dashboard/tabla");
+    }
+
     public function registrar($usuario_id = null){
         if (!$this->session->userdata('user_id')) {
             // La sesión no está activa, redirigir al inicio de sesión
@@ -120,7 +134,7 @@ class Dashboard extends CI_Controller {
         $correo = $this->session->userdata('correo');
         $nombre = $this->Usuario->get_name($correo);
         $vdata["name"] = $nombre;
-		$vdata["nombre"] = $vdata["correo"] = $vdata["passw"] = $vdata["rol"] = "";
+		$vdata["nombre"] = $vdata["correo"] = $vdata["passw"] = $vdata["rol"] = $vdata["estado"] = "";
 		if(isset($usuario_id)){
 			$usuario = $this->Usuario->find($usuario_id);
 
@@ -129,6 +143,7 @@ class Dashboard extends CI_Controller {
 				$vdata["correo"] = $usuario->correo;
 				$vdata["passw"] = $usuario->passw;         
 				$vdata["rol"] = $usuario->rol;         
+				$vdata["estado"] = $usuario->estado;         
 			}
 		}
         if($this->input->server("REQUEST_METHOD")== "POST"){
@@ -154,7 +169,6 @@ class Dashboard extends CI_Controller {
         }else{
             $this->load->view('Dashboard/registrar',$vdata);
         }
-        
 	}
 
     public function perfil() {
@@ -162,8 +176,6 @@ class Dashboard extends CI_Controller {
             // La sesión no está activa, redirigir al inicio de sesión
             redirect('/Dashboard/login');
         }
-
-        
         
         $id_user = $this->session->userdata('user_id');
         $user = $this->Usuario->find($id_user);
@@ -180,21 +192,14 @@ class Dashboard extends CI_Controller {
 
             $this->Usuario->update($id_user, $data);
             redirect('/Dashboard/perfil','refresh');
-			
 	    }
-
         $this->load->view('Dashboard/profile',$datos);
-
-        
     }
 
     public function recuperar(){
         $data["correo"] = "";
         if($this->input->server("REQUEST_METHOD")== "POST"){
-            
             $email = $this->input->post("correo");
-            
-
             $encontrado = $this->Usuario->get_user_by_email($email);
             if (!empty($encontrado)) {
 
@@ -203,14 +208,11 @@ class Dashboard extends CI_Controller {
             }else {
                 redirect('/Dashboard/recuperar','refresh');
             }
-            
-			
 	    }
         $this->load->view('Dashboard/recuperarPass',$data);
     }
 
     public function recuperarPassw(){
-        
         if($this->input->server("REQUEST_METHOD")== "POST"){
             $data["passw1"] = $this->input->post("passw1");
             $data["passw2"] = $this->input->post("passw2");
@@ -221,16 +223,7 @@ class Dashboard extends CI_Controller {
                 $this->cerrar_sesion();
             }else {
                 redirect('/Dashboard/recuperar','refresh');
-            }
-            
-            
-
-            
-            
-			
+            } 
 	    }
-
     }
-
-
 }
