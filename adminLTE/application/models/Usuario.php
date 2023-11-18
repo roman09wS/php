@@ -111,4 +111,30 @@ class Usuario extends CI_Model {
             return null ;
         }
     }
+
+    // application/models/Usuario_model.php
+
+
+
+    public function actualizar_foto_perfil($id_usuario, $ruta_foto) {
+        $foto_actual = $this->obtener_ruta_foto($id_usuario);
+
+        // Actualizar la ruta de la foto en la base de datos
+        $this->db->where('id_usuario', $id_usuario);
+        $this->db->update('usuarios', array('foto_perfil' => $ruta_foto));
+
+        // Eliminar la foto anterior si existe
+        if ($foto_actual && file_exists($foto_actual)) {
+            unlink($foto_actual);
+        }
+    }
+
+    private function obtener_ruta_foto($id_usuario) {
+        $this->db->select('foto_perfil');
+        $this->db->where('id_usuario', $id_usuario);
+        $query = $this->db->get('usuarios');
+        $result = $query->row();
+
+        return $result ? $result->foto_perfil : null;
+    }
 }

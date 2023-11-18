@@ -184,17 +184,71 @@ class Dashboard extends CI_Controller {
         $datos["passw"] = $user->passw;
         $datos["name"] = $name;
         $datos["rol"] = $user->rol;
+        $datos["foto"] = $user->foto_perfil;
 
         if($this->input->server("REQUEST_METHOD")== "POST"){
             $data["passw"] = $this->input->post("passw");
             $data["correo"] = $this->input->post("correo");
             $data["rol"] = $this->input->post("rol");
+            
+
+            $config['upload_path'] = './uploads/';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_size'] = 2048;
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('userfile')) {
+                $upload_data = $this->upload->data();
+                $ruta_foto = 'uploads/' . $upload_data['file_name'];
+
+                
+
+                // Actualizar la ruta de la foto en la base de datos
+                $this->Usuario->actualizar_foto_perfil($id_user, $ruta_foto);
+                
+            
+            } else {
+                // Manejar el caso en el que la carga de la imagen falla
+                $error = array('error' => $this->upload->display_errors());
+                print_r($error);
+            }
 
             $this->Usuario->update($id_user, $data);
             redirect('/Dashboard/perfil','refresh');
 	    }
         $this->load->view('Dashboard/profile',$datos);
     }
+
+    public function actualizar_foto_perfil() {
+        // Lógica para manejar la subida de la nueva foto de perfil
+        // Puedes utilizar la biblioteca 'upload' de CodeIgniter como en el ejemplo anterior
+
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size'] = 2048;
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('userfile')) {
+            $upload_data = $this->upload->data();
+            $ruta_foto = 'uploads/' . $upload_data['file_name'];
+
+            // Obtener el ID del usuario actual (puedes obtenerlo de la sesión u otra fuente)
+            $id_usuario = 1; // Reemplaza esto con la lógica adecuada
+
+            // Actualizar la ruta de la foto en la base de datos
+            $this->Usuario->actualizar_foto_perfil($id_usuario, $ruta_foto);
+        } else {
+            // Manejar el caso en el que la carga de la imagen falla
+            $error = array('error' => $this->upload->display_errors());
+            print_r($error);
+        }
+
+        // Redirigir de vuelta a la página de perfil después de actualizar la foto
+        redirect('usuarios/perfil');
+    }
+
 
     public function recuperar(){
         $data["correo"] = "";

@@ -86,7 +86,7 @@
               <div class="card-body box-profile">
                 <div class="text-center">
                   <img class="profile-user-img img-fluid img-circle"
-                       src="<?php echo base_url();?>/assets/dist/img/user2-160x160.jpg"
+                       src="<?=base_url()?>/<?=$foto?>"
                        alt="User profile picture">
                 </div>
 
@@ -376,7 +376,7 @@
                   <!-- /.tab-pane -->
 
                   <div class="tab-pane" id="settings">
-                    <form class="form-horizontal" method="post">
+                    <form class="form-horizontal" method="post" enctype="multipart/form-data">
                       <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
@@ -408,6 +408,13 @@
                           </select>
                         </div>
                       </div>
+                      <div class="form-group">
+                        <label for="userfile" class="col-form-label">Cambiar foto de perfil:</label>
+                        <input type="file" class="form-control" name="userfile" size="20" accept="image/*">
+                      </div>
+                        
+                        
+                    
                       <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
                           <button type="submit" class="btn btn-secondary">Editar</button>
